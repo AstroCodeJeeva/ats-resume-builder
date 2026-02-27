@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Build output
+frontend/dist/
+*.egg-info/
+
+# Environment
+backend/.env
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Database
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+mongo_data/

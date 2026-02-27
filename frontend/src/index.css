@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global overrides ──────────────────────────────────────────── */
+body {
+  @apply transition-colors duration-300;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-gray-300 dark:bg-gray-700 rounded-full; }
+
+/* Input focus ring */
+input:focus, textarea:focus, select:focus {
+  @apply outline-none ring-2 ring-primary-400 border-primary-400;
+}
+
+/* Global keyboard focus-visible ring for all interactive elements */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-500;
+}
+
+/* Hide the outline for mouse clicks but keep for keyboard */
+*:focus:not(:focus-visible) {
+  outline: none;
+}

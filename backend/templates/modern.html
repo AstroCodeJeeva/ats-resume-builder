@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ resume.personal_info.name }} — Resume</title>
+<style>
+  /* ── Modern Minimal Template ────────────────────────────────── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    color: #2d2d2d;
+    padding: 36px 48px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 26pt; font-weight: 700; letter-spacing: -0.5px; color: #111; margin-bottom: 4px; }
+  .contact { font-size: 9pt; color: #666; margin-bottom: 20px; letter-spacing: 0.3px; }
+  .contact span { margin-right: 14px; }
+  h2 {
+    font-size: 11pt; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: #4f46e5;
+    margin: 22px 0 6px 0; padding-bottom: 4px;
+    border-bottom: 2px solid #4f46e5;
+  }
+  .summary { margin-bottom: 12px; color: #444; }
+  .entry { margin-bottom: 12px; }
+  .entry-header { font-weight: 700; font-size: 10.5pt; }
+  .entry-meta { color: #888; font-size: 9.5pt; margin-bottom: 2px; }
+  ul { margin: 4px 0 0 16px; }
+  li { margin-bottom: 3px; }
+  .skills-grid { columns: 3; column-gap: 20px; }
+  .skills-grid li { list-style: none; }
+  .skills-grid li::before { content: "▸ "; color: #4f46e5; }
+</style>
+</head>
+<body>
+
+<h1>{{ resume.personal_info.name }}</h1>
+<div class="contact">
+  <span>{{ resume.personal_info.email }}</span>
+  {% if resume.personal_info.phone %}<span>{{ resume.personal_info.phone }}</span>{% endif %}
+  {% if resume.personal_info.location %}<span>{{ resume.personal_info.location }}</span>{% endif %}
+  {% if resume.personal_info.linkedin %}<span>{{ resume.personal_info.linkedin }}</span>{% endif %}
+  {% if resume.personal_info.github %}<span>{{ resume.personal_info.github }}</span>{% endif %}
+</div>
+
+{% if summary %}
+<h2>Summary</h2>
+<p class="summary">{{ summary }}</p>
+{% endif %}
+
+{% if resume.work_experience %}
+<h2>Experience</h2>
+{% for exp in resume.work_experience %}
+<div class="entry">
+  <div class="entry-header">{{ exp.role }}</div>
+  <div class="entry-meta">{{ exp.company }} · {{ exp.duration }}</div>
+  {% if exp.bullets %}
+  <ul>{% for b in exp.bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if resume.skills %}
+<h2>Skills</h2>
+<ul class="skills-grid">{% for skill in resume.skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+{% endif %}
+
+{% if resume.projects %}
+<h2>Projects</h2>
+{% for proj in resume.projects %}
+<div class="entry">
+  <div class="entry-header">{{ proj.title }}</div>
+  {% if proj.description %}<p>{{ proj.description }}</p>{% endif %}
+  {% if proj.technologies %}<div class="entry-meta">{{ proj.technologies | join(' · ') }}</div>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if resume.education %}
+<h2>Education</h2>
+{% for edu in resume.education %}
+<div class="entry">
+  <div class="entry-header">{{ edu.degree }}</div>
+  <div class="entry-meta">{{ edu.institution }}{% if edu.year %} · {{ edu.year }}{% endif %}</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if resume.certifications %}
+<h2>Certifications</h2>
+{% for cert in resume.certifications %}
+<div class="entry">
+  <span>{{ cert.title }}{% if cert.issuer %} — {{ cert.issuer }}{% endif %}{% if cert.year %} ({{ cert.year }}){% endif %}</span>
+</div>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>

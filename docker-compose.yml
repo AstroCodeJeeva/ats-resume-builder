@@ -1,0 +1,54 @@
+# ============================================
+# ATS Resume Builder — Docker Compose
+# ============================================
+# Usage:
+#   docker-compose up --build        (start all services)
+#   docker-compose down              (stop and remove containers)
+#   docker-compose up -d             (run in background)
+
+services:
+  # ── MongoDB ─────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI Backend ─────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=ats_resume_builder
+      - CORS_ORIGINS=http://localhost,http://localhost:80,http://localhost:5173
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── React Frontend (nginx) ─────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

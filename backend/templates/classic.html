@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ resume.personal_info.name }} — Resume</title>
+<style>
+  /* ── Classic Professional Template ──────────────────────────── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #222;
+    padding: 40px 50px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 22pt; margin-bottom: 2px; color: #1a1a2e; }
+  .contact { font-size: 9.5pt; color: #555; margin-bottom: 16px; }
+  .contact span { margin-right: 12px; }
+  h2 {
+    font-size: 12pt; text-transform: uppercase; letter-spacing: 1.5px;
+    border-bottom: 1.5px solid #1a1a2e; padding-bottom: 3px;
+    margin: 18px 0 8px 0; color: #1a1a2e;
+  }
+  .summary { margin-bottom: 10px; font-style: italic; color: #333; }
+  .entry { margin-bottom: 10px; }
+  .entry-header { display: flex; justify-content: space-between; font-weight: bold; }
+  .entry-sub { color: #555; font-size: 10pt; }
+  ul { margin: 4px 0 0 18px; }
+  li { margin-bottom: 2px; }
+  .skills-list { columns: 2; column-gap: 30px; }
+  .skills-list li { list-style: disc; }
+</style>
+</head>
+<body>
+
+<!-- Name & Contact -->
+<h1>{{ resume.personal_info.name }}</h1>
+<div class="contact">
+  <span>{{ resume.personal_info.email }}</span>
+  {% if resume.personal_info.phone %}<span>{{ resume.personal_info.phone }}</span>{% endif %}
+  {% if resume.personal_info.location %}<span>{{ resume.personal_info.location }}</span>{% endif %}
+  {% if resume.personal_info.linkedin %}<span>{{ resume.personal_info.linkedin }}</span>{% endif %}
+  {% if resume.personal_info.github %}<span>{{ resume.personal_info.github }}</span>{% endif %}
+</div>
+
+<!-- Professional Summary -->
+{% if summary %}
+<h2>Professional Summary</h2>
+<p class="summary">{{ summary }}</p>
+{% endif %}
+
+<!-- Work Experience -->
+{% if resume.work_experience %}
+<h2>Professional Experience</h2>
+{% for exp in resume.work_experience %}
+<div class="entry">
+  <div class="entry-header">
+    <span>{{ exp.role }}</span>
+    <span>{{ exp.duration }}</span>
+  </div>
+  <div class="entry-sub">{{ exp.company }}</div>
+  {% if exp.bullets %}
+  <ul>
+    {% for b in exp.bullets %}<li>{{ b }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Skills -->
+{% if resume.skills %}
+<h2>Skills</h2>
+<ul class="skills-list">
+  {% for skill in resume.skills %}<li>{{ skill }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<!-- Projects -->
+{% if resume.projects %}
+<h2>Projects</h2>
+{% for proj in resume.projects %}
+<div class="entry">
+  <div class="entry-header"><span>{{ proj.title }}</span></div>
+  {% if proj.description %}<p>{{ proj.description }}</p>{% endif %}
+  {% if proj.technologies %}<p class="entry-sub">Technologies: {{ proj.technologies | join(', ') }}</p>{% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Education -->
+{% if resume.education %}
+<h2>Education</h2>
+{% for edu in resume.education %}
+<div class="entry">
+  <div class="entry-header">
+    <span>{{ edu.degree }}</span>
+    <span>{{ edu.year }}</span>
+  </div>
+  <div class="entry-sub">{{ edu.institution }}</div>
+</div>
+{% endfor %}
+{% endif %}
+
+<!-- Certifications -->
+{% if resume.certifications %}
+<h2>Certifications</h2>
+{% for cert in resume.certifications %}
+<div class="entry">
+  <span>{{ cert.title }}{% if cert.issuer %} — {{ cert.issuer }}{% endif %}{% if cert.year %} ({{ cert.year }}){% endif %}</span>
+</div>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>
