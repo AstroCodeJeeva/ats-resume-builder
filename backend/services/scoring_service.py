@@ -36,7 +36,7 @@ def _extract_resume_text(resume: ResumeInput) -> str:
 def _keyword_match_score(resume_tokens: Set[str], jd_tokens: Set[str]) -> int:
     """Percentage of job-description keywords found in the resume."""
     if not jd_tokens:
-        return 80  # No JD provided → default decent score
+        return 50  # No JD provided → neutral baseline
     matched = resume_tokens & jd_tokens
     return min(100, int((len(matched) / len(jd_tokens)) * 100))
 
@@ -44,7 +44,7 @@ def _keyword_match_score(resume_tokens: Set[str], jd_tokens: Set[str]) -> int:
 def _skills_alignment_score(skills: List[str], jd_tokens: Set[str]) -> int:
     """How many listed skills appear in the JD tokens."""
     if not jd_tokens:
-        return 75
+        return 50
     skill_tokens = set()
     for s in skills:
         skill_tokens.update(_tokenize(s))
@@ -57,7 +57,7 @@ def _skills_alignment_score(skills: List[str], jd_tokens: Set[str]) -> int:
 def _experience_relevance_score(resume: ResumeInput, jd_tokens: Set[str]) -> int:
     """Rough relevance of work bullets to the JD."""
     if not jd_tokens:
-        return 70
+        return 50
     bullet_text = " ".join(
         b for exp in resume.work_experience for b in exp.bullets
     )

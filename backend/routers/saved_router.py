@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from bson import ObjectId
 from pydantic import BaseModel, Field
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 
 from database import get_sync_db
 from db_models import resume_doc, resume_summary, resume_detail
@@ -72,14 +72,20 @@ def save_resume(
 
 
 @router.get("/list")
-def list_resumes(current_user: dict = Depends(get_current_user)):
-    """List all saved resumes for the current user (newest first)."""
+def list_resumes(
+    current_user: dict = Depends(get_current_user),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """List saved resumes for the current user (newest first, paginated)."""
     db = get_sync_db()
     user_id = str(current_user["_id"])
     cursor = (
         db.saved_resumes
         .find({"user_id": user_id})
         .sort("updated_at", -1)
+        .skip(skip)
+        .limit(limit)
     )
     return [resume_summary(r) for r in cursor]
 

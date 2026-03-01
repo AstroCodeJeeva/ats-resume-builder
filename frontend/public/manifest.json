@@ -1,6 +1,7 @@
 {
   "name": "ATS Resume Builder",
   "short_name": "ATSBuilder",
+  "id": "/",
   "description": "AI-powered resume builder with ATS scoring, optimization, and PDF export.",
   "start_url": "/",
   "display": "standalone",

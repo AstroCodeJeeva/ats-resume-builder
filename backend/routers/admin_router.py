@@ -3,8 +3,9 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from bson import ObjectId
+from pymongo.errors import DuplicateKeyError
 from pydantic import BaseModel
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 
 from database import get_sync_db
 from db_models import user_response
@@ -101,10 +102,14 @@ def admin_stats(admin: dict = Depends(require_admin)):
 
 
 @router.get("/users")
-def list_users(admin: dict = Depends(require_admin)):
-    """List all users with resume counts (batch queries to avoid N+1)."""
+def list_users(
+    admin: dict = Depends(require_admin),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=500),
+):
+    """List all users with resume counts (batch queries, paginated)."""
     db = get_sync_db()
-    users = list(db.users.find().sort("created_at", -1))
+    users = list(db.users.find().sort("created_at", -1).skip(skip).limit(limit))
     user_ids = [str(u["_id"]) for u in users]
 
     # Batch count resumes per user
@@ -156,7 +161,13 @@ def update_user(user_id: str, body: UpdateUserRequest, admin: dict = Depends(req
         updates["is_admin"] = body.is_admin
 
     if updates:
-        db.users.update_one({"_id": oid}, {"$set": updates})
+        try:
+            db.users.update_one({"_id": oid}, {"$set": updates})
+        except DuplicateKeyError:
+            raise HTTPException(
+                status_code=400,
+                detail="A user with that username or email already exists.",
+            )
 
     return {"message": "User updated successfully"}
 

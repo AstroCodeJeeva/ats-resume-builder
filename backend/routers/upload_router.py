@@ -127,7 +127,9 @@ async def analyze_uploaded_resume(
 
 
 @router.post("/quick-score")
+@limiter.limit("20/minute")
 async def quick_score_resume(
+    request: Request,
     file: UploadFile = File(...),
     job_description: str = Form(""),
 ):

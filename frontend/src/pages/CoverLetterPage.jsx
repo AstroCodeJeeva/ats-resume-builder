@@ -236,6 +236,27 @@ export default function CoverLetterPage() {
                 animate={{ opacity: 1 }}
                 className="h-full min-h-[400px] flex flex-col items-center justify-center text-center card p-10"
               >
+                {/* Illustration */}
+                <svg className="w-40 h-40 mb-6 text-primary-200 dark:text-primary-800" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Envelope body */}
+                  <rect x="30" y="60" width="140" height="100" rx="8" fill="currentColor" opacity="0.3" />
+                  {/* Envelope flap */}
+                  <path d="M30 68 L100 115 L170 68" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                  {/* Letter sliding out */}
+                  <rect x="50" y="30" width="100" height="70" rx="4" fill="currentColor" opacity="0.5" />
+                  {/* Letter lines */}
+                  <line x1="65" y1="48" x2="135" y2="48" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+                  <line x1="65" y1="58" x2="125" y2="58" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+                  <line x1="65" y1="68" x2="115" y2="68" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+                  <line x1="65" y1="78" x2="105" y2="78" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.7" />
+                  {/* Sparkle top-right */}
+                  <path d="M155 25 L158 35 L168 38 L158 41 L155 51 L152 41 L142 38 L152 35 Z" fill="currentColor" opacity="0.6" />
+                  {/* Sparkle bottom-left */}
+                  <path d="M42 140 L44 146 L50 148 L44 150 L42 156 L40 150 L34 148 L40 146 Z" fill="currentColor" opacity="0.6" />
+                  {/* AI wand */}
+                  <line x1="148" y1="130" x2="170" y2="152" stroke="currentColor" strokeWidth="3" strokeLinecap="round" opacity="0.5" />
+                  <circle cx="148" cy="130" r="4" fill="currentColor" opacity="0.6" />
+                </svg>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Your cover letter will appear here</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xs">
                   Fill in the details on the left and click Generate to create a tailored cover letter.

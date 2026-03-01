@@ -449,6 +449,32 @@ export default function InterviewPrepPage() {
                 animate={{ opacity: 1 }}
                 className="h-full min-h-[500px] flex flex-col items-center justify-center text-center card p-10"
               >
+                {/* Illustration */}
+                <svg className="w-40 h-40 mb-6 text-primary-200 dark:text-primary-800" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Person silhouette */}
+                  <circle cx="100" cy="55" r="22" fill="currentColor" opacity="0.4" />
+                  <path d="M65 105 C65 85 135 85 135 105 L135 120 L65 120 Z" fill="currentColor" opacity="0.35" />
+                  {/* Speech bubble */}
+                  <rect x="105" y="35" width="70" height="45" rx="10" fill="currentColor" opacity="0.5" />
+                  <polygon points="115,80 108,92 125,80" fill="currentColor" opacity="0.5" />
+                  {/* Bubble lines (question marks) */}
+                  <text x="125" y="60" textAnchor="middle" fill="currentColor" fontSize="18" fontWeight="bold" opacity="0.7">?</text>
+                  <text x="150" y="65" textAnchor="middle" fill="currentColor" fontSize="14" fontWeight="bold" opacity="0.6">?</text>
+                  {/* Clipboard */}
+                  <rect x="25" y="110" width="55" height="70" rx="6" fill="currentColor" opacity="0.3" />
+                  <rect x="38" y="105" width="28" height="12" rx="4" fill="currentColor" opacity="0.45" />
+                  {/* Clipboard lines */}
+                  <line x1="35" y1="130" x2="70" y2="130" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+                  <line x1="35" y1="140" x2="65" y2="140" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+                  <line x1="35" y1="150" x2="60" y2="150" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+                  <line x1="35" y1="160" x2="55" y2="160" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+                  {/* Check marks */}
+                  <path d="M130 125 L136 131 L146 118" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                  <path d="M130 145 L136 151 L146 138" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                  <path d="M130 165 L136 171 L146 158" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                  {/* Sparkle */}
+                  <path d="M170 110 L173 118 L181 121 L173 124 L170 132 L167 124 L159 121 L167 118 Z" fill="currentColor" opacity="0.55" />
+                </svg>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                   Your interview questions will appear here
                 </h3>

@@ -142,7 +142,7 @@ export async function getSharedResume(token) {
 }
 
 export async function optimizeResume(resumeData) {
-  const { data } = await api.post('/resume/optimize', resumeData)
+  const { data } = await api.post('/resume/optimize', resumeData, { timeout: 60000 })
   return data
 }
 
@@ -212,13 +212,13 @@ export async function deleteUpload(id) {
 
 
 export async function generateCoverLetter(payload) {
-  const { data } = await api.post('/cover-letter/generate', payload)
+  const { data } = await api.post('/cover-letter/generate', payload, { timeout: 60000 })
   return data
 }
 
 
 export async function generateInterviewQuestions(payload) {
-  const { data } = await api.post('/interview/generate', payload)
+  const { data } = await api.post('/interview/generate', payload, { timeout: 60000 })
   return data
 }
 

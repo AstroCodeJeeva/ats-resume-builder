@@ -1,6 +1,6 @@
 
 from typing import Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from fastapi import APIRouter, HTTPException, Depends, Request
 
 from database import get_sync_db
@@ -19,12 +19,12 @@ router = APIRouter()
 
 class RegisterRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
-    email: str = Field(..., min_length=5, max_length=120)
+    email: EmailStr
     password: str = Field(..., min_length=6, max_length=100)
 
 
 class LoginRequest(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 
@@ -35,7 +35,7 @@ class AuthResponse(BaseModel):
 
 class UpdateProfileRequest(BaseModel):
     username: Optional[str] = Field(None, min_length=3, max_length=50)
-    email: Optional[str] = Field(None, min_length=5, max_length=120)
+    email: Optional[EmailStr] = None
 
 
 class ChangePasswordRequest(BaseModel):
@@ -49,9 +49,13 @@ class SetSecurityQuestionRequest(BaseModel):
 
 
 class ForgotPasswordRequest(BaseModel):
-    email: str
+    email: EmailStr
     answer: str = Field(..., min_length=1)
     new_password: str = Field(..., min_length=6, max_length=100)
+
+
+class SecurityQuestionQuery(BaseModel):
+    email: EmailStr
 
 
 @router.post("/register", response_model=AuthResponse)
@@ -165,9 +169,10 @@ def set_security_question(body: SetSecurityQuestionRequest, current_user: dict =
 
 
 @router.post("/forgot-password/question")
-def get_security_question(body: dict):
+@limiter.limit("5/minute")
+def get_security_question(body: SecurityQuestionQuery, request: Request):
     """Return the security question for a given email (no auth required)."""
-    email = body.get("email", "")
+    email = body.email
     db = get_sync_db()
     user = db.users.find_one({"email": email})
     # Return a generic message whether or not the email exists to prevent enumeration

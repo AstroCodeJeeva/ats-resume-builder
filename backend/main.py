@@ -32,7 +32,15 @@ def _seed_admin():
 
     db = get_sync_db()
     admin_email = os.getenv("ADMIN_EMAIL", "admin@atsbuilder.com")
-    admin_password = os.getenv("ADMIN_PASSWORD", "Admin@123")
+    admin_password = os.getenv("ADMIN_PASSWORD", "")
+
+    if not admin_password:
+        if os.getenv("FASTAPI_ENV", "development") == "production":
+            raise RuntimeError(
+                "ADMIN_PASSWORD must be set explicitly in production. "
+                "Refusing to create admin with a default password."
+            )
+        admin_password = "Admin@123"  # Dev-only fallback
 
     if not db.users.find_one({"email": admin_email}):
         db.users.insert_one({
@@ -80,6 +88,20 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
+
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    """Attach standard security headers to every response."""
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    if os.getenv("FASTAPI_ENV") == "production":
+        response.headers["Strict-Transport-Security"] = (
+            "max-age=63072000; includeSubDomains; preload"
+        )
+    return response
 
 
 app.include_router(resume_router.router, prefix="/api/resume", tags=["Resume"])

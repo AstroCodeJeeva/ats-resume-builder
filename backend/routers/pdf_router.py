@@ -10,6 +10,12 @@ from services.docx_service import generate_docx_bytes
 router = APIRouter()
 
 
+def _safe_filename(name: str, ext: str) -> str:
+    """Sanitise a user-supplied name for use in Content-Disposition."""
+    safe = re.sub(r'[^\w\s-]', '', name).strip().replace(' ', '_') or 'Resume'
+    return f"{safe}_Resume{ext}"
+
+
 @router.post("/generate")
 async def generate_pdf(payload: PDFRequest):
     """Generate a PDF from resume data and the chosen template."""
@@ -22,7 +28,7 @@ async def generate_pdf(payload: PDFRequest):
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"PDF generation failed: {exc}")
 
-    filename = payload.resume.personal_info.name.replace(" ", "_") + "_Resume.pdf"
+    filename = _safe_filename(payload.resume.personal_info.name, '.pdf')
     return Response(
         content=pdf_bytes,
         media_type="application/pdf",
@@ -41,7 +47,7 @@ async def generate_docx(payload: PDFRequest):
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"DOCX generation failed: {exc}")
 
-    filename = payload.resume.personal_info.name.replace(" ", "_") + "_Resume.docx"
+    filename = _safe_filename(payload.resume.personal_info.name, '.docx')
     return Response(
         content=docx_bytes,
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
