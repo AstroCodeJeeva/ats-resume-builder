@@ -85,14 +85,12 @@ function ScoreChart({ data }) {
 
 function StatsRow({ resumes, uploads }) {
   const optimized = resumes.filter((r) => r.is_optimized).length
+  const scored = resumes.filter((r) => r.ats_score != null)
   const avgScore =
-    resumes.filter((r) => r.ats_score != null).length > 0
-      ? Math.round(
-          resumes.filter((r) => r.ats_score != null).reduce((a, r) => a + r.ats_score, 0) /
-            resumes.filter((r) => r.ats_score != null).length
-        )
+    scored.length > 0
+      ? Math.round(scored.reduce((a, r) => a + r.ats_score, 0) / scored.length)
       : 0
-  const bestScore = resumes.reduce((m, r) => Math.max(m, r.ats_score || 0), 0)
+  const bestScore = scored.reduce((m, r) => Math.max(m, r.ats_score ?? 0), 0)
 
   const stats = [
     { label: 'Resumes', value: resumes.length, color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-50 dark:bg-blue-950/30' },
@@ -135,10 +133,7 @@ export default function DashboardPage() {
   const [scoreFilter, setScoreFilter] = useState('all') // all | 80+ | 60-79 | <60
 
   useEffect(() => {
-    if (!user) {
-      navigate('/builder')
-      return
-    }
+    if (!user) return
     fetchData()
   }, [user, navigate])
 
@@ -372,6 +367,7 @@ export default function DashboardPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by title, role, or template..."
+                  aria-label="Search resumes"
                   className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition"
                 />
               </div>
@@ -380,6 +376,7 @@ export default function DashboardPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort resumes"
                 className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 cursor-pointer"
               >
                 <option value="newest">Newest First</option>
@@ -392,6 +389,7 @@ export default function DashboardPage() {
               <select
                 value={scoreFilter}
                 onChange={(e) => setScoreFilter(e.target.value)}
+                aria-label="Filter by score"
                 className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 cursor-pointer"
               >
                 <option value="all">All Scores</option>

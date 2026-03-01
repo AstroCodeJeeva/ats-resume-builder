@@ -169,7 +169,7 @@ def share_resume(resume_id: str, current_user: dict = Depends(get_current_user))
     if doc.get("share_token"):
         return {"share_token": doc["share_token"]}
 
-    token = uuid.uuid4().hex[:12]
+    token = uuid.uuid4().hex  # Full 32 hex chars (128 bits of entropy)
     db.saved_resumes.update_one({"_id": oid}, {"$set": {"share_token": token}})
     return {"share_token": token}
 

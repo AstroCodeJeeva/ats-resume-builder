@@ -2,7 +2,8 @@
 import os
 import re
 import json
-from datetime import datetime
+import asyncio
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from bson import ObjectId
@@ -94,19 +95,21 @@ async def analyze_uploaded_resume(
     # Save to database if user is logged in
     upload_id = None
     if current_user:
-        db = get_sync_db()
-        doc = {
-            "user_id": str(current_user["_id"]),
-            "filename": filename,
-            "resume_text": resume_text[:10000],  # Store first 10k chars
-            "job_description": job_description[:5000],
-            "ats_score": analysis.get("ats_score", 0),
-            "analysis": analysis,
-            "predicted_jobs": predicted_jobs,
-            "uploaded_at": datetime.utcnow(),
-        }
-        result = db.resume_uploads.insert_one(doc)
-        upload_id = str(result.inserted_id)
+        def _save_upload():
+            db = get_sync_db()
+            doc = {
+                "user_id": str(current_user["_id"]),
+                "filename": filename,
+                "resume_text": resume_text[:10000],  # Store first 10k chars
+                "job_description": job_description[:5000],
+                "ats_score": analysis.get("ats_score", 0),
+                "analysis": analysis,
+                "predicted_jobs": predicted_jobs,
+                "uploaded_at": datetime.now(timezone.utc),
+            }
+            result = db.resume_uploads.insert_one(doc)
+            return str(result.inserted_id)
+        upload_id = await asyncio.to_thread(_save_upload)
 
     return {
         "id": upload_id,

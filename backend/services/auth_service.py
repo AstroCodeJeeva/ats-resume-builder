@@ -1,6 +1,6 @@
 
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 import jwt
@@ -12,7 +12,13 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from database import get_sync_db
 
 
-SECRET_KEY = os.getenv("JWT_SECRET", "ats-builder-secret-key-change-in-production")
+SECRET_KEY = os.getenv("JWT_SECRET", "")
+if not SECRET_KEY:
+    # Allow a dev-only fallback when FASTAPI_ENV is not "production"
+    if os.getenv("FASTAPI_ENV", "development") == "production":
+        raise RuntimeError("JWT_SECRET environment variable must be set in production")
+    SECRET_KEY = "dev-only-insecure-key-do-not-use-in-prod"
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
@@ -31,7 +37,7 @@ def create_access_token(user_id: str, username: str) -> str:
     payload = {
         "sub": user_id,
         "username": username,
-        "exp": datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS),
+        "exp": datetime.now(timezone.utc) + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS),
     }
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 

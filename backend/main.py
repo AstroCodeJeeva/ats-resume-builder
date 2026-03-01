@@ -1,5 +1,8 @@
 """FastAPI app entry point."""
 
+from contextlib import asynccontextmanager
+from datetime import datetime, timezone
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -22,31 +25,24 @@ from database import init_db, close_db  # noqa: E402
 from rate_limiter import limiter  # noqa: E402
 
 
-app = FastAPI(
-    title="ATS Resume Builder API",
-    description="AI-powered resume builder with ATS scoring, suggestions, and PDF export.",
-    version="1.0.0",
-)
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-
-
-async def _seed_admin():
+def _seed_admin():
     """Create the default admin account if it doesn't exist."""
     from database import get_sync_db
     from services.auth_service import hash_password
 
     db = get_sync_db()
-    admin_email = "admin@atsbuilder.com"
+    admin_email = os.getenv("ADMIN_EMAIL", "admin@atsbuilder.com")
+    admin_password = os.getenv("ADMIN_PASSWORD", "Admin@123")
+
     if not db.users.find_one({"email": admin_email}):
         db.users.insert_one({
             "username": "admin",
             "email": admin_email,
-            "hashed_password": hash_password("Admin@123"),
+            "hashed_password": hash_password(admin_password),
             "is_admin": True,
-            "created_at": __import__("datetime").datetime.utcnow(),
+            "created_at": datetime.now(timezone.utc),
         })
-        print(" Default admin account created: admin@atsbuilder.com / Admin@123")
+        print(f" Default admin account created: {admin_email}")
     else:
         # Ensure existing admin has is_admin flag
         db.users.update_one(
@@ -55,15 +51,23 @@ async def _seed_admin():
         )
 
 
-@app.on_event("startup")
-async def startup_db():
+@asynccontextmanager
+async def lifespan(app):
+    """Startup / shutdown lifecycle manager."""
     await init_db()
-    await _seed_admin()
-
-
-@app.on_event("shutdown")
-async def shutdown_db():
+    _seed_admin()
+    yield
     await close_db()
+
+
+app = FastAPI(
+    title="ATS Resume Builder API",
+    description="AI-powered resume builder with ATS scoring, suggestions, and PDF export.",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 _raw = os.getenv("CORS_ORIGINS", "http://localhost:5173")
@@ -73,8 +77,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 

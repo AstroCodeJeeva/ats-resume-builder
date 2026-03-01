@@ -28,11 +28,7 @@ export default function AdminPage() {
   const [confirmDelete, setConfirmDelete] = useState(null) // { userId, username }
 
   useEffect(() => {
-    if (!user?.is_admin) {
-      navigate('/')
-      toast.error('Admin access required')
-      return
-    }
+    if (!user?.is_admin) return
     loadData()
   }, [user, navigate])
 

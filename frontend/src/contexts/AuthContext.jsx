@@ -38,6 +38,13 @@ export function AuthProvider({ children }) {
     setUser(null)
   }
 
+  // Listen for session-expired events from the API interceptor
+  useEffect(() => {
+    const handleExpired = () => logout()
+    window.addEventListener('auth:expired', handleExpired)
+    return () => window.removeEventListener('auth:expired', handleExpired)
+  }, [])
+
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}

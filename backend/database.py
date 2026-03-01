@@ -1,5 +1,7 @@
 
 import os
+import asyncio
+import functools
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import MongoClient
 
@@ -33,6 +35,24 @@ def get_sync_db():
     return _sync_db
 
 
+def run_sync(fn):
+    """Decorator: run a sync function in a thread pool so it doesn't block
+    the async event loop.  Use on FastAPI route handlers that call PyMongo.
+
+    Usage::
+
+        @router.get("/items")
+        @run_sync
+        def list_items():
+            db = get_sync_db()
+            ...
+    """
+    @functools.wraps(fn)
+    async def wrapper(*args, **kwargs):
+        return await asyncio.to_thread(fn, *args, **kwargs)
+    return wrapper
+
+
 async def init_db():
     """Create indexes for users, saved_resumes, and resume_uploads collections."""
     db = get_async_db()
@@ -42,6 +62,7 @@ async def init_db():
     # Saved resumes indexes
     await db.saved_resumes.create_index("user_id")
     await db.saved_resumes.create_index([("user_id", 1), ("updated_at", -1)])
+    await db.saved_resumes.create_index("share_token", sparse=True)
     # Resume uploads indexes
     await db.resume_uploads.create_index("user_id")
     await db.resume_uploads.create_index([("user_id", 1), ("uploaded_at", -1)])

@@ -12,6 +12,7 @@ from services.auth_service import (
     create_access_token,
     get_current_user,
 )
+import bcrypt
 
 router = APIRouter()
 
@@ -150,11 +151,14 @@ def change_password(body: ChangePasswordRequest, current_user: dict = Depends(ge
 def set_security_question(body: SetSecurityQuestionRequest, current_user: dict = Depends(get_current_user)):
     """Set or update the user's security question (for password reset)."""
     db = get_sync_db()
+    hashed_answer = bcrypt.hashpw(
+        body.answer.strip().lower().encode("utf-8"), bcrypt.gensalt()
+    ).decode("utf-8")
     db.users.update_one(
         {"_id": current_user["_id"]},
         {"$set": {
             "security_question": body.question,
-            "security_answer": body.answer.strip().lower(),
+            "security_answer": hashed_answer,
         }},
     )
     return {"message": "Security question set successfully"}
@@ -166,12 +170,10 @@ def get_security_question(body: dict):
     email = body.get("email", "")
     db = get_sync_db()
     user = db.users.find_one({"email": email})
-    if not user:
-        raise HTTPException(status_code=404, detail="Email not found")
-    question = user.get("security_question")
-    if not question:
-        raise HTTPException(status_code=400, detail="No security question set for this account. Contact admin.")
-    return {"question": question}
+    # Return a generic message whether or not the email exists to prevent enumeration
+    if not user or not user.get("security_question"):
+        raise HTTPException(status_code=400, detail="No security question found for this account")
+    return {"question": user["security_question"]}
 
 
 @router.post("/forgot-password")
@@ -187,7 +189,15 @@ def forgot_password(body: ForgotPasswordRequest, request: Request):
     if not stored_answer:
         raise HTTPException(status_code=400, detail="No security question set for this account")
 
-    if body.answer.strip().lower() != stored_answer:
+    # Compare hashed answer (supports both legacy plaintext and bcrypt hashed)
+    candidate = body.answer.strip().lower().encode("utf-8")
+    try:
+        answer_matches = bcrypt.checkpw(candidate, stored_answer.encode("utf-8"))
+    except (ValueError, TypeError):
+        # Legacy plaintext fallback
+        answer_matches = body.answer.strip().lower() == stored_answer
+
+    if not answer_matches:
         raise HTTPException(status_code=400, detail="Incorrect answer to security question")
 
     db.users.update_one(

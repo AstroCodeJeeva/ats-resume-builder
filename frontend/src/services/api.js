@@ -13,6 +13,7 @@ const API_BASE = import.meta.env.VITE_API_URL
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 15000, // 15 s default; overridden per-call where needed
 })
 
 
@@ -25,6 +26,10 @@ api.interceptors.request.use((config) => {
 })
 
 
+/**
+ * Custom error flag so callers can detect toast was already shown by the
+ * interceptor and avoid displaying a duplicate.
+ */
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -34,12 +39,14 @@ api.interceptors.response.use(
         // Token exists but server rejected it → expired
         localStorage.removeItem('ats_token')
         localStorage.removeItem('ats_user')
-        toast.error('Session expired. Redirecting to sign in...', { duration: 2000, icon: '⏳' })
-        setTimeout(() => window.location.replace('/'), 1500)
+        toast.error('Session expired. Please sign in again.', { duration: 3000 })
+        // Dispatch a custom event so AuthContext can react without a full reload
+        window.dispatchEvent(new Event('auth:expired'))
       }
     }
     if (error.response?.status === 429) {
-      toast.error('Too many requests — please slow down.', { icon: '🚦' })
+      toast.error('Too many requests — please slow down.')
+      error._toastShown = true // prevent callers from double-toasting
     }
     return Promise.reject(error)
   }

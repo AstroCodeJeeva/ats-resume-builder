@@ -32,10 +32,7 @@ export default function ProfilePage() {
   const [savingSec, setSavingSec] = useState(false)
 
   useEffect(() => {
-    if (!user) {
-      navigate('/')
-      return
-    }
+    if (!user) return
     loadProfile()
   }, [user, navigate])
 

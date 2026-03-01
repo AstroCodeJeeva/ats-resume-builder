@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import ErrorBoundary from './components/ErrorBoundary'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingSpinner from './components/LoadingSpinner'
+import ProtectedRoute from './components/ProtectedRoute'
 
 /* Lazy-loaded pages */
 const LandingPage = lazy(() => import('./pages/LandingPage'))
@@ -58,10 +59,10 @@ export default function App() {
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/builder" element={<BuilderPage />} />
                   <Route path="/results" element={<ResultsPage />} />
-                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                   <Route path="/analyzer" element={<AnalyzerPage />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/admin" element={<ProtectedRoute adminOnly><AdminPage /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                   <Route path="/cover-letter" element={<CoverLetterPage />} />
                   <Route path="/interview-prep" element={<InterviewPrepPage />} />
                   <Route path="/shared/:token" element={<SharedResumePage />} />
