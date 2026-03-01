@@ -8,7 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import ScrollToTop from './components/ScrollToTop'
 import LoadingSpinner from './components/LoadingSpinner'
 
-/* ── Lazy-loaded pages (code-split per route) ───────────────────────── */
+/* Lazy-loaded pages */
 const LandingPage = lazy(() => import('./pages/LandingPage'))
 const BuilderPage = lazy(() => import('./pages/BuilderPage'))
 const ResultsPage = lazy(() => import('./pages/ResultsPage'))

@@ -23,9 +23,9 @@ export default function NotFoundPage() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl text-gray-300 dark:text-gray-600"
           >
-            📄
+            ?
           </motion.div>
         </div>
 
@@ -37,21 +37,21 @@ export default function NotFoundPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/"
-            className="px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+            className="px-6 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors"
           >
-            🏠 Go Home
+            Go Home
           </Link>
           <Link
             to="/builder"
             className="px-6 py-3 rounded-xl text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-all"
           >
-            🔨 Build Resume
+            Build Resume
           </Link>
           <Link
             to="/analyzer"
             className="px-6 py-3 rounded-xl text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 transition-all"
           >
-            📤 Analyze Resume
+            Analyze Resume
           </Link>
         </div>
       </motion.div>

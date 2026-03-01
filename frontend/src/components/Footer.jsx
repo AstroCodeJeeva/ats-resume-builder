@@ -1,6 +1,3 @@
-/**
- * Footer — Site-wide footer with links and branding.
- */
 import { Link } from 'react-router-dom'
 
 const footerLinks = [
@@ -46,7 +43,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-              AI-powered resume builder that helps you create ATS-optimised resumes and land more interviews.
+              Build ATS-friendly resumes, check your score, and get suggestions to improve.
             </p>
           </div>
 

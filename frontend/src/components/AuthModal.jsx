@@ -1,6 +1,3 @@
-/**
- * AuthModal — Login / Register modal dialog.
- */
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
@@ -50,10 +47,10 @@ export default function AuthModal({ isOpen, onClose }) {
       let res
       if (mode === 'register') {
         res = await registerUser(form.username, form.email, form.password)
-        toast.success(`Welcome aboard, ${res.user?.username || 'friend'}! 🎉`)
+        toast.success(`Welcome aboard, ${res.user?.username || 'friend'}!`)
       } else {
         res = await loginUser(form.email, form.password)
-        toast.success(`Welcome back, ${res.user?.username || 'friend'}! 👋`)
+        toast.success(`Welcome back, ${res.user?.username || 'friend'}!`)
       }
       login(res.token, res.user)
       onClose()
@@ -152,13 +149,13 @@ export default function AuthModal({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all disabled:opacity-50"
+                className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
               >
                 {loading
-                  ? '⏳ Please wait...'
+                  ? 'Please wait...'
                   : mode === 'login'
-                  ? '🔑 Sign In'
-                  : '🚀 Create Account'}
+                  ? 'Sign In'
+                  : 'Create Account'}
               </button>
             </form>
 

@@ -28,7 +28,7 @@ export default class ErrorBoundary extends Component {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
           <div className="max-w-md w-full text-center">
-            <div className="text-6xl mb-4">💥</div>
+            <div className="text-6xl mb-4 text-red-400">!</div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Something went wrong
             </h1>
@@ -45,13 +45,13 @@ export default class ErrorBoundary extends Component {
                 onClick={() => window.location.reload()}
                 className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
-                🔄 Reload Page
+                Reload Page
               </button>
               <button
                 onClick={this.handleReset}
-                className="px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+                className="px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
               >
-                🏠 Go Home
+                Go Home
               </button>
             </div>
           </div>

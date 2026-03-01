@@ -176,31 +176,31 @@ export default function ResultsPage() {
           </button>
           <button
             onClick={handleDownload}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
           >
-            📥 Download PDF
+            Download PDF
           </button>
           <button
             onClick={handleDownloadDocx}
             disabled={downloadingDocx}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-cyan-600 hover:shadow-lg transition-all disabled:opacity-50"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
-            {downloadingDocx ? '⏳ ...' : '📝 Download DOCX'}
+            {downloadingDocx ? '...' : 'Download DOCX'}
           </button>
           <button
             onClick={handleATSCheck}
             disabled={checkingATS}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg transition-all disabled:opacity-50"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors disabled:opacity-50"
           >
-            {checkingATS ? '⏳ Checking...' : '🔍 Check PDF ATS'}
+            {checkingATS ? 'Checking...' : 'Check PDF ATS'}
           </button>
           {user && (
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:shadow-lg transition-all disabled:opacity-50"
+              className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 transition-colors disabled:opacity-50"
             >
-              {saving ? '⏳ Saving...' : '💾 Save Resume'}
+              {saving ? 'Saving...' : 'Save Resume'}
             </button>
           )}
         </div>
@@ -228,7 +228,7 @@ export default function ResultsPage() {
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
-                {t === 'preview' ? '📄 Resume Preview' : t === 'compare' ? '🔄 Before vs After' : '🔍 ATS Check'}
+                {t === 'preview' ? 'Resume Preview' : t === 'compare' ? 'Before vs After' : 'ATS Check'}
               </button>
             ))}
           </div>
@@ -291,8 +291,8 @@ export default function ResultsPage() {
                             : 'border-yellow-200 dark:border-yellow-800 bg-yellow-50/50 dark:bg-yellow-900/10'
                         }`}
                       >
-                        <span className="text-xl mt-0.5">
-                          {item.passed ? '✅' : item.severity === 'critical' ? '❌' : '⚠️'}
+                        <span className={`text-sm font-bold mt-0.5 ${item.passed ? 'text-green-500' : item.severity === 'critical' ? 'text-red-500' : 'text-yellow-500'}`}>
+                          {item.passed ? 'PASS' : 'FAIL'}
                         </span>
                         <div>
                           <div className="font-semibold text-gray-900 dark:text-white text-sm">
@@ -315,22 +315,21 @@ export default function ResultsPage() {
                   <div className="text-center pt-2">
                     <button
                       onClick={handleATSCheck}
-                      className="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg transition-all"
+                      className="px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors"
                     >
-                      🔄 Re-run ATS Check
+                      Re-run ATS Check
                     </button>
                   </div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-20 text-center text-gray-400 dark:text-gray-500">
-                  <span className="text-5xl mb-4">🔍</span>
                   <p className="text-lg font-medium">No ATS check run yet</p>
                   <p className="text-sm mt-1">Click the "Check PDF ATS" button above to analyse your resume.</p>
                   <button
                     onClick={handleATSCheck}
-                    className="mt-6 px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg transition-all"
+                    className="mt-6 px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors"
                   >
-                    🔍 Run ATS Check Now
+                    Run ATS Check Now
                   </button>
                 </div>
               )}

@@ -133,7 +133,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
             {/* Header */}
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {step === 1 ? '🔑 Reset Password' : step === 2 ? '❓ Security Question' : '🔒 New Password'}
+                {step === 1 ? 'Reset Password' : step === 2 ? 'Security Question' : 'New Password'}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 {step === 1
@@ -173,9 +173,9 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all disabled:opacity-50"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
                 >
-                  {loading ? '⏳ Looking up...' : 'Continue →'}
+                  {loading ? 'Looking up...' : 'Continue →'}
                 </button>
               </form>
             )}
@@ -199,7 +199,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors"
                 >
                   Continue →
                 </button>
@@ -243,9 +243,9 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all disabled:opacity-50"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
                 >
-                  {loading ? '⏳ Resetting...' : '🔒 Reset Password'}
+                  {loading ? 'Resetting...' : 'Reset Password'}
                 </button>
                 <button
                   type="button"

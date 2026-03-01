@@ -53,7 +53,6 @@ export default function SharedResumePage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-          <span className="text-6xl mb-4 block">🔗</span>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Link Unavailable</h2>
           <p className="text-gray-500 dark:text-gray-400">{error}</p>
         </motion.div>
@@ -69,7 +68,7 @@ export default function SharedResumePage() {
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{resume.title}</h1>
             <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {resume.target_role && <span>🎯 {resume.target_role}</span>}
+              {resume.target_role && <span>{resume.target_role}</span>}
               {resume.ats_score != null && (
                 <span className={`font-semibold ${resume.ats_score >= 80 ? 'text-green-500' : resume.ats_score >= 50 ? 'text-yellow-500' : 'text-red-500'}`}>
                   ATS: {resume.ats_score}%
@@ -78,7 +77,7 @@ export default function SharedResumePage() {
             </div>
           </div>
           <div className="px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-xs font-medium">
-            📄 Shared Resume
+            Shared Resume
           </div>
         </div>
       </motion.div>

@@ -5,9 +5,9 @@ import { generateCoverLetter } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
 
 const TONES = [
-  { value: 'professional', label: 'Professional', emoji: '💼', desc: 'Formal & polished' },
-  { value: 'enthusiastic', label: 'Enthusiastic', emoji: '🚀', desc: 'Energetic & passionate' },
-  { value: 'concise', label: 'Concise', emoji: '⚡', desc: 'Brief & impactful' },
+  { value: 'professional', label: 'Professional', desc: 'Formal & polished' },
+  { value: 'enthusiastic', label: 'Enthusiastic', desc: 'Energetic & passionate' },
+  { value: 'concise', label: 'Concise', desc: 'Brief & impactful' },
 ]
 
 export default function CoverLetterPage() {
@@ -96,10 +96,10 @@ export default function CoverLetterPage() {
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          ✉️ AI Cover Letter Generator
+          Cover Letter Generator
         </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-xl mx-auto">
-          Generate a tailored cover letter from your resume and job description — powered by AI.
+          Generate a tailored cover letter from your resume and the job description.
         </p>
       </motion.div>
 
@@ -156,7 +156,7 @@ export default function CoverLetterPage() {
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  <span className="text-xl">{t.emoji}</span>
+                  <span className="text-xl">{t.label[0]}</span>
                   <div className="text-xs font-semibold text-gray-800 dark:text-gray-200 mt-1">{t.label}</div>
                   <div className="text-[10px] text-gray-500 dark:text-gray-400">{t.desc}</div>
                 </button>
@@ -168,7 +168,7 @@ export default function CoverLetterPage() {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg disabled:opacity-50 transition-all"
+            className="w-full py-3 rounded-xl text-white font-semibold bg-primary-600 hover:bg-primary-700 disabled:opacity-50 transition-colors"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -179,13 +179,13 @@ export default function CoverLetterPage() {
                 Generating...
               </span>
             ) : (
-              '✨ Generate Cover Letter'
+              'Generate Cover Letter'
             )}
           </button>
 
           {!getResumeData() && (
             <p className="text-xs text-amber-600 dark:text-amber-400 text-center">
-              ⚠️ No resume data in session. Build or optimise a resume first for best results.
+              No resume data in session. Build or optimise a resume first for best results.
             </p>
           )}
         </motion.div>
@@ -209,13 +209,13 @@ export default function CoverLetterPage() {
                       onClick={handleCopy}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                     >
-                      {copied ? '✅ Copied' : '📋 Copy'}
+                      {copied ? 'Copied' : 'Copy'}
                     </button>
                     <button
                       onClick={handleDownloadTxt}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                     >
-                      📥 Download .txt
+                      Download .txt
                     </button>
                   </div>
                 </div>
@@ -232,7 +232,6 @@ export default function CoverLetterPage() {
                 animate={{ opacity: 1 }}
                 className="h-full min-h-[400px] flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10"
               >
-                <span className="text-6xl mb-4">✉️</span>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Your cover letter will appear here</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xs">
                   Fill in the details on the left and click Generate to create a tailored cover letter.

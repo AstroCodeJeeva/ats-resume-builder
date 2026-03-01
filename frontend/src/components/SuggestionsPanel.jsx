@@ -16,9 +16,9 @@ export default function SuggestionsPanel({ suggestions }) {
   }
 
   const severityIcons = {
-    critical: '🔴',
-    warning: '🟡',
-    info: '🔵',
+    critical: '●',
+    warning: '●',
+    info: '●',
   }
 
   return (
@@ -52,7 +52,7 @@ export default function SuggestionsPanel({ suggestions }) {
                 className={`p-3 rounded-lg border-l-4 text-xs ${severityColors[s.severity] || severityColors.info}`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span>{severityIcons[s.severity] || '🔵'}</span>
+                  <span>{severityIcons[s.severity] || '●'}</span>
                   <span className="font-semibold">{s.category}</span>
                 </div>
                 <p>{s.message}</p>

@@ -1,6 +1,3 @@
-/**
- * AnalyzerPage — Upload resume (PDF/DOCX) for ATS score, analysis & job prediction.
- */
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
@@ -117,10 +114,10 @@ export default function AnalyzerPage() {
       {/* Header */}
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Resume <span className="bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent">Analyzer</span>
+          Resume Analyzer
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Upload your resume to get an ATS score, detailed analysis, and job predictions
+          Upload your resume to get an ATS score, analysis, and job predictions
         </p>
       </div>
 
@@ -151,8 +148,7 @@ export default function AnalyzerPage() {
 
             {file ? (
               <div>
-                <span className="text-5xl">📄</span>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white mt-3">{file.name}</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">{file.name}</p>
                 <p className="text-sm text-gray-500 mt-1">{(file.size / 1024).toFixed(1)} KB</p>
                 <button
                   onClick={(e) => { e.stopPropagation(); resetAll() }}
@@ -163,8 +159,7 @@ export default function AnalyzerPage() {
               </div>
             ) : (
               <div>
-                <span className="text-5xl">📤</span>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white mt-3">
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">
                   Drop your resume here
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -193,7 +188,7 @@ export default function AnalyzerPage() {
             <button
               onClick={handleFullAnalysis}
               disabled={!file || loading}
-              className="flex-1 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-3.5 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -204,7 +199,7 @@ export default function AnalyzerPage() {
                   Analyzing with AI...
                 </span>
               ) : (
-                '🤖 Full AI Analysis + Job Predictions'
+                'Full Analysis + Job Predictions'
               )}
             </button>
             <button
@@ -212,7 +207,7 @@ export default function AnalyzerPage() {
               disabled={!file || quickLoading}
               className="flex-1 py-3.5 rounded-xl text-sm font-semibold text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-all disabled:opacity-50"
             >
-              {quickLoading ? '⏳ Scoring...' : '⚡ Quick Score (No AI)'}
+              {quickLoading ? 'Scoring...' : 'Quick Score'}
             </button>
           </div>
         </motion.div>
@@ -248,10 +243,10 @@ export default function AnalyzerPage() {
           {/* Result Tabs */}
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2 justify-center">
             {[
-              { id: 'score', label: '📊 Score Details' },
-              { id: 'analysis', label: '🔍 Analysis' },
-              { id: 'suggestions', label: '💡 Suggestions' },
-              { id: 'jobs', label: '🎯 Job Predictions' },
+              { id: 'score', label: 'Score Details' },
+              { id: 'analysis', label: 'Analysis' },
+              { id: 'suggestions', label: 'Suggestions' },
+              { id: 'jobs', label: 'Job Predictions' },
             ].map((t) => (
               <button
                 key={t.id}
@@ -301,7 +296,7 @@ export default function AnalyzerPage() {
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Keyword Analysis</h3>
                     {result.keyword_analysis.top_keywords_found && (
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-green-600 mb-2">✅ Keywords Found</p>
+                        <p className="text-sm font-medium text-green-600 mb-2">Keywords Found</p>
                         <div className="flex flex-wrap gap-2">
                           {result.keyword_analysis.top_keywords_found.slice(0, 15).map((kw) => (
                             <span key={kw} className="px-2 py-1 rounded-lg text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
@@ -313,7 +308,7 @@ export default function AnalyzerPage() {
                     )}
                     {result.keyword_analysis.missing_important_keywords && (
                       <div>
-                        <p className="text-sm font-medium text-red-600 mb-2">❌ Missing Keywords</p>
+                        <p className="text-sm font-medium text-red-600 mb-2">Missing Keywords</p>
                         <div className="flex flex-wrap gap-2">
                           {result.keyword_analysis.missing_important_keywords.slice(0, 15).map((kw) => (
                             <span key={kw} className="px-2 py-1 rounded-lg text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
@@ -356,7 +351,7 @@ export default function AnalyzerPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Strengths */}
                   <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-green-600 mb-4">💪 Strengths</h3>
+                    <h3 className="text-lg font-semibold text-green-600 mb-4">Strengths</h3>
                     {result.strengths?.length > 0 ? (
                       <ul className="space-y-3">
                         {result.strengths.map((s, i) => (
@@ -373,7 +368,7 @@ export default function AnalyzerPage() {
 
                   {/* Weaknesses */}
                   <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-red-500 mb-4">⚠️ Weaknesses</h3>
+                    <h3 className="text-lg font-semibold text-red-500 mb-4">Weaknesses</h3>
                     {result.weaknesses?.length > 0 ? (
                       <ul className="space-y-3">
                         {result.weaknesses.map((w, i) => (
@@ -392,7 +387,7 @@ export default function AnalyzerPage() {
                 {/* Resume Preview */}
                 {result.resume_preview && (
                   <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">📝 Extracted Text Preview</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Extracted Text Preview</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap leading-relaxed">
                       {result.resume_preview}
                     </p>
@@ -419,7 +414,7 @@ export default function AnalyzerPage() {
                       >
                         <div className="flex items-start gap-3">
                           <span className="text-lg">
-                            {s.severity === 'critical' ? '🔴' : s.severity === 'warning' ? '🟡' : '🔵'}
+                            {s.severity === 'critical' ? '●' : s.severity === 'warning' ? '●' : '●'}
                           </span>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
@@ -442,8 +437,7 @@ export default function AnalyzerPage() {
                   </div>
                 ) : (
                   <div className="text-center py-16">
-                    <span className="text-5xl">💡</span>
-                    <p className="text-gray-500 mt-3">Run full AI analysis to get personalized suggestions</p>
+                    <p className="text-gray-500">Run full analysis to get personalized suggestions</p>
                   </div>
                 )}
               </motion.div>
@@ -519,8 +513,7 @@ export default function AnalyzerPage() {
                   </div>
                 ) : (
                   <div className="text-center py-16">
-                    <span className="text-5xl">🎯</span>
-                    <p className="text-gray-500 mt-3">Run full AI analysis to get job predictions</p>
+                    <p className="text-gray-500">Run full analysis to get job predictions</p>
                   </div>
                 )}
               </motion.div>

@@ -4,12 +4,12 @@ import toast from 'react-hot-toast'
 import { generateInterviewQuestions } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
 
-/* ── Focus options ──────────────────────────────────────────────────── */
+/* Focus options */
 const FOCUSES = [
-  { value: 'balanced',     label: 'Balanced',     emoji: '⚖️', desc: 'Mix of all types' },
-  { value: 'behavioral',   label: 'Behavioral',   emoji: '🧠', desc: 'STAR-method style' },
-  { value: 'technical',    label: 'Technical',     emoji: '💻', desc: 'Skills & knowledge' },
-  { value: 'situational',  label: 'Situational',  emoji: '🎯', desc: 'Hypothetical scenarios' },
+  { value: 'balanced',     label: 'Balanced',     desc: 'Mix of all types' },
+  { value: 'behavioral',   label: 'Behavioral',   desc: 'STAR-method style' },
+  { value: 'technical',    label: 'Technical',     desc: 'Skills & knowledge' },
+  { value: 'situational',  label: 'Situational',  desc: 'Hypothetical scenarios' },
 ]
 
 const DIFFICULTY_COLORS = {
@@ -25,7 +25,7 @@ const CATEGORY_COLORS = {
   'role-specific':'bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-300',
 }
 
-/* ── Badge helper ───────────────────────────────────────────────────── */
+
 function Badge({ text, colorMap }) {
   const key = text?.toLowerCase() || ''
   const cls = colorMap[key] || 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
@@ -36,7 +36,7 @@ function Badge({ text, colorMap }) {
   )
 }
 
-/* ── Single question card ───────────────────────────────────────────── */
+
 function QuestionCard({ q, index, expanded, onToggle }) {
   const handleCopy = async (e) => {
     e.stopPropagation()
@@ -100,7 +100,7 @@ function QuestionCard({ q, index, expanded, onToggle }) {
               {/* Why asked */}
               <div>
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
-                  🎯 Why this is asked
+                  Why this is asked
                 </h4>
                 <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{q.why_asked}</p>
               </div>
@@ -108,7 +108,7 @@ function QuestionCard({ q, index, expanded, onToggle }) {
               {/* Suggested answer */}
               <div>
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
-                  💡 Suggested Answer
+                  Suggested Answer
                 </h4>
                 <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
                   <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">
@@ -120,7 +120,7 @@ function QuestionCard({ q, index, expanded, onToggle }) {
               {/* Tips */}
               <div>
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
-                  📝 Tips
+                  Tips
                 </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400 italic leading-relaxed">{q.tips}</p>
               </div>
@@ -130,7 +130,7 @@ function QuestionCard({ q, index, expanded, onToggle }) {
                 onClick={handleCopy}
                 className="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline"
               >
-                📋 Copy Q&A
+                Copy Q&A
               </button>
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ function QuestionCard({ q, index, expanded, onToggle }) {
   )
 }
 
-/* ── Main Page ──────────────────────────────────────────────────────── */
+/* Main Page */
 export default function InterviewPrepPage() {
   usePageTitle('Interview Prep')
 
@@ -245,15 +245,15 @@ export default function InterviewPrepPage() {
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          🎤 AI Interview Prep
+          Interview Prep
         </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-2xl mx-auto">
-          Generate tailored interview questions with suggested answers from your resume and job description — powered by AI.
+          Generate tailored interview questions with answers based on your resume and the job description.
         </p>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* ── Left: Form (2 cols) ──────────────────────────────────────── */}
+        {/* Left: Form */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -309,7 +309,7 @@ export default function InterviewPrepPage() {
                       : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  <span className="text-lg">{f.emoji}</span>
+                  <span className="text-sm">{f.label[0]}</span>
                   <div className="text-xs font-semibold text-gray-800 dark:text-gray-200 mt-0.5">{f.label}</div>
                   <div className="text-[10px] text-gray-500 dark:text-gray-400">{f.desc}</div>
                 </button>
@@ -340,7 +340,7 @@ export default function InterviewPrepPage() {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg disabled:opacity-50 transition-all"
+            className="w-full py-3 rounded-xl text-white font-semibold bg-primary-600 hover:bg-primary-700 disabled:opacity-50 transition-colors"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -351,18 +351,18 @@ export default function InterviewPrepPage() {
                 Generating Questions...
               </span>
             ) : (
-              '🎤 Generate Interview Questions'
+              'Generate Interview Questions'
             )}
           </button>
 
           {!getResumeData() && (
             <p className="text-xs text-amber-600 dark:text-amber-400 text-center">
-              ⚠️ No resume data in session. Build or optimise a resume first for best results.
+              No resume data in session. Build or optimise a resume first for best results.
             </p>
           )}
         </motion.div>
 
-        {/* ── Right: Results (3 cols) ──────────────────────────────────── */}
+        {/* Right: Results */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -402,23 +402,17 @@ export default function InterviewPrepPage() {
                       onClick={expandAll}
                       className="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                       title="Expand all"
-                    >
-                      ↕️ Expand
-                    </button>
+                    >Expand All</button>
                     <button
                       onClick={collapseAll}
                       className="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                       title="Collapse all"
-                    >
-                      ↔️ Collapse
-                    </button>
+                    >Collapse All</button>
                     <button
                       onClick={handleCopyAll}
                       className="px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
                       title="Copy all"
-                    >
-                      📋 Copy All
-                    </button>
+                    >Copy All</button>
                   </div>
                 </div>
 
@@ -451,22 +445,20 @@ export default function InterviewPrepPage() {
                 animate={{ opacity: 1 }}
                 className="h-full min-h-[500px] flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10"
               >
-                <span className="text-6xl mb-4">🎤</span>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                   Your interview questions will appear here
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xs">
-                  Fill in the details on the left and click Generate to get AI-powered practice questions with suggested answers.
+                  Fill in the details on the left and click Generate to get practice questions with suggested answers.
                 </p>
                 <div className="mt-6 grid grid-cols-2 gap-3 text-left max-w-sm w-full">
                   {[
-                    { icon: '🧠', text: 'Behavioral questions with STAR method answers' },
-                    { icon: '💻', text: 'Technical deep-dives based on your skills' },
-                    { icon: '🎯', text: 'Situational scenarios for the role' },
-                    { icon: '📊', text: 'Difficulty levels from easy to hard' },
+                    { text: 'Behavioral questions with STAR method answers' },
+                    { text: 'Technical deep-dives based on your skills' },
+                    { text: 'Situational scenarios for the role' },
+                    { text: 'Difficulty levels from easy to hard' },
                   ].map((item) => (
                     <div key={item.text} className="flex gap-2 p-2 rounded-lg bg-gray-50 dark:bg-gray-900/40">
-                      <span className="text-lg">{item.icon}</span>
                       <span className="text-xs text-gray-600 dark:text-gray-400">{item.text}</span>
                     </div>
                   ))}

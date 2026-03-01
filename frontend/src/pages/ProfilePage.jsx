@@ -1,6 +1,3 @@
-/**
- * ProfilePage — User profile with edit name/email and change password.
- */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -128,7 +125,7 @@ export default function ProfilePage() {
           <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
           {user.is_admin && (
             <span className="inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
-              🛡️ Admin
+              Admin
             </span>
           )}
         </div>
@@ -137,23 +134,21 @@ export default function ProfilePage() {
         {profile && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             {[
-              { label: 'Resumes', value: profile.resume_count || 0, icon: '📄' },
-              { label: 'Uploads', value: profile.upload_count || 0, icon: '📤' },
+              { label: 'Resumes', value: profile.resume_count || 0 },
+              { label: 'Uploads', value: profile.upload_count || 0 },
               {
                 label: 'Member Since',
                 value: profile.created_at
                   ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
                   : '-',
-                icon: '📅',
               },
             ].map((s) => (
               <div
                 key={s.label}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-4 text-center border border-gray-100 dark:border-gray-700"
+                className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-100 dark:border-gray-700"
               >
-                <span className="text-2xl">{s.icon}</span>
-                <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">{s.value}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{s.label}</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-white">{s.value}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{s.label}</p>
               </div>
             ))}
           </div>
@@ -191,9 +186,9 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
             >
-              {saving ? '⏳ Saving...' : '✅ Save Changes'}
+              {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </form>
         </div>
@@ -246,9 +241,9 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={changingPw}
-              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-orange-500 to-red-500 hover:shadow-lg transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 transition-colors disabled:opacity-50"
             >
-              {changingPw ? '⏳ Changing...' : '🔒 Change Password'}
+              {changingPw ? 'Changing...' : 'Change Password'}
             </button>
           </form>
         </div>
@@ -295,9 +290,9 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={savingSec}
-              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-teal-500 to-emerald-600 hover:shadow-lg transition-all disabled:opacity-50"
+              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-teal-600 hover:bg-teal-700 transition-colors disabled:opacity-50"
             >
-              {savingSec ? '⏳ Saving...' : '🛡️ Save Security Question'}
+              {savingSec ? 'Saving...' : 'Save Security Question'}
             </button>
           </form>
         </div>
@@ -312,7 +307,7 @@ export default function ProfilePage() {
             onClick={() => { logout(); navigate('/') }}
             className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
           >
-            🚪 Logout
+            Logout
           </button>
         </div>
       </motion.div>

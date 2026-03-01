@@ -67,7 +67,7 @@ export default function ConfirmModal({
           >
             {/* Icon */}
             <div className="text-center mb-4">
-              <span className="text-4xl">{danger ? '⚠️' : '❓'}</span>
+              <span className="text-4xl">{danger ? '!' : '?'}</span>
             </div>
 
             {/* Title */}

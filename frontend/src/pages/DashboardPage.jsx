@@ -1,6 +1,3 @@
-/**
- * DashboardPage — Saved resumes history, management, and ATS score analytics.
- */
 import { useEffect, useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -11,8 +8,6 @@ import { listResumes, deleteResume, getResume, getUploadHistory, shareResume, un
 import LoadingSpinner from '../components/LoadingSpinner'
 import usePageTitle from '../hooks/usePageTitle'
 import ConfirmModal from '../components/ConfirmModal'
-
-/* ── Tiny bar chart component (no library needed) ──────────────────── */
 function ScoreChart({ data }) {
   if (!data.length) return null
   const maxScore = 100
@@ -20,10 +15,10 @@ function ScoreChart({ data }) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm mb-8">
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-        📈 ATS Score Progress
+        ATS Score Progress
       </h3>
       <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
-        Your resume scores over time — aim for 80+!
+        Your resume scores over time
       </p>
 
       <div className="flex items-end gap-2 h-40">
@@ -76,7 +71,6 @@ function ScoreChart({ data }) {
   )
 }
 
-/* ── Stats cards ─────────────────────────────────────────────────────── */
 function StatsRow({ resumes, uploads }) {
   const optimized = resumes.filter((r) => r.is_optimized).length
   const avgScore =
@@ -89,26 +83,23 @@ function StatsRow({ resumes, uploads }) {
   const bestScore = resumes.reduce((m, r) => Math.max(m, r.ats_score || 0), 0)
 
   const stats = [
-    { icon: '📄', label: 'Total Resumes', value: resumes.length },
-    { icon: '✨', label: 'Optimized', value: optimized },
-    { icon: '📤', label: 'Uploads', value: uploads.length },
-    { icon: '📊', label: 'Avg Score', value: avgScore ? `${avgScore}%` : '-' },
-    { icon: '🏆', label: 'Best Score', value: bestScore ? `${bestScore}%` : '-' },
+    { label: 'Resumes', value: resumes.length },
+    { label: 'Optimized', value: optimized },
+    { label: 'Uploads', value: uploads.length },
+    { label: 'Avg Score', value: avgScore ? `${avgScore}%` : '-' },
+    { label: 'Best Score', value: bestScore ? `${bestScore}%` : '-' },
   ]
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
       {stats.map((s) => (
-        <motion.div
+        <div
           key={s.label}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-4 text-center border border-gray-100 dark:border-gray-700 shadow-sm"
+          className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-100 dark:border-gray-700"
         >
-          <span className="text-xl">{s.icon}</span>
-          <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">{s.value}</p>
-          <p className="text-[10px] text-gray-500 dark:text-gray-400">{s.label}</p>
-        </motion.div>
+          <p className="text-xl font-bold text-gray-900 dark:text-white">{s.value}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{s.label}</p>
+        </div>
       ))}
     </div>
   )
@@ -302,11 +293,11 @@ export default function DashboardPage() {
             onClick={() => navigate('/analyzer')}
             className="px-4 py-2 rounded-lg text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-all"
           >
-            📤 Upload & Analyze
+            Upload & Analyze
           </button>
           <button
             onClick={() => navigate('/builder')}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
           >
             + New Resume
           </button>
@@ -376,10 +367,10 @@ export default function DashboardPage() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 cursor-pointer"
               >
-                <option value="newest">📅 Newest First</option>
-                <option value="oldest">📅 Oldest First</option>
-                <option value="score-high">📊 Score: High → Low</option>
-                <option value="score-low">📊 Score: Low → High</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="score-high">Score: High → Low</option>
+                <option value="score-low">Score: Low → High</option>
               </select>
 
               {/* Score Filter */}
@@ -388,10 +379,10 @@ export default function DashboardPage() {
                 onChange={(e) => setScoreFilter(e.target.value)}
                 className="px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary-500 cursor-pointer"
               >
-                <option value="all">🎯 All Scores</option>
-                <option value="80+">🟢 80+ Excellent</option>
-                <option value="60-79">🟡 60-79 Good</option>
-                <option value="<60">🔴 Below 60</option>
+                <option value="all">All Scores</option>
+                <option value="80+">80+ Excellent</option>
+                <option value="60-79">60-79 Good</option>
+                <option value="<60">Below 60</option>
               </select>
             </div>
           )}
@@ -403,7 +394,7 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-20"
         >
-          <span className="text-6xl">📄</span>
+          <span className="text-5xl text-gray-300 dark:text-gray-600">—</span>
           <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mt-4">
             No saved resumes yet
           </h2>
@@ -412,7 +403,7 @@ export default function DashboardPage() {
           </p>
           <button
             onClick={() => navigate('/builder')}
-            className="mt-6 px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+            className="mt-6 px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
           >
             Build Resume
           </button>
@@ -421,7 +412,7 @@ export default function DashboardPage() {
         <div>
           {filteredResumes.length === 0 ? (
             <div className="text-center py-12">
-              <span className="text-4xl">🔍</span>
+              <span className="text-lg text-gray-400">No matches</span>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-3">
                 No resumes match your search or filter.
               </p>
@@ -461,13 +452,13 @@ export default function DashboardPage() {
               <div className="space-y-1 text-xs text-gray-500 dark:text-gray-400 mb-4 flex-1">
                 {resume.target_role && (
                   <p>
-                    🎯 <span className="font-medium">{resume.target_role}</span>
+                    Role: <span className="font-medium">{resume.target_role}</span>
                   </p>
                 )}
-                <p>📝 Template: <span className="capitalize">{resume.template}</span></p>
+                <p>Template: <span className="capitalize">{resume.template}</span></p>
                 {resume.ats_score != null && (
                   <p>
-                    📊 ATS Score:{' '}
+                    ATS Score:{' '}
                     <span
                       className={`font-bold ${
                         resume.ats_score >= 80
@@ -481,7 +472,7 @@ export default function DashboardPage() {
                     </span>
                   </p>
                 )}
-                <p>🕒 {new Date(resume.updated_at).toLocaleDateString()}</p>
+                <p>{new Date(resume.updated_at).toLocaleDateString()}</p>
               </div>
 
               {/* Actions */}
@@ -490,7 +481,7 @@ export default function DashboardPage() {
                   onClick={() => handleLoad(resume.id)}
                   className="flex-1 px-3 py-2 rounded-lg text-xs font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
                 >
-                  📂 Open
+                  Open
                 </button>
                 <button
                   onClick={() => resume.share_token ? handleUnshare(resume.id) : handleShare(resume.id)}
@@ -502,14 +493,14 @@ export default function DashboardPage() {
                   }`}
                   title={resume.share_token ? 'Click to revoke share link' : 'Create share link'}
                 >
-                  {sharing === resume.id ? '...' : resume.share_token ? '🔗' : '📤'}
+                  {sharing === resume.id ? '...' : resume.share_token ? 'Shared' : 'Share'}
                 </button>
                 <button
                   onClick={() => setConfirmDelete(resume.id)}
                   disabled={deleting === resume.id}
                   className="px-3 py-2 rounded-lg text-xs font-medium text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors disabled:opacity-50"
                 >
-                  {deleting === resume.id ? '...' : '🗑️'}
+                  {deleting === resume.id ? '...' : 'Delete'}
                 </button>
               </div>
             </motion.div>

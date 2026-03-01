@@ -1,6 +1,3 @@
-/**
- * AdminPage — Admin dashboard with stats, user management, and platform oversight.
- */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -85,10 +82,10 @@ export default function AdminPage() {
   if (!user?.is_admin) return null
 
   const tabs = [
-    { id: 'overview', label: '📊 Overview', icon: '📊' },
-    { id: 'users', label: '👥 Users', icon: '👥' },
-    { id: 'resumes', label: '📄 Resumes', icon: '📄' },
-    { id: 'uploads', label: '📤 Uploads', icon: '📤' },
+    { id: 'overview', label: 'Overview' },
+    { id: 'users', label: 'Users' },
+    { id: 'resumes', label: 'Resumes' },
+    { id: 'uploads', label: 'Uploads' },
   ]
 
   return (
@@ -131,22 +128,21 @@ export default function AdminPage() {
               {/* Stats Cards */}
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
                 {[
-                  { label: 'Total Users', value: stats.total_users, icon: '👥', color: 'blue' },
-                  { label: 'Total Resumes', value: stats.total_resumes, icon: '📄', color: 'green' },
-                  { label: 'Optimized', value: stats.optimized_resumes, icon: '✨', color: 'purple' },
-                  { label: 'Uploads', value: stats.total_uploads, icon: '📤', color: 'orange' },
-                  { label: 'Avg ATS Score', value: `${stats.avg_ats_score}%`, icon: '📊', color: 'teal' },
-                  { label: 'New This Week', value: stats.recent_signups, icon: '🆕', color: 'pink' },
+                  { label: 'Total Users', value: stats.total_users, color: 'blue' },
+                  { label: 'Total Resumes', value: stats.total_resumes, color: 'green' },
+                  { label: 'Optimized', value: stats.optimized_resumes, color: 'purple' },
+                  { label: 'Uploads', value: stats.total_uploads, color: 'orange' },
+                  { label: 'Avg ATS Score', value: `${stats.avg_ats_score}%`, color: 'teal' },
+                  { label: 'New This Week', value: stats.recent_signups, color: 'pink' },
                 ].map((card) => (
                   <div
                     key={card.label}
-                    className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm"
+                    className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700"
                   >
-                    <span className="text-2xl">{card.icon}</span>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white mt-2">
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
                       {card.value}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{card.label}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{card.label}</p>
                   </div>
                 ))}
               </div>
@@ -224,13 +220,13 @@ export default function AdminPage() {
                                 className="px-2 py-1 rounded-lg text-xs font-medium bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 hover:bg-purple-100 transition-colors"
                                 title={u.is_admin ? 'Revoke admin' : 'Make admin'}
                               >
-                                {u.is_admin ? '👤' : '🛡️'}
+                                {u.is_admin ? 'Demote' : 'Promote'}
                               </button>
                               <button
                                 onClick={() => setConfirmDelete({ userId: u.id, username: u.username })}
                                 className="px-2 py-1 rounded-lg text-xs font-medium bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 transition-colors"
                               >
-                                🗑️
+                                Delete
                               </button>
                             </div>
                           </td>
@@ -265,11 +261,11 @@ export default function AdminPage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-gray-500">👤 {r.username}</p>
-                      {r.target_role && <p className="text-xs text-gray-500">🎯 {r.target_role}</p>}
+                      <p className="text-xs text-gray-500">User: {r.username}</p>
+                      {r.target_role && <p className="text-xs text-gray-500">Role: {r.target_role}</p>}
                       {r.ats_score != null && (
                         <p className="text-xs mt-1">
-                          📊 ATS:{' '}
+                          ATS:{' '}
                           <span
                             className={`font-bold ${
                               r.ats_score >= 80 ? 'text-green-600' : r.ats_score >= 50 ? 'text-yellow-600' : 'text-red-600'

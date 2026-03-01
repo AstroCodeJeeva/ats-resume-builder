@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext'
 import AuthModal from './AuthModal'
 
 /**
- * Top navigation bar with responsive hamburger menu, dark-mode toggle, and auth controls.
+ * Top navigation bar.
  */
 export default function Navbar({ dark, setDark }) {
   const { pathname } = useLocation()
@@ -20,7 +20,7 @@ export default function Navbar({ dark, setDark }) {
     { path: '/cover-letter', label: 'Cover Letter' },
     { path: '/interview-prep', label: 'Interview Prep' },
     ...(user ? [{ path: '/dashboard', label: 'My Resumes' }] : []),
-    ...(user?.is_admin ? [{ path: '/admin', label: '🛡️ Admin' }] : []),
+    ...(user?.is_admin ? [{ path: '/admin', label: 'Admin' }] : []),
   ]
 
   const closeMobile = () => setMobileOpen(false)
@@ -62,7 +62,7 @@ export default function Navbar({ dark, setDark }) {
                   to="/profile"
                   className="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
-                  👤 {user.username}
+                  {user.username}
                 </Link>
                 <button
                   onClick={logout}
@@ -74,7 +74,7 @@ export default function Navbar({ dark, setDark }) {
             ) : (
               <button
                 onClick={() => setShowAuth(true)}
-                className="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600 hover:shadow-lg transition-all"
+                className="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
               >
                 Sign In
               </button>
@@ -169,7 +169,7 @@ export default function Navbar({ dark, setDark }) {
                         onClick={closeMobile}
                         className="block px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       >
-                        👤 {user.username}
+                        {user.username}
                       </Link>
                       <button
                         onClick={() => { logout(); closeMobile() }}
@@ -181,7 +181,7 @@ export default function Navbar({ dark, setDark }) {
                   ) : (
                     <button
                       onClick={() => { setShowAuth(true); closeMobile() }}
-                      className="w-full px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-indigo-600"
+                      className="w-full px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
                     >
                       Sign In
                     </button>
