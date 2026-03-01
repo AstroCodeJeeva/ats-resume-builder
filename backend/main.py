@@ -71,7 +71,9 @@ async def shutdown_db():
     await close_db()
 
 # ── CORS ─────────────────────────────────────────────────────────────
-origins = os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",")
+_raw = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+origins = [o.strip().rstrip("/") for o in _raw.split(",") if o.strip()]
+print(f"🌐 CORS origins: {origins}")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
