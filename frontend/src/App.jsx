@@ -42,7 +42,7 @@ export default function App() {
     <ErrorBoundary>
       <AuthProvider>
         <div className={dark ? 'dark' : ''}>
-          <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+          <div className="min-h-screen flex flex-col bg-surface-50 dark:bg-surface-950 transition-colors duration-300">
             {/* Skip-to-main-content link for keyboard users */}
             <a
               href="#main-content"
@@ -73,7 +73,7 @@ export default function App() {
             <Toaster
               position="bottom-right"
               toastOptions={{
-                className: 'dark:bg-gray-800 dark:text-white',
+                className: '!bg-white dark:!bg-surface-800 !text-gray-900 dark:!text-gray-100 !shadow-card !border !border-gray-100 dark:!border-gray-700/60 !rounded-xl',
                 duration: 4000,
               }}
             />
