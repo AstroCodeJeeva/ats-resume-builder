@@ -102,7 +102,7 @@ function HeroIllustration() {
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         className="relative"
       >
-        <svg viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full drop-shadow-2xl">
+        <svg viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full drop-shadow-2xl" aria-hidden="true">
           {/* Paper background */}
           <rect x="30" y="20" width="240" height="340" rx="12" className="fill-white dark:fill-gray-800" filter="url(#shadow)" />
           <rect x="30" y="20" width="240" height="340" rx="12" className="stroke-gray-200 dark:stroke-gray-700" strokeWidth="1" />
@@ -228,7 +228,7 @@ export default function LandingPage() {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex items-center gap-6 mt-10 pt-8 border-t border-gray-200/60 dark:border-gray-700/40">
+              <div className="flex items-center gap-6 mt-10 pt-8 border-t border-gray-200/60 dark:border-gray-700/40 flex-wrap">
                 {stats.map((s) => (
                   <div key={s.label}>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{s.value}</p>

@@ -16,6 +16,9 @@ export default function ATSScoreCard({ score }) {
   const overallColor =
     score.overall >= 80 ? 'text-green-500' : score.overall >= 60 ? 'text-yellow-500' : 'text-red-500'
 
+  const qualityLabel =
+    score.overall >= 80 ? 'Excellent' : score.overall >= 60 ? 'Good' : score.overall >= 40 ? 'Fair' : 'Needs Work'
+
   return (
     <div className="card p-6 space-y-5">
       {/* Overall score */}
@@ -30,6 +33,7 @@ export default function ATSScoreCard({ score }) {
           {score.overall}
         </motion.span>
         <span className="text-2xl text-gray-400 dark:text-gray-500">/100</span>
+        <p className={`text-xs font-medium mt-1 ${overallColor}`}>{qualityLabel}</p>
       </div>
 
       {/* Sub-scores */}

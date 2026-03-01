@@ -183,14 +183,14 @@ export default function ResultsPage() {
           <button
             onClick={handleDownloadDocx}
             disabled={downloadingDocx}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition-all disabled:opacity-50"
           >
             {downloadingDocx ? '...' : 'Download DOCX'}
           </button>
           <button
             onClick={handleATSCheck}
             disabled={checkingATS}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 transition-colors disabled:opacity-50"
+            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] transition-all disabled:opacity-50"
           >
             {checkingATS ? 'Checking...' : 'Check PDF ATS'}
           </button>
@@ -198,7 +198,7 @@ export default function ResultsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 transition-colors disabled:opacity-50"
+              className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Resume'}
             </button>

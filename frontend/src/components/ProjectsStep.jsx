@@ -40,7 +40,7 @@ export default function ProjectsStep({ data, onChange }) {
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Project #{idx + 1}
               </span>
-              <button type="button" onClick={() => removeProject(idx)} className="text-xs text-red-500 hover:text-red-700">
+              <button type="button" onClick={() => removeProject(idx)} className="text-xs text-red-500 hover:text-red-700 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 rounded">
                 Remove
               </button>
             </div>

@@ -62,7 +62,7 @@ export default function SkillsStep({ data, onChange }) {
               <button
                 type="button"
                 onClick={() => removeSkill(idx)}
-                className="ml-1 text-primary-400 hover:text-red-500 transition-colors"
+                className="ml-1 text-primary-400 hover:text-red-500 transition-colors focus-visible:ring-1 focus-visible:ring-red-400 rounded-full"
               >
                 ×
               </button>

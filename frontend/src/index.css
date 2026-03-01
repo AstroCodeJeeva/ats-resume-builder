@@ -71,29 +71,6 @@
     @apply text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight;
   }
 
-  /* Mesh background */
-  .bg-mesh {
-    @apply bg-mesh-light dark:bg-mesh-dark;
-  }
-
-  /* Subtle animated gradient border */
-  .gradient-border {
-    position: relative;
-  }
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3), rgba(59,130,246,0.3));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
   /* Dot grid pattern */
   .dot-pattern {
     background-image: radial-gradient(circle, rgba(99,102,241,0.1) 1px, transparent 1px);
@@ -101,5 +78,14 @@
   }
   .dark .dot-pattern {
     background-image: radial-gradient(circle, rgba(99,102,241,0.15) 1px, transparent 1px);
+  }
+}
+
+/* Performance: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

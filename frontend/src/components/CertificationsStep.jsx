@@ -30,7 +30,7 @@ export default function CertificationsStep({ data, onChange }) {
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Cert #{idx + 1}</span>
-              <button type="button" onClick={() => removeEntry(idx)} className="text-xs text-red-500 hover:text-red-700">Remove</button>
+              <button type="button" onClick={() => removeEntry(idx)} className="text-xs text-red-500 hover:text-red-700 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 rounded">Remove</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <input placeholder="Certification Title" value={cert.title} onChange={(e) => updateField(idx, 'title', e.target.value)} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-sm text-gray-900 dark:text-gray-100" />

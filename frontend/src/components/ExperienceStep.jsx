@@ -61,7 +61,7 @@ export default function ExperienceStep({ data, onChange }) {
               <button
                 type="button"
                 onClick={() => removeEntry(idx)}
-                className="text-xs text-red-500 hover:text-red-700 transition-colors"
+                className="text-xs text-red-500 hover:text-red-700 transition-colors focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 rounded"
               >
                 Remove
               </button>

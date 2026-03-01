@@ -25,7 +25,7 @@ export default function SuggestionsPanel({ suggestions }) {
     <div className="card overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+        className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
       >
         <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
           Suggestions ({suggestions.length})

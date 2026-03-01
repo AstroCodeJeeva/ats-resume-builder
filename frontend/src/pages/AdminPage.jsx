@@ -197,8 +197,8 @@ export default function AdminPage() {
                           <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
                             {u.email}
                           </td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-500">{u.resume_count}</td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-500">{u.upload_count}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-500 dark:text-gray-400">{u.resume_count}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-500 dark:text-gray-400">{u.upload_count}</td>
                           <td className="px-4 py-3 text-center">
                             <span
                               className={`px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -210,7 +210,7 @@ export default function AdminPage() {
                               {u.is_admin ? 'Admin' : 'User'}
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-500">
+                          <td className="px-4 py-3 text-sm text-center text-gray-500 dark:text-gray-400">
                             {u.created_at ? new Date(u.created_at).toLocaleDateString() : '-'}
                           </td>
                           <td className="px-4 py-3 text-right">
@@ -293,11 +293,11 @@ export default function AdminPage() {
                   <table className="w-full">
                     <thead className="bg-gray-50 dark:bg-gray-900">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">File</th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">User</th>
-                        <th className="px-4 py-3 text-center text-xs font-medium text-gray-500">ATS Score</th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500">Top Jobs</th>
-                        <th className="px-4 py-3 text-center text-xs font-medium text-gray-500">Date</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">File</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">User</th>
+                        <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400">ATS Score</th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">Top Jobs</th>
+                        <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400">Date</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">

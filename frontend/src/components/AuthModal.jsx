@@ -85,7 +85,7 @@ export default function AuthModal({ isOpen, onClose }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative border border-gray-100 dark:border-gray-700/60"
+            className="card shadow-elevated w-full max-w-md mx-4 p-8 relative"
           >
             {/* Header */}
             <div className="text-center mb-6">

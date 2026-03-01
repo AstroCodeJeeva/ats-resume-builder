@@ -51,6 +51,11 @@ function ScoreChart({ data }) {
                 transition={{ delay: i * 0.08, duration: 0.4, ease: 'easeOut' }}
                 className={`w-full rounded-t-lg bg-gradient-to-t ${color} min-h-[4px]`}
                 title={`${item.label}: ${item.score}%`}
+                aria-label={`${item.label}: ${item.score}%`}
+                role="meter"
+                aria-valuenow={item.score}
+                aria-valuemin={0}
+                aria-valuemax={100}
               />
               <span className="text-[10px] text-gray-400 dark:text-gray-500 truncate max-w-full text-center leading-tight">
                 {item.label}
@@ -70,7 +75,7 @@ function ScoreChart({ data }) {
         ].map((l) => (
           <div key={l.label} className="flex items-center gap-1">
             <div className={`w-2.5 h-2.5 rounded-full ${l.color}`} />
-            <span className="text-[10px] text-gray-500">{l.label}</span>
+            <span className="text-[10px] text-gray-500 dark:text-gray-400">{l.label}</span>
           </div>
         ))}
       </div>
@@ -98,7 +103,7 @@ function StatsRow({ resumes, uploads }) {
   ]
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
       {stats.map((s) => (
         <div
           key={s.label}
@@ -319,7 +324,7 @@ export default function DashboardPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 animate-pulse">
+              <div key={i} className="card animate-pulse p-4">
                 <div className="h-6 w-6 bg-gray-200 dark:bg-gray-700 rounded mx-auto mb-2" />
                 <div className="h-5 w-12 bg-gray-200 dark:bg-gray-700 rounded mx-auto mb-1" />
                 <div className="h-3 w-16 bg-gray-100 dark:bg-gray-700 rounded mx-auto" />
@@ -328,7 +333,7 @@ export default function DashboardPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 animate-pulse">
+              <div key={i} className="card animate-pulse p-5">
                 <div className="flex justify-between mb-3">
                   <div className="h-5 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
                   <div className="h-5 w-16 bg-gray-100 dark:bg-gray-700 rounded-full" />

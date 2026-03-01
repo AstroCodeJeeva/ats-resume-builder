@@ -133,6 +133,9 @@ export default function AnalyzerPage() {
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('resume-upload').click() } }}
             className={`relative rounded-2xl border-2 border-dashed p-10 text-center transition-all cursor-pointer group ${
               dragActive
                 ? 'border-primary-500 bg-primary-50/80 dark:bg-primary-900/20 shadow-glow'
