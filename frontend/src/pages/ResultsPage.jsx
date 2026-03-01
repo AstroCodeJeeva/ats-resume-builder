@@ -34,12 +34,14 @@ export default function ResultsPage() {
   useEffect(() => {
     const raw = sessionStorage.getItem('ats_result')
     if (!raw) {
+      toast.error('No results found. Please optimise a resume first.')
       navigate('/builder')
       return
     }
     try {
       setResult(JSON.parse(raw))
     } catch {
+      toast.error('Failed to load results. Please try again.')
       navigate('/builder')
     }
   }, [navigate])

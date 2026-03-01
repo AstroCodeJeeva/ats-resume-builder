@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import datetime, timezone
 from bson import ObjectId
 
 
@@ -10,7 +10,7 @@ def user_doc(username: str, email: str, hashed_password: str, is_admin: bool = F
         "email": email,
         "hashed_password": hashed_password,
         "is_admin": is_admin,
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.now(timezone.utc),
     }
 
 
@@ -37,7 +37,7 @@ def resume_doc(
     is_optimized: bool = False,
 ) -> dict:
     """Create a new saved resume document."""
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     return {
         "user_id": user_id,
         "title": title,

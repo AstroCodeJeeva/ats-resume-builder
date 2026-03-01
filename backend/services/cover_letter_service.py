@@ -1,24 +1,7 @@
 
 import json
-import os
-import re
 
-from groq import Groq
-
-_client: Groq | None = None
-
-
-def _get_client() -> Groq:
-    global _client
-    if _client is None:
-        api_key = os.getenv("GROQ_API_KEY", "")
-        if not api_key:
-            raise RuntimeError("GROQ_API_KEY is not set in environment variables.")
-        _client = Groq(api_key=api_key)
-    return _client
-
-
-MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+from services.groq_client import MODEL, extract_json, async_chat_completion
 
 _SYSTEM_PROMPT = """You are an expert career coach specialising in cover letters.
 Write compelling, ATS-friendly cover letters that:
@@ -59,16 +42,6 @@ Return a JSON object: {{ "cover_letter": "..." }}
 The cover letter should be 250-350 words, well-structured with paragraphs separated by \\n\\n."""
 
 
-def _extract_json(text: str) -> dict:
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip())
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
-
-
 async def generate_cover_letter(
     resume_data: dict,
     job_description: str = "",
@@ -77,9 +50,7 @@ async def generate_cover_letter(
     tone: str = "professional",
 ) -> str:
     """Generate a cover letter using Groq AI. Returns the letter text."""
-    client = _get_client()
-
-    response = client.chat.completions.create(
+    raw = await async_chat_completion(
         model=MODEL,
         messages=[
             {"role": "system", "content": _SYSTEM_PROMPT},
@@ -92,6 +63,5 @@ async def generate_cover_letter(
         response_format={"type": "json_object"},
     )
 
-    raw = response.choices[0].message.content or "{}"
-    data = _extract_json(raw)
+    data = extract_json(raw)
     return data.get("cover_letter", "")

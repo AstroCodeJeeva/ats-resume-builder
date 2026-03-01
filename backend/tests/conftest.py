@@ -32,13 +32,13 @@ def _clean_test_db():
         db[col].delete_many({})
     # Re-seed default admin
     from services.auth_service import hash_password
-    from datetime import datetime
+    from datetime import datetime, timezone
     db.users.insert_one({
         "username": "admin",
         "email": "admin@atsbuilder.com",
         "hashed_password": hash_password("Admin@123"),
         "is_admin": True,
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.now(timezone.utc),
     })
     # Ensure indexes exist
     db.users.create_index("email", unique=True)

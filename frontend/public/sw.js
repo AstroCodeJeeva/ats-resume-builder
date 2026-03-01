@@ -4,7 +4,8 @@
  * Provides offline caching for the app shell and static assets.
  */
 
-const CACHE_NAME = 'atsbuilder-v1'
+const CACHE_VERSION = /* injected at build */ self.__SW_CACHE_VERSION || 'dev'
+const CACHE_NAME = `atsbuilder-${CACHE_VERSION}`
 const STATIC_ASSETS = [
   '/',
   '/index.html',

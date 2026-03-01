@@ -1,25 +1,8 @@
 
 import json
-import os
-import re
 from typing import List
 
-from groq import Groq
-
-_client: Groq | None = None
-
-
-def _get_client() -> Groq:
-    global _client
-    if _client is None:
-        api_key = os.getenv("GROQ_API_KEY", "")
-        if not api_key:
-            raise RuntimeError("GROQ_API_KEY is not set in environment variables.")
-        _client = Groq(api_key=api_key)
-    return _client
-
-
-MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+from services.groq_client import MODEL, extract_json, async_chat_completion
 
 _SYSTEM_PROMPT = """You are an expert interview coach and hiring manager simulator.
 Given a candidate's resume and (optionally) a job description, generate realistic interview questions
@@ -80,16 +63,6 @@ Return a JSON object: {{ "questions": [ ... ] }}
 Each question object must have: question, category, difficulty, why_asked, suggested_answer, tips."""
 
 
-def _extract_json(text: str) -> dict:
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip())
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
-
-
 async def generate_interview_questions(
     resume_data: dict,
     job_description: str = "",
@@ -99,9 +72,7 @@ async def generate_interview_questions(
     focus: str = "balanced",
 ) -> List[dict]:
     """Generate interview questions and answers using Groq AI. Returns list of Q&A objects."""
-    client = _get_client()
-
-    response = client.chat.completions.create(
+    raw = await async_chat_completion(
         model=MODEL,
         messages=[
             {"role": "system", "content": _SYSTEM_PROMPT},
@@ -114,6 +85,5 @@ async def generate_interview_questions(
         response_format={"type": "json_object"},
     )
 
-    raw = response.choices[0].message.content or "{}"
-    data = _extract_json(raw)
+    data = extract_json(raw)
     return data.get("questions", [])

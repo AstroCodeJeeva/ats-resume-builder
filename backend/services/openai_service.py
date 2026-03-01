@@ -1,29 +1,8 @@
 
-import json
-import os
-import re
 from typing import Tuple, List
 
-from groq import Groq
-
 from models import ResumeInput, Suggestion
-
-
-_client: Groq | None = None
-
-
-def _get_client() -> Groq:
-    """Lazy-init the Groq client so env vars are loaded first."""
-    global _client
-    if _client is None:
-        api_key = os.getenv("GROQ_API_KEY", "")
-        if not api_key:
-            raise RuntimeError("GROQ_API_KEY is not set in environment variables.")
-        _client = Groq(api_key=api_key)
-    return _client
-
-
-MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+from services.groq_client import MODEL, extract_json, async_chat_completion
 
 
 _SYSTEM_PROMPT = """You are an expert career coach and ATS resume optimiser.
@@ -71,17 +50,6 @@ Rules:
 - Return ONLY the JSON. No markdown fences, no explanation."""
 
 
-def _extract_json(text: str) -> dict:
-    """Extract JSON from response text, stripping markdown fences if present."""
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip())
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
-
-
 async def generate_optimized_resume(
     resume: ResumeInput,
 ) -> Tuple[ResumeInput, str, List[Suggestion]]:
@@ -89,9 +57,7 @@ async def generate_optimized_resume(
     Sends the resume to Groq (Llama 3.3 70B) and returns:
       (optimized_resume, professional_summary, suggestions)
     """
-    client = _get_client()
-
-    response = client.chat.completions.create(
+    raw = await async_chat_completion(
         model=MODEL,
         messages=[
             {"role": "system", "content": _SYSTEM_PROMPT},
@@ -102,8 +68,7 @@ async def generate_optimized_resume(
         response_format={"type": "json_object"},
     )
 
-    raw = response.choices[0].message.content or "{}"
-    data = _extract_json(raw)
+    data = extract_json(raw)
 
     optimized = ResumeInput.model_validate(data.get("optimized_resume", resume.model_dump()))
     summary = data.get("professional_summary", "")

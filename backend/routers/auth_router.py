@@ -183,7 +183,8 @@ def forgot_password(body: ForgotPasswordRequest, request: Request):
     db = get_sync_db()
     user = db.users.find_one({"email": body.email})
     if not user:
-        raise HTTPException(status_code=404, detail="Email not found")
+        # Generic error to prevent email enumeration
+        raise HTTPException(status_code=400, detail="Invalid request")
 
     stored_answer = user.get("security_answer", "")
     if not stored_answer:

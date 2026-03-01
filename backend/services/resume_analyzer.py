@@ -1,37 +1,7 @@
 
-import json
-import os
-import re
 from typing import List
 
-from groq import Groq
-
-
-_client: Groq | None = None
-
-
-def _get_client() -> Groq:
-    global _client
-    if _client is None:
-        api_key = os.getenv("GROQ_API_KEY", "")
-        if not api_key:
-            raise RuntimeError("GROQ_API_KEY is not set")
-        _client = Groq(api_key=api_key)
-    return _client
-
-
-MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-
-
-def _extract_json(text: str) -> dict:
-    """Extract JSON from response, stripping markdown fences if present."""
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-    cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip())
-    cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
+from services.groq_client import MODEL, extract_json, async_chat_completion
 
 
 _ANALYZE_SYSTEM = """You are an expert ATS (Applicant Tracking System) resume analyst.
@@ -44,8 +14,6 @@ async def analyze_resume_text(resume_text: str, job_description: str = "") -> di
     Analyze resume text with AI and return structured analysis.
     Returns dict with: ats_score, section_scores, strengths, weaknesses, suggestions, keyword_analysis
     """
-    client = _get_client()
-
     jd_context = f"\n\n=== TARGET JOB DESCRIPTION ===\n{job_description}" if job_description else ""
 
     user_prompt = f"""Analyze this resume for ATS compatibility and provide a detailed assessment.
@@ -93,7 +61,7 @@ Return a JSON object with EXACTLY these keys:
 Be thorough but fair. Provide at least 3 strengths, 3 weaknesses, and 5 suggestions.
 Return ONLY the JSON object."""
 
-    response = client.chat.completions.create(
+    raw = await async_chat_completion(
         model=MODEL,
         messages=[
             {"role": "system", "content": _ANALYZE_SYSTEM},
@@ -104,8 +72,7 @@ Return ONLY the JSON object."""
         response_format={"type": "json_object"},
     )
 
-    raw = response.choices[0].message.content or "{}"
-    return _extract_json(raw)
+    return extract_json(raw)
 
 
 _PREDICT_SYSTEM = """You are an expert career advisor and job market analyst.
@@ -118,8 +85,6 @@ async def predict_jobs_from_text(resume_text: str) -> List[dict]:
     Predict matching job titles based on resume content.
     Returns list of dicts with: title, match_score, reason, salary_range, demand_level
     """
-    client = _get_client()
-
     user_prompt = f"""Based on this resume, predict the top 8 most suitable job roles.
 
 === RESUME TEXT ===
@@ -150,7 +115,7 @@ Consider the candidate's:
 Rank jobs by match_score (highest first). Use realistic 2025 salary ranges (USD).
 Return ONLY the JSON object."""
 
-    response = client.chat.completions.create(
+    raw = await async_chat_completion(
         model=MODEL,
         messages=[
             {"role": "system", "content": _PREDICT_SYSTEM},
@@ -161,8 +126,7 @@ Return ONLY the JSON object."""
         response_format={"type": "json_object"},
     )
 
-    raw = response.choices[0].message.content or "{}"
-    data = _extract_json(raw)
+    data = extract_json(raw)
     jobs = data.get("jobs", [])
 
     # Sort by match_score descending
