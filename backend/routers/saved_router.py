@@ -1,15 +1,3 @@
-"""
-ATS Resume Builder — Saved Resume Router
-==========================================
-POST   /api/saved/save          →  Save a resume (new or update)
-GET    /api/saved/list          →  List all saved resumes for current user
-GET    /api/saved/{id}          →  Get a single saved resume
-DELETE /api/saved/{id}          →  Delete a saved resume
-PUT    /api/saved/{id}          →  Update a saved resume
-POST   /api/saved/{id}/share    →  Generate a public share link
-DELETE /api/saved/{id}/share    →  Revoke a public share link
-GET    /api/saved/public/{token}→  View a shared resume (no auth required)
-"""
 
 import uuid
 from typing import Optional
@@ -26,8 +14,6 @@ from services.auth_service import get_current_user
 router = APIRouter()
 
 
-# ── Request / Response schemas ───────────────────────────────────────
-
 class SaveResumeRequest(BaseModel):
     id: Optional[str] = None  # MongoDB ObjectId string; if provided, update existing
     title: str = Field("Untitled Resume", max_length=200)
@@ -39,8 +25,6 @@ class SaveResumeRequest(BaseModel):
     target_role: str = ""
     is_optimized: bool = False
 
-
-# ── Endpoints ────────────────────────────────────────────────────────
 
 @router.post("/save")
 def save_resume(
@@ -166,8 +150,6 @@ def delete_resume(resume_id: str, current_user: dict = Depends(get_current_user)
         raise HTTPException(status_code=404, detail="Resume not found")
     return {"message": "Resume deleted successfully"}
 
-
-# ── Public sharing ───────────────────────────────────────────────────
 
 @router.post("/{resume_id}/share")
 def share_resume(resume_id: str, current_user: dict = Depends(get_current_user)):

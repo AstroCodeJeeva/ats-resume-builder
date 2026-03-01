@@ -1,9 +1,3 @@
-"""
-ATS Resume Builder — Interview Prep Service
-=============================================
-Uses Groq (Llama 3.3 70B) to generate tailored interview questions
-and suggested answers based on resume data + job description.
-"""
 
 import json
 import os

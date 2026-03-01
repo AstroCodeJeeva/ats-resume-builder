@@ -1,10 +1,3 @@
-"""
-ATS Resume Builder — AI Resume Analyzer & Job Predictor
-=========================================================
-Uses Groq (Llama 3.3 70B) to:
-  1. Analyze uploaded resume text → score, strengths, weaknesses, suggestions
-  2. Predict matching job titles/roles based on resume content
-"""
 
 import json
 import os
@@ -13,7 +6,7 @@ from typing import List
 
 from groq import Groq
 
-# ── Client ───────────────────────────────────────────────────────────
+
 _client: Groq | None = None
 
 
@@ -40,8 +33,6 @@ def _extract_json(text: str) -> dict:
     cleaned = re.sub(r"\s*```$", "", cleaned)
     return json.loads(cleaned)
 
-
-# ── Resume Analysis ──────────────────────────────────────────────────
 
 _ANALYZE_SYSTEM = """You are an expert ATS (Applicant Tracking System) resume analyst.
 Analyze the given resume text and provide a detailed ATS compatibility assessment.
@@ -116,8 +107,6 @@ Return ONLY the JSON object."""
     raw = response.choices[0].message.content or "{}"
     return _extract_json(raw)
 
-
-# ── Job Prediction ───────────────────────────────────────────────────
 
 _PREDICT_SYSTEM = """You are an expert career advisor and job market analyst.
 Based on a candidate's resume, predict the most suitable job roles they should apply for.

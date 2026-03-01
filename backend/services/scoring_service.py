@@ -1,22 +1,9 @@
-"""
-ATS Resume Builder — ATS Scoring Engine
-========================================
-Computes an ATS compatibility score based on:
-  • Keyword match percentage (against job description)
-  • Skills alignment
-  • Experience relevance
-  • Formatting compliance
-
-All scores are 0–100. The overall score is a weighted average.
-"""
 
 import re
 from typing import List, Set
 
 from models import ResumeInput, ATSScore
 
-
-# ── Helpers ──────────────────────────────────────────────────────────
 
 def _tokenize(text: str) -> Set[str]:
     """Lowercase tokenisation — removes non-alpha chars."""
@@ -45,8 +32,6 @@ def _extract_resume_text(resume: ResumeInput) -> str:
     parts.append(resume.target_role)
     return " ".join(parts)
 
-
-# ── Scoring functions ────────────────────────────────────────────────
 
 def _keyword_match_score(resume_tokens: Set[str], jd_tokens: Set[str]) -> int:
     """Percentage of job-description keywords found in the resume."""
@@ -129,8 +114,6 @@ def _formatting_compliance_score(resume: ResumeInput) -> int:
 
     return min(100, score)
 
-
-# ── Public API ───────────────────────────────────────────────────────
 
 def compute_ats_score(resume: ResumeInput) -> ATSScore:
     """Compute all ATS sub-scores and the weighted overall score."""

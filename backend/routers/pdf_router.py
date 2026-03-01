@@ -1,11 +1,3 @@
-"""
-ATS Resume Builder — PDF & DOCX Router
-========================================
-POST /api/pdf/generate      →  Returns a PDF file download
-POST /api/pdf/generate-docx →  Returns a DOCX file download
-POST /api/pdf/preview       →  Returns rendered HTML (for live preview)
-POST /api/pdf/ats-check     →  Checks rendered HTML/PDF for ATS compliance
-"""
 
 import re
 from fastapi import APIRouter, HTTPException
@@ -70,8 +62,6 @@ async def preview_html(payload: PDFRequest):
         raise HTTPException(status_code=500, detail=f"Preview generation failed: {exc}")
     return HTMLResponse(content=html)
 
-
-# ── PDF ATS Compliance Checker ───────────────────────────────────────
 
 def _check_no_tables(html: str) -> PDFATSCheckItem:
     tables = re.findall(r"<table[\s>]", html, re.IGNORECASE)

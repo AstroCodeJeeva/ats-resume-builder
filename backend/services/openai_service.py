@@ -1,14 +1,3 @@
-"""
-ATS Resume Builder — AI Service (Groq + Llama 3.3 70B)
-=======================================================
-Uses the Groq API for blazing-fast inference on Llama 3.3 70B.
-Free tier: 30 RPM / 6,000 RPD / 20,000 tokens per minute.
-
-Provides:
-  - ATS-optimised resume generation
-  - Professional summary generation
-  - Bullet-point rewriting with quantifiable achievements
-"""
 
 import json
 import os
@@ -19,7 +8,7 @@ from groq import Groq
 
 from models import ResumeInput, Suggestion
 
-# ── Client initialisation ────────────────────────────────────────────
+
 _client: Groq | None = None
 
 
@@ -36,8 +25,6 @@ def _get_client() -> Groq:
 
 MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
-
-# ── Internal prompt builders ─────────────────────────────────────────
 
 _SYSTEM_PROMPT = """You are an expert career coach and ATS resume optimiser.
 Your goals:
@@ -94,8 +81,6 @@ def _extract_json(text: str) -> dict:
     cleaned = re.sub(r"\s*```$", "", cleaned)
     return json.loads(cleaned)
 
-
-# ── Public API ───────────────────────────────────────────────────────
 
 async def generate_optimized_resume(
     resume: ResumeInput,

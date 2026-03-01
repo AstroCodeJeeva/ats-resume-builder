@@ -1,9 +1,3 @@
-"""
-ATS Resume Builder — Authentication Service
-=============================================
-JWT token generation/validation and password hashing.
-Uses MongoDB via sync PyMongo client.
-"""
 
 import os
 from datetime import datetime, timedelta
@@ -17,7 +11,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from database import get_sync_db
 
-# ── JWT configuration ────────────────────────────────────────────────
+
 SECRET_KEY = os.getenv("JWT_SECRET", "ats-builder-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24

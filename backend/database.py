@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — MongoDB Configuration
-============================================
-Motor async client + PyMongo sync client for MongoDB.
-"""
 
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -11,11 +6,11 @@ from pymongo import MongoClient
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "ats_resume_builder")
 
-# ── Async client (used by async endpoints) ───────────────────────────
+
 _async_client: AsyncIOMotorClient | None = None
 _async_db = None
 
-# ── Sync client (used by sync endpoints / dependencies) ─────────────
+
 _sync_client: MongoClient | None = None
 _sync_db = None
 

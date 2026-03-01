@@ -1,14 +1,3 @@
-"""
-ATS Resume Builder — Auth Router
-==================================
-POST /api/auth/register            →  Create a new user account
-POST /api/auth/login               →  Login and get JWT token
-GET  /api/auth/me                  →  Get current user profile
-PUT  /api/auth/profile             →  Update username/email
-PUT  /api/auth/change-password     →  Change password
-POST /api/auth/forgot-password     →  Reset password via security question
-PUT  /api/auth/security-question   →  Set security question (logged in)
-"""
 
 from typing import Optional
 from pydantic import BaseModel, Field
@@ -26,8 +15,6 @@ from services.auth_service import (
 
 router = APIRouter()
 
-
-# ── Request / Response schemas ───────────────────────────────────────
 
 class RegisterRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
@@ -65,8 +52,6 @@ class ForgotPasswordRequest(BaseModel):
     answer: str = Field(..., min_length=1)
     new_password: str = Field(..., min_length=6, max_length=100)
 
-
-# ── Endpoints ────────────────────────────────────────────────────────
 
 @router.post("/register", response_model=AuthResponse)
 @limiter.limit("5/minute")
@@ -160,8 +145,6 @@ def change_password(body: ChangePasswordRequest, current_user: dict = Depends(ge
     )
     return {"message": "Password changed successfully"}
 
-
-# ── Security Question / Forgot Password ─────────────────────────────
 
 @router.put("/security-question")
 def set_security_question(body: SetSecurityQuestionRequest, current_user: dict = Depends(get_current_user)):

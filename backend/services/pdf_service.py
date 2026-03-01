@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — PDF Generation Service
-=============================================
-Renders a Jinja2 HTML template and converts it to PDF via xhtml2pdf.
-"""
 
 import os
 from io import BytesIO
@@ -11,7 +6,7 @@ from xhtml2pdf import pisa
 
 from models import ResumeInput
 
-# ── Template setup ───────────────────────────────────────────────────
+
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "..", "templates")
 _env = Environment(loader=FileSystemLoader(TEMPLATE_DIR))
 

@@ -15,7 +15,7 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-// ── Attach JWT token to every request if available ──────────────────
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ats_token')
   if (token) {
@@ -24,7 +24,7 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// ── Auto-logout on 401 (expired / invalid token) ───────────────────
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -45,7 +45,6 @@ api.interceptors.response.use(
   }
 )
 
-// ── Auth ────────────────────────────────────────────────────────────
 
 export async function registerUser(username, email, password) {
   const { data } = await api.post('/auth/register', { username, email, password })
@@ -94,7 +93,6 @@ export async function resetPasswordWithAnswer(email, answer, newPassword) {
   return data
 }
 
-// ── Saved Resumes ───────────────────────────────────────────────────
 
 export async function saveResume(payload) {
   const { data } = await api.post('/saved/save', payload)
@@ -136,28 +134,16 @@ export async function getSharedResume(token) {
   return data
 }
 
-/**
- * POST /api/resume/optimize
- * Sends resume data for AI optimisation + ATS scoring.
- */
 export async function optimizeResume(resumeData) {
   const { data } = await api.post('/resume/optimize', resumeData)
   return data
 }
 
-/**
- * POST /api/resume/score
- * Returns ATS score without AI rewrite.
- */
 export async function scoreResume(resumeData) {
   const { data } = await api.post('/resume/score', resumeData)
   return data
 }
 
-/**
- * POST /api/pdf/generate
- * Returns PDF blob for download.
- */
 export async function generatePDF(pdfPayload) {
   const { data } = await api.post('/pdf/generate', pdfPayload, {
     responseType: 'blob',
@@ -165,10 +151,6 @@ export async function generatePDF(pdfPayload) {
   return data
 }
 
-/**
- * POST /api/pdf/generate-docx
- * Returns DOCX blob for download.
- */
 export async function generateDOCX(pdfPayload) {
   const { data } = await api.post('/pdf/generate-docx', pdfPayload, {
     responseType: 'blob',
@@ -176,30 +158,17 @@ export async function generateDOCX(pdfPayload) {
   return data
 }
 
-/**
- * POST /api/pdf/preview
- * Returns HTML string for live preview.
- */
 export async function previewHTML(pdfPayload) {
   const { data } = await api.post('/pdf/preview', pdfPayload)
   return data
 }
 
-/**
- * POST /api/pdf/ats-check
- * Returns ATS compliance report for the generated PDF/HTML.
- */
 export async function checkPDFATS(pdfPayload) {
   const { data } = await api.post('/pdf/ats-check', pdfPayload)
   return data
 }
 
-// ── Resume Upload & Analysis ────────────────────────────────────────
 
-/**
- * POST /api/upload/analyze
- * Upload a PDF/DOCX resume for AI analysis + job prediction.
- */
 export async function uploadAndAnalyze(file, jobDescription = '') {
   const formData = new FormData()
   formData.append('file', file)
@@ -211,10 +180,6 @@ export async function uploadAndAnalyze(file, jobDescription = '') {
   return data
 }
 
-/**
- * POST /api/upload/quick-score
- * Quick heuristic score without AI.
- */
 export async function quickScoreResume(file, jobDescription = '') {
   const formData = new FormData()
   formData.append('file', file)
@@ -225,10 +190,6 @@ export async function quickScoreResume(file, jobDescription = '') {
   return data
 }
 
-/**
- * GET /api/upload/history
- * User's resume upload history.
- */
 export async function getUploadHistory() {
   const { data } = await api.get('/upload/history')
   return data
@@ -242,21 +203,18 @@ export async function deleteUpload(id) {
   return data
 }
 
-// ── Cover Letter ────────────────────────────────────────────────────
 
 export async function generateCoverLetter(payload) {
   const { data } = await api.post('/cover-letter/generate', payload)
   return data
 }
 
-// ── Interview Prep ──────────────────────────────────────────────────
 
 export async function generateInterviewQuestions(payload) {
   const { data } = await api.post('/interview/generate', payload)
   return data
 }
 
-// ── Admin ───────────────────────────────────────────────────────────
 
 export async function getAdminStats() {
   const { data } = await api.get('/admin/stats')

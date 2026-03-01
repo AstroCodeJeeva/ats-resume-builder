@@ -1,12 +1,3 @@
-"""
-ATS Resume Builder — Upload Router
-====================================
-POST /api/upload/analyze     →  Upload PDF/DOCX resume, extract text, score & analyze
-POST /api/upload/predict-jobs →  Predict matching jobs from uploaded/extracted resume text
-GET  /api/upload/history     →  Get user's upload history
-GET  /api/upload/{id}        →  Get a single upload result
-DELETE /api/upload/{id}      →  Delete an upload
-"""
 
 import os
 import re
@@ -27,8 +18,6 @@ from rate_limiter import limiter
 router = APIRouter()
 
 
-# ── Schemas ──────────────────────────────────────────────────────────
-
 class AnalysisResult(BaseModel):
     ats_score: int
     keyword_density: dict
@@ -39,8 +28,6 @@ class AnalysisResult(BaseModel):
     word_count: int
     predicted_jobs: List[dict]
 
-
-# ── Upload & Analyze ────────────────────────────────────────────────
 
 @router.post("/analyze")
 @limiter.limit("10/minute")
@@ -136,8 +123,6 @@ async def analyze_uploaded_resume(
     }
 
 
-# ── Quick Score (no AI, just heuristics) ────────────────────────────
-
 @router.post("/quick-score")
 async def quick_score_resume(
     file: UploadFile = File(...),
@@ -160,8 +145,6 @@ async def quick_score_resume(
     score_result = _heuristic_score(resume_text, job_description)
     return score_result
 
-
-# ── Upload History ──────────────────────────────────────────────────
 
 @router.get("/history")
 def upload_history(current_user: dict = Depends(get_current_user)):
@@ -229,8 +212,6 @@ def delete_upload(upload_id: str, current_user: dict = Depends(get_current_user)
         raise HTTPException(status_code=404, detail="Upload not found")
     return {"message": "Upload deleted successfully"}
 
-
-# ── Heuristic Scoring (no AI needed) ────────────────────────────────
 
 def _heuristic_score(text: str, job_description: str = "") -> dict:
     """Fast heuristic ATS scoring."""

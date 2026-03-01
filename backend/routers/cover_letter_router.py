@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — Cover Letter Router
-==========================================
-POST /api/cover-letter/generate  →  AI-generated cover letter from resume + job description
-"""
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field

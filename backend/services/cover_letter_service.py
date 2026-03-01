@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — Cover Letter Generation Service
-=====================================================
-Uses Groq (Llama 3.3 70B) to generate tailored cover letters.
-"""
 
 import json
 import os

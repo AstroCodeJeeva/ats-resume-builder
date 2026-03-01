@@ -1,15 +1,8 @@
-"""
-ATS Resume Builder — Pydantic Models / Schemas
-===============================================
-Shared data shapes used by routers, services, and templates.
-"""
 
 from __future__ import annotations
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
-
-# ── Sub-models ───────────────────────────────────────────────────────
 
 class PersonalInfo(BaseModel):
     name: str = Field(..., example="Jane Doe")
@@ -44,8 +37,6 @@ class Certification(BaseModel):
     issuer: str = Field("", example="Amazon Web Services")
     year: str = Field("", example="2022")
 
-
-# ── Main request / response models ──────────────────────────────────
 
 class ResumeInput(BaseModel):
     """Payload sent from the frontend multi-step form."""

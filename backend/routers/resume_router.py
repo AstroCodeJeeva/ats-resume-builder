@@ -1,9 +1,3 @@
-"""
-ATS Resume Builder — Resume Router
-====================================
-POST /api/resume/optimize  →  AI-optimised resume + ATS score + suggestions
-POST /api/resume/score     →  ATS score only (no AI rewrite)
-"""
 
 from fastapi import APIRouter, HTTPException, Request
 

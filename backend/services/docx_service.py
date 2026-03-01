@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — DOCX Generation Service
-==============================================
-Generates a Word (.docx) document from resume data using python-docx.
-"""
 
 from io import BytesIO
 from docx import Document
@@ -44,7 +39,7 @@ def generate_docx_bytes(
         section.top_margin = Inches(0.6)
         section.bottom_margin = Inches(0.6)
 
-    # ── Name / Header ────────────────────────────────────────────────
+    
     info = resume.personal_info
     name_para = doc.add_paragraph()
     name_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -81,7 +76,7 @@ def generate_docx_bytes(
         links_run.font.size = Pt(9)
         links_run.font.color.rgb = RGBColor(100, 100, 100)
 
-    # ── Professional Summary ─────────────────────────────────────────
+    
     if professional_summary:
         _add_separator(doc)
         _add_heading(doc, "Professional Summary", level=2)
@@ -90,7 +85,7 @@ def generate_docx_bytes(
         for run in summary_para.runs:
             run.font.size = Pt(10)
 
-    # ── Skills ───────────────────────────────────────────────────────
+    
     if resume.skills:
         _add_separator(doc)
         _add_heading(doc, "Technical Skills", level=2)
@@ -98,7 +93,7 @@ def generate_docx_bytes(
         for run in skills_para.runs:
             run.font.size = Pt(10)
 
-    # ── Work Experience ──────────────────────────────────────────────
+    
     if resume.work_experience:
         _add_separator(doc)
         _add_heading(doc, "Work Experience", level=2)
@@ -127,7 +122,7 @@ def generate_docx_bytes(
                 for run in bp.runs:
                     run.font.size = Pt(10)
 
-    # ── Projects ─────────────────────────────────────────────────────
+    
     if resume.projects:
         _add_separator(doc)
         _add_heading(doc, "Projects", level=2)
@@ -150,7 +145,7 @@ def generate_docx_bytes(
                     run.italic = True
                     run.font.color.rgb = RGBColor(100, 100, 100)
 
-    # ── Education ────────────────────────────────────────────────────
+    
     if resume.education:
         _add_separator(doc)
         _add_heading(doc, "Education", level=2)
@@ -166,7 +161,7 @@ def generate_docx_bytes(
                     run.font.size = Pt(9)
                     run.font.color.rgb = RGBColor(120, 120, 120)
 
-    # ── Certifications ───────────────────────────────────────────────
+    
     if resume.certifications:
         _add_separator(doc)
         _add_heading(doc, "Certifications", level=2)

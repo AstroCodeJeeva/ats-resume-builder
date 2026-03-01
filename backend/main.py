@@ -1,8 +1,4 @@
-"""
-ATS Resume Builder — FastAPI Application Entry Point
-=====================================================
-Initialises the FastAPI app, mounts CORS middleware, rate limiter, and includes routers.
-"""
+"""FastAPI app entry point."""
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,7 +21,7 @@ from routers import interview_router  # noqa: E402
 from database import init_db, close_db  # noqa: E402
 from rate_limiter import limiter  # noqa: E402
 
-# ── App instance ─────────────────────────────────────────────────────
+
 app = FastAPI(
     title="ATS Resume Builder API",
     description="AI-powered resume builder with ATS scoring, suggestions, and PDF export.",
@@ -35,7 +31,6 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
-# ── MongoDB lifecycle ────────────────────────────────────────────────
 async def _seed_admin():
     """Create the default admin account if it doesn't exist."""
     from database import get_sync_db
@@ -51,7 +46,7 @@ async def _seed_admin():
             "is_admin": True,
             "created_at": __import__("datetime").datetime.utcnow(),
         })
-        print("✅ Default admin account created: admin@atsbuilder.com / Admin@123")
+        print(" Default admin account created: admin@atsbuilder.com / Admin@123")
     else:
         # Ensure existing admin has is_admin flag
         db.users.update_one(
@@ -70,10 +65,10 @@ async def startup_db():
 async def shutdown_db():
     await close_db()
 
-# ── CORS ─────────────────────────────────────────────────────────────
+
 _raw = os.getenv("CORS_ORIGINS", "http://localhost:5173")
 origins = [o.strip().rstrip("/") for o in _raw.split(",") if o.strip()]
-print(f"🌐 CORS origins: {origins}")
+print(f" CORS origins: {origins}")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -82,7 +77,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Routers ──────────────────────────────────────────────────────────
+
 app.include_router(resume_router.router, prefix="/api/resume", tags=["Resume"])
 app.include_router(pdf_router.router, prefix="/api/pdf", tags=["PDF"])
 app.include_router(auth_router.router, prefix="/api/auth", tags=["Auth"])

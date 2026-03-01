@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — Sample Resume Data
-=========================================
-Provides a complete example resume for testing and demo purposes.
-"""
 
 SAMPLE_RESUME = {
     "personal_info": {

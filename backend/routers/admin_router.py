@@ -1,12 +1,3 @@
-"""
-ATS Resume Builder — Admin Router
-====================================
-Admin-only endpoints for user management, stats, and platform oversight.
-
-Default admin credentials:
-  Email:    admin@atsbuilder.com
-  Password: Admin@123
-"""
 
 from datetime import datetime
 from typing import Optional
@@ -22,8 +13,6 @@ from services.auth_service import get_current_user
 router = APIRouter()
 
 
-# ── Helpers ──────────────────────────────────────────────────────────
-
 def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
     """Dependency that ensures the current user is an admin."""
     if not current_user.get("is_admin", False):
@@ -31,15 +20,11 @@ def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
     return current_user
 
 
-# ── Schemas ──────────────────────────────────────────────────────────
-
 class UpdateUserRequest(BaseModel):
     username: Optional[str] = None
     email: Optional[str] = None
     is_admin: Optional[bool] = None
 
-
-# ── Dashboard Stats ─────────────────────────────────────────────────
 
 @router.get("/stats")
 def admin_stats(admin: dict = Depends(require_admin)):
@@ -82,8 +67,6 @@ def admin_stats(admin: dict = Depends(require_admin)):
         "score_distribution": score_ranges,
     }
 
-
-# ── User Management ─────────────────────────────────────────────────
 
 @router.get("/users")
 def list_users(admin: dict = Depends(require_admin)):
@@ -152,8 +135,6 @@ def delete_user(user_id: str, admin: dict = Depends(require_admin)):
     return {"message": "User and all associated data deleted"}
 
 
-# ── All Resumes (admin view) ────────────────────────────────────────
-
 @router.get("/resumes")
 def list_all_resumes(admin: dict = Depends(require_admin)):
     """List all resumes across all users."""
@@ -174,8 +155,6 @@ def list_all_resumes(admin: dict = Depends(require_admin)):
         })
     return result
 
-
-# ── All Uploads (admin view) ────────────────────────────────────────
 
 @router.get("/uploads")
 def list_all_uploads(admin: dict = Depends(require_admin)):

@@ -1,9 +1,3 @@
-"""
-ATS Resume Builder — MongoDB Document Helpers
-===============================================
-Helper functions for serialising MongoDB documents.
-Collections: users, saved_resumes
-"""
 
 from datetime import datetime
 from bson import ObjectId

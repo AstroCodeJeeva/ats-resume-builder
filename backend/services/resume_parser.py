@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — Resume File Parser
-=========================================
-Extracts plain text from PDF and DOCX files.
-"""
 
 import io
 

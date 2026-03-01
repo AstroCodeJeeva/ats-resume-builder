@@ -1,8 +1,3 @@
-"""
-ATS Resume Builder — Interview Prep Router
-============================================
-POST /api/interview/generate  →  AI-generated interview questions + answers
-"""
 
 from typing import List
 from fastapi import APIRouter, HTTPException, Request
