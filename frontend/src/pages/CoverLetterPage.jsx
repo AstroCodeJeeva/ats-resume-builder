@@ -92,10 +92,14 @@ export default function CoverLetterPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/60 dark:border-primary-800/40 text-primary-700 dark:text-primary-300 text-xs font-semibold mb-4">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+          AI-Powered
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
           Cover Letter Generator
         </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-xl mx-auto">
@@ -168,7 +172,7 @@ export default function CoverLetterPage() {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold bg-primary-600 hover:bg-primary-700 disabled:opacity-50 transition-colors"
+            className="w-full py-3.5 rounded-xl text-white font-semibold bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg shadow-primary-500/25 disabled:opacity-50 disabled:shadow-none transition-all"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -199,7 +203,7 @@ export default function CoverLetterPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+                className="card overflow-hidden"
               >
                 {/* Toolbar */}
                 <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
@@ -230,7 +234,7 @@ export default function CoverLetterPage() {
                 key="placeholder"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full min-h-[400px] flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10"
+                className="h-full min-h-[400px] flex flex-col items-center justify-center text-center card p-10"
               >
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Your cover letter will appear here</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xs">

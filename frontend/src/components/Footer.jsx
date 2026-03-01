@@ -29,16 +29,19 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer role="contentinfo" className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer role="contentinfo" className="relative bg-white dark:bg-surface-900 border-t border-gray-200/60 dark:border-gray-800/60">
+      {/* Subtle gradient top accent */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm">
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-primary-500/20">
                 A
               </div>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">
+              <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
                 ATS<span className="text-primary-600">Builder</span>
               </span>
             </Link>
@@ -50,10 +53,10 @@ export default function Footer() {
           {/* Link columns */}
           {footerLinks.map((group) => (
             <div key={group.title}>
-              <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+              <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 tracking-wide uppercase text-[11px]">
                 {group.title}
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-2.5">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -70,9 +73,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-400 dark:text-gray-500">
-            © {new Date().getFullYear()} ATSBuilder. All rights reserved.
+            &copy; {new Date().getFullYear()} ATSBuilder. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             {/* GitHub */}

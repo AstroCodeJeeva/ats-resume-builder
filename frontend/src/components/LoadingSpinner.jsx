@@ -9,7 +9,7 @@ export default function LoadingSpinner({ message = 'Processing...' }) {
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-4"
+        className="card p-8 flex flex-col items-center gap-4 shadow-elevated"
       >
         <motion.div
           animate={{ rotate: 360 }}

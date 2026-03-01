@@ -119,7 +119,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 relative"
+            className="card shadow-elevated w-full max-w-md mx-4 p-6 relative"
           >
             {/* Close */}
             <button
@@ -173,7 +173,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all disabled:opacity-50"
                 >
                   {loading ? 'Looking up...' : 'Continue →'}
                 </button>
@@ -199,7 +199,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all"
                 >
                   Continue →
                 </button>
@@ -243,7 +243,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
+                  className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 shadow-lg shadow-primary-500/25 hover:shadow-xl transition-all disabled:opacity-50"
                 >
                   {loading ? 'Resetting...' : 'Reset Password'}
                 </button>

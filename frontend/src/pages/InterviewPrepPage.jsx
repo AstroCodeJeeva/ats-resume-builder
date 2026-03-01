@@ -241,10 +241,14 @@ export default function InterviewPrepPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/60 dark:border-primary-800/40 text-primary-700 dark:text-primary-300 text-xs font-semibold mb-4">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+          AI-Powered
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
           Interview Prep
         </h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-2xl mx-auto">
@@ -340,7 +344,7 @@ export default function InterviewPrepPage() {
           <button
             onClick={handleGenerate}
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold bg-primary-600 hover:bg-primary-700 disabled:opacity-50 transition-colors"
+            className="w-full py-3.5 rounded-xl text-white font-semibold bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg shadow-primary-500/25 disabled:opacity-50 disabled:shadow-none transition-all"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -378,7 +382,7 @@ export default function InterviewPrepPage() {
                 className="space-y-4"
               >
                 {/* Toolbar */}
-                <div className="flex flex-wrap items-center gap-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-3 shadow-sm">
+                <div className="flex flex-wrap items-center gap-3 card p-3">
                   {/* Category filter */}
                   <div className="flex flex-wrap gap-1.5 flex-1">
                     {categories.map((cat) => (
@@ -443,7 +447,7 @@ export default function InterviewPrepPage() {
                 key="placeholder"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full min-h-[500px] flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-10"
+                className="h-full min-h-[500px] flex flex-col items-center justify-center text-center card p-10"
               >
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                   Your interview questions will appear here

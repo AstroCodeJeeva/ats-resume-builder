@@ -85,7 +85,7 @@ export default function AuthModal({ isOpen, onClose }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 relative"
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative border border-gray-100 dark:border-gray-700/60"
           >
             {/* Header */}
             <div className="text-center mb-6">
@@ -149,7 +149,7 @@ export default function AuthModal({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
+                className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg shadow-primary-500/25 transition-all disabled:opacity-50 disabled:shadow-none"
               >
                 {loading
                   ? 'Please wait...'

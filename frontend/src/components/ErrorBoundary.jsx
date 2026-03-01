@@ -26,9 +26,9 @@ export default class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950 px-4">
           <div className="max-w-md w-full text-center">
-            <div className="text-6xl mb-4 text-red-400">!</div>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-2xl font-bold text-red-500">!</div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Something went wrong
             </h1>
@@ -49,7 +49,7 @@ export default class ErrorBoundary extends Component {
               </button>
               <button
                 onClick={this.handleReset}
-                className="px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                className="btn-primary"
               >
                 Go Home
               </button>

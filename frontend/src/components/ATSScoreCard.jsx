@@ -17,7 +17,7 @@ export default function ATSScoreCard({ score }) {
     score.overall >= 80 ? 'text-green-500' : score.overall >= 60 ? 'text-yellow-500' : 'text-red-500'
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 space-y-5">
+    <div className="card p-6 space-y-5">
       {/* Overall score */}
       <div className="text-center">
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Overall ATS Score</p>
@@ -29,7 +29,7 @@ export default function ATSScoreCard({ score }) {
         >
           {score.overall}
         </motion.span>
-        <span className="text-2xl text-gray-400">/100</span>
+        <span className="text-2xl text-gray-400 dark:text-gray-500">/100</span>
       </div>
 
       {/* Sub-scores */}

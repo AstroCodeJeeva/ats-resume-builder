@@ -89,10 +89,10 @@ export default function AdminPage() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Admin Dashboard</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Platform management and analytics
         </p>
@@ -104,10 +104,10 @@ export default function AdminPage() {
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+            className={`px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
               tab === t.id
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+                ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/25'
+                : 'bg-white dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
             }`}
           >
             {t.label}
@@ -137,9 +137,9 @@ export default function AdminPage() {
                 ].map((card) => (
                   <div
                     key={card.label}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700"
-                  >
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    className="card p-4 relative overflow-hidden">
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-${card.color}-500`} />
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
                       {card.value}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{card.label}</p>
@@ -148,7 +148,7 @@ export default function AdminPage() {
               </div>
 
               {/* Score Distribution */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
+              <div className="card p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   ATS Score Distribution
                 </h3>
@@ -174,7 +174,7 @@ export default function AdminPage() {
           {/* Users Tab */}
           {tab === 'users' && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+              <div className="card overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gray-50 dark:bg-gray-900">
@@ -249,7 +249,7 @@ export default function AdminPage() {
                   resumes.map((r) => (
                     <div
                       key={r.id}
-                      className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm"
+                      className="card p-4"
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white truncate">
@@ -288,7 +288,7 @@ export default function AdminPage() {
           {/* Uploads Tab */}
           {tab === 'uploads' && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+              <div className="card overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gray-50 dark:bg-gray-900">

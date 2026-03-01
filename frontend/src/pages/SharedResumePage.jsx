@@ -87,7 +87,7 @@ export default function SharedResumePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
+        className="card overflow-hidden"
       >
         {previewSrc ? (
           <iframe

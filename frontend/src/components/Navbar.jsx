@@ -27,14 +27,14 @@ export default function Navbar({ dark, setDark }) {
 
   return (
     <>
-      <nav aria-label="Main navigation" className="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800">
+      <nav aria-label="Main navigation" className="sticky top-0 z-50 backdrop-blur-xl bg-white/75 dark:bg-surface-950/80 border-b border-gray-200/60 dark:border-gray-800/60 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2" onClick={closeMobile}>
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm">
+          <Link to="/" className="flex items-center gap-2.5" onClick={closeMobile}>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-primary-500/25">
               A
             </div>
-            <span className="text-lg font-bold text-gray-900 dark:text-white">
+            <span className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">
               ATS<span className="text-primary-600">Builder</span>
             </span>
           </Link>
@@ -45,13 +45,16 @@ export default function Navbar({ dark, setDark }) {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-medium transition-colors relative py-1 ${
                   pathname === item.path
                     ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 {item.label}
+                {pathname === item.path && (
+                  <span className="absolute -bottom-[19px] left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full" />
+                )}
               </Link>
             ))}
 
@@ -74,7 +77,7 @@ export default function Navbar({ dark, setDark }) {
             ) : (
               <button
                 onClick={() => setShowAuth(true)}
-                className="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                className="px-4 py-1.5 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-md shadow-primary-500/20 transition-all"
               >
                 Sign In
               </button>

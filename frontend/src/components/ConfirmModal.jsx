@@ -63,11 +63,11 @@ export default function ConfirmModal({
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.15 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-6"
+            className="card shadow-elevated w-full max-w-sm mx-4 p-6"
           >
             {/* Icon */}
             <div className="text-center mb-4">
-              <span className="text-4xl">{danger ? '!' : '?'}</span>
+              <div className={`w-12 h-12 mx-auto rounded-full flex items-center justify-center text-lg font-bold ${danger ? 'bg-red-100 dark:bg-red-900/30 text-red-600' : 'bg-primary-100 dark:bg-primary-900/30 text-primary-600'}`}>{danger ? '!' : '?'}</div>
             </div>
 
             {/* Title */}
@@ -94,10 +94,10 @@ export default function ConfirmModal({
               <button
                 ref={confirmRef}
                 onClick={onConfirm}
-                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-colors ${
+                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all ${
                   danger
-                    ? 'bg-red-600 hover:bg-red-700'
-                    : 'bg-primary-600 hover:bg-primary-700'
+                    ? 'bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/25'
+                    : 'bg-gradient-to-r from-primary-600 to-primary-500 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30'
                 }`}
               >
                 {confirmLabel}

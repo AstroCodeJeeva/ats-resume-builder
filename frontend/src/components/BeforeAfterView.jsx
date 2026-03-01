@@ -58,7 +58,7 @@ export default function BeforeAfterView({ original, optimized, summary }) {
   )
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
+    <div className="card p-6">
       <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">Before vs After</h2>
       <div className="flex flex-col lg:flex-row gap-6 divide-y lg:divide-y-0 lg:divide-x divide-gray-200 dark:divide-gray-700">
         <Section title="Original" resume={original} improved={false} />

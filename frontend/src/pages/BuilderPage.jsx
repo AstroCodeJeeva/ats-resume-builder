@@ -111,12 +111,12 @@ export default function BuilderPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {loading && <LoadingSpinner message="AI is optimising your resume..." />}
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Resume Builder</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Resume Builder</h1>
         <button
           onClick={fillSample}
           className="text-xs px-3 py-1.5 rounded-lg border border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-colors"
@@ -129,7 +129,7 @@ export default function BuilderPage() {
       <StepIndicator current={step} />
 
       {/* Step content with animation */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-6 min-h-[320px]">
+      <div className="card p-6 mb-6 min-h-[320px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={step}
@@ -156,7 +156,7 @@ export default function BuilderPage() {
         {step < 6 ? (
           <button
             onClick={next}
-            className="px-6 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors shadow"
+            className="btn-primary px-6 py-2 text-sm"
           >
             Next →
           </button>
@@ -164,7 +164,7 @@ export default function BuilderPage() {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-60"
+            className="btn-primary px-6 py-2 text-sm disabled:opacity-60"
           >
             Optimise with AI
           </button>

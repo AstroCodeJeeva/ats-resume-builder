@@ -112,11 +112,11 @@ export default function ProfilePage() {
   if (!user) return null
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary-500 to-accent-600 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-primary-500/25 ring-4 ring-white dark:ring-surface-900">
             <span className="text-3xl text-white font-bold">
               {(user.username || '?')[0].toUpperCase()}
             </span>
@@ -145,7 +145,7 @@ export default function ProfilePage() {
             ].map((s) => (
               <div
                 key={s.label}
-                className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-100 dark:border-gray-700"
+                className="card p-4 text-center"
               >
                 <p className="text-xl font-bold text-gray-900 dark:text-white">{s.value}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{s.label}</p>
@@ -155,7 +155,7 @@ export default function ProfilePage() {
         )}
 
         {/* Edit Profile Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm mb-6">
+        <div className="card p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Edit Profile</h2>
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div>
@@ -186,7 +186,7 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50"
+              className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg shadow-primary-500/25 transition-all disabled:opacity-50 disabled:shadow-none"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -194,7 +194,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Change Password Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm mb-6">
+        <div className="card p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Change Password</h2>
           <form onSubmit={handleChangePassword} className="space-y-4">
             <div>
@@ -249,7 +249,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Security Question Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm mb-6">
+        <div className="card p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Security Question</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             Set a security question to recover your account if you forget your password.

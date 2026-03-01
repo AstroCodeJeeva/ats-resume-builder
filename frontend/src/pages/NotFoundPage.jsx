@@ -17,7 +17,7 @@ export default function NotFoundPage() {
       >
         {/* Big 404 */}
         <div className="relative mb-6">
-          <span className="text-[10rem] font-black leading-none bg-gradient-to-br from-primary-400 to-indigo-600 bg-clip-text text-transparent select-none">
+          <span className="text-[10rem] font-black leading-none text-gradient select-none">
             404
           </span>
           <motion.div
@@ -37,13 +37,13 @@ export default function NotFoundPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/"
-            className="px-6 py-3 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+            className="btn-primary px-6 py-3 text-sm"
           >
             Go Home
           </Link>
           <Link
             to="/builder"
-            className="px-6 py-3 rounded-xl text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-all"
+            className="btn-secondary px-6 py-3 text-sm"
           >
             Build Resume
           </Link>

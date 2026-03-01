@@ -156,27 +156,27 @@ export default function ResultsPage() {
   if (!result) return null
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {downloading && <LoadingSpinner message="Generating PDF..." />}
 
       {/* Header row */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Your Optimised Resume</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Your Optimised Resume</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Review your ATS score, suggestions, and download the final PDF.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <button
             onClick={() => navigate('/builder')}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            className="btn-secondary px-4 py-2 text-sm"
           >
             ← Edit Resume
           </button>
           <button
             onClick={handleDownload}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+            className="btn-primary px-5 py-2 text-sm"
           >
             Download PDF
           </button>
@@ -222,10 +222,10 @@ export default function ResultsPage() {
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   tab === t
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/25'
+                    : 'bg-white dark:bg-gray-800/80 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
                 }`}
               >
                 {t === 'preview' ? 'Resume Preview' : t === 'compare' ? 'Before vs After' : 'ATS Check'}
@@ -237,7 +237,7 @@ export default function ResultsPage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
+              className="card overflow-hidden"
             >
               <iframe
                 srcDoc={previewSrc}
@@ -261,7 +261,7 @@ export default function ResultsPage() {
                   <LoadingSpinner message="Running ATS compliance checks..." />
                 </div>
               ) : atsCheckResult ? (
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 space-y-6">
+                <div className="card p-6 space-y-6">
                   {/* Overall score badge */}
                   <div className="flex items-center justify-between">
                     <div>

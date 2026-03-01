@@ -110,13 +110,17 @@ export default function AnalyzerPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header */}
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200/60 dark:border-primary-800/40 text-primary-700 dark:text-primary-300 text-xs font-semibold mb-4">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+          Upload & Analyze
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
           Resume Analyzer
         </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-lg mx-auto">
           Upload your resume to get an ATS score, analysis, and job predictions
         </p>
       </div>
@@ -129,12 +133,12 @@ export default function AnalyzerPage() {
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            className={`relative rounded-2xl border-2 border-dashed p-10 text-center transition-all cursor-pointer ${
+            className={`relative rounded-2xl border-2 border-dashed p-10 text-center transition-all cursor-pointer group ${
               dragActive
-                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                ? 'border-primary-500 bg-primary-50/80 dark:bg-primary-900/20 shadow-glow'
                 : file
-                ? 'border-green-400 bg-green-50 dark:bg-green-900/10'
-                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-primary-400'
+                ? 'border-emerald-400 bg-emerald-50/60 dark:bg-emerald-900/10'
+                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/80 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-card'
             }`}
             onClick={() => document.getElementById('resume-upload').click()}
           >
@@ -148,6 +152,9 @@ export default function AnalyzerPage() {
 
             {file ? (
               <div>
+                <div className="w-12 h-12 mx-auto rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-3">
+                  <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">{file.name}</p>
                 <p className="text-sm text-gray-500 mt-1">{(file.size / 1024).toFixed(1)} KB</p>
                 <button
@@ -159,11 +166,14 @@ export default function AnalyzerPage() {
               </div>
             ) : (
               <div>
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                  <svg className="w-7 h-7 text-primary-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                </div>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">
                   Drop your resume here
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  or click to browse • PDF, DOCX supported • Max 10MB
+                  or click to browse &bull; PDF, DOCX supported &bull; Max 10MB
                 </p>
               </div>
             )}
@@ -188,7 +198,7 @@ export default function AnalyzerPage() {
             <button
               onClick={handleFullAnalysis}
               disabled={!file || loading}
-              className="flex-1 py-3.5 rounded-xl text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg shadow-primary-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -223,9 +233,9 @@ export default function AnalyzerPage() {
 
           {/* Score Hero */}
           <div className="text-center mb-8">
-            <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-br ${getScoreBg(result.ats_score)} shadow-lg`}>
-              <div className="bg-white dark:bg-gray-900 w-24 h-24 rounded-full flex flex-col items-center justify-center">
-                <span className={`text-3xl font-black ${getScoreColor(result.ats_score)}`}>
+            <div className={`inline-flex items-center justify-center w-36 h-36 rounded-full bg-gradient-to-br ${getScoreBg(result.ats_score)} shadow-xl p-1`}>
+              <div className="bg-white dark:bg-surface-900 w-full h-full rounded-full flex flex-col items-center justify-center">
+                <span className={`text-4xl font-black ${getScoreColor(result.ats_score)}`}>
                   {result.ats_score}
                 </span>
                 <span className="text-xs text-gray-500">/ 100</span>
@@ -251,10 +261,10 @@ export default function AnalyzerPage() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                   activeTab === t.id
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-lg shadow-primary-500/25'
+                    : 'bg-white dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
                 }`}
               >
                 {t.label}
@@ -271,7 +281,7 @@ export default function AnalyzerPage() {
                     {Object.entries(result.section_scores).map(([key, value]) => (
                       <div
                         key={key}
-                        className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700"
+                        className="card p-5"
                       >
                         <div className="flex justify-between items-center mb-3">
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300 capitalize">
@@ -292,7 +302,7 @@ export default function AnalyzerPage() {
 
                 {/* Keyword Analysis */}
                 {result.keyword_analysis && (
-                  <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+                  <div className="mt-6 card p-6">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Keyword Analysis</h3>
                     {result.keyword_analysis.top_keywords_found && (
                       <div className="mb-4">
@@ -323,7 +333,7 @@ export default function AnalyzerPage() {
 
                 {/* JD Match (from quick score) */}
                 {result.jd_match?.match_percentage != null && (
-                  <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+                  <div className="mt-6 card p-6">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Job Description Match</h3>
                     <p className={`text-2xl font-bold ${getScoreColor(result.jd_match.match_percentage)}`}>
                       {result.jd_match.match_percentage}% match
@@ -350,8 +360,8 @@ export default function AnalyzerPage() {
               <motion.div key="analysis" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Strengths */}
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-green-600 mb-4">Strengths</h3>
+                  <div className="card p-6">
+                    <h3 className="text-lg font-semibold text-emerald-600 mb-4">Strengths</h3>
                     {result.strengths?.length > 0 ? (
                       <ul className="space-y-3">
                         {result.strengths.map((s, i) => (
@@ -367,7 +377,7 @@ export default function AnalyzerPage() {
                   </div>
 
                   {/* Weaknesses */}
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+                  <div className="card p-6">
                     <h3 className="text-lg font-semibold text-red-500 mb-4">Weaknesses</h3>
                     {result.weaknesses?.length > 0 ? (
                       <ul className="space-y-3">
@@ -386,7 +396,7 @@ export default function AnalyzerPage() {
 
                 {/* Resume Preview */}
                 {result.resume_preview && (
-                  <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
+                  <div className="mt-6 card p-6">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Extracted Text Preview</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap leading-relaxed">
                       {result.resume_preview}
@@ -454,7 +464,7 @@ export default function AnalyzerPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
+                        className="card p-5 hover:-translate-y-0.5"
                       >
                         <div className="flex justify-between items-start mb-3">
                           <div>

@@ -13,13 +13,20 @@ function ScoreChart({ data }) {
   const maxScore = 100
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm mb-8">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-        ATS Score Progress
-      </h3>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
-        Your resume scores over time
-      </p>
+    <div className="card p-6 mb-8">
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            ATS Score Progress
+          </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+            Your resume scores over time
+          </p>
+        </div>
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-violet-500 flex items-center justify-center text-white">
+          <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+        </div>
+      </div>
 
       <div className="flex items-end gap-2 h-40">
         {data.map((item, i) => {
@@ -83,11 +90,11 @@ function StatsRow({ resumes, uploads }) {
   const bestScore = resumes.reduce((m, r) => Math.max(m, r.ats_score || 0), 0)
 
   const stats = [
-    { label: 'Resumes', value: resumes.length },
-    { label: 'Optimized', value: optimized },
-    { label: 'Uploads', value: uploads.length },
-    { label: 'Avg Score', value: avgScore ? `${avgScore}%` : '-' },
-    { label: 'Best Score', value: bestScore ? `${bestScore}%` : '-' },
+    { label: 'Resumes', value: resumes.length, color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-50 dark:bg-blue-950/30' },
+    { label: 'Optimized', value: optimized, color: 'from-emerald-500 to-teal-500', bg: 'bg-emerald-50 dark:bg-emerald-950/30' },
+    { label: 'Uploads', value: uploads.length, color: 'from-violet-500 to-purple-500', bg: 'bg-violet-50 dark:bg-violet-950/30' },
+    { label: 'Avg Score', value: avgScore ? `${avgScore}%` : '-', color: 'from-amber-500 to-orange-500', bg: 'bg-amber-50 dark:bg-amber-950/30' },
+    { label: 'Best Score', value: bestScore ? `${bestScore}%` : '-', color: 'from-pink-500 to-rose-500', bg: 'bg-pink-50 dark:bg-pink-950/30' },
   ]
 
   return (
@@ -95,10 +102,11 @@ function StatsRow({ resumes, uploads }) {
       {stats.map((s) => (
         <div
           key={s.label}
-          className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-100 dark:border-gray-700"
+          className={`card p-4 text-center relative overflow-hidden group hover:-translate-y-0.5 transition-all ${s.bg}`}
         >
-          <p className="text-xl font-bold text-gray-900 dark:text-white">{s.value}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{s.label}</p>
+          <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${s.color}`} />
+          <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{s.value}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">{s.label}</p>
         </div>
       ))}
     </div>
@@ -280,26 +288,28 @@ export default function DashboardPage() {
   }, [resumes, search, sortBy, scoreFilter])
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="flex items-center justify-between mb-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Page header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Resumes</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Welcome back, <span className="font-medium">{user.username}</span>!
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">My Resumes</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            Welcome back, <span className="font-medium text-gray-700 dark:text-gray-300">{user.username}</span>
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <button
             onClick={() => navigate('/analyzer')}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 transition-all"
+            className="btn-secondary px-4 py-2 text-sm"
           >
             Upload & Analyze
           </button>
           <button
             onClick={() => navigate('/builder')}
-            className="px-5 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+            className="btn-primary px-5 py-2 text-sm"
           >
-            + New Resume
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+            New Resume
           </button>
         </div>
       </div>
@@ -394,8 +404,12 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-20"
         >
-          <span className="text-5xl text-gray-300 dark:text-gray-600">—</span>
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mt-4">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/40 dark:to-accent-900/40 flex items-center justify-center mb-4">
+            <svg className="w-8 h-8 text-primary-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300">
             No saved resumes yet
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
@@ -403,7 +417,7 @@ export default function DashboardPage() {
           </p>
           <button
             onClick={() => navigate('/builder')}
-            className="mt-6 px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+            className="btn-primary mt-6 text-sm"
           >
             Build Resume
           </button>
@@ -434,7 +448,7 @@ export default function DashboardPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: idx * 0.03 }}
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 p-5 flex flex-col"
+                    className="card p-5 flex flex-col group hover:-translate-y-1"
                   >
               {/* Title & badge */}
               <div className="flex items-start justify-between mb-3">
@@ -479,7 +493,7 @@ export default function DashboardPage() {
               <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
                 <button
                   onClick={() => handleLoad(resume.id)}
-                  className="flex-1 px-3 py-2 rounded-lg text-xs font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+                  className="flex-1 px-3 py-2 rounded-lg text-xs font-medium text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-sm shadow-primary-500/20 transition-all"
                 >
                   Open
                 </button>

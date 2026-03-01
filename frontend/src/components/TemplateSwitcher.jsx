@@ -55,8 +55,8 @@ export default function TemplateSwitcher({ selected, onChange }) {
               onClick={() => onChange(t.key)}
               className={`relative text-left rounded-xl border-2 p-3 transition-all ${
                 active
-                  ? 'border-primary-500 ring-2 ring-primary-200 dark:ring-primary-800 shadow-md'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-primary-500 ring-2 ring-primary-200 dark:ring-primary-800 shadow-lg shadow-primary-500/15'
+                  : 'border-gray-200 dark:border-surface-700 hover:border-gray-300 dark:hover:border-surface-600 hover:shadow-md'
               }`}
             >
               {/* Mini preview card */}
