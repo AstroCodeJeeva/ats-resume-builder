@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ATS Resume Builder — Complete Study Guide (Viva Preparation)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; color: #1e293b; line-height: 1.75; font-size: 12pt; max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+  
+  h1 { font-size: 26pt; font-weight: 800; color: #4f46e5; text-align: center; margin-bottom: 8px; }
+  .subtitle { text-align: center; color: #64748b; font-size: 13pt; margin-bottom: 30px; }
+  
+  h2 { font-size: 18pt; font-weight: 700; color: #4f46e5; border-bottom: 3px solid #4f46e5; padding-bottom: 5px; margin: 36px 0 16px; }
+  h3 { font-size: 14pt; font-weight: 700; color: #1e293b; margin: 24px 0 10px; }
+  h4 { font-size: 12pt; font-weight: 600; color: #475569; margin: 18px 0 8px; }
+  
+  p { margin: 8px 0; }
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin: 5px 0; }
+  
+  /* Q&A styling */
+  .qa { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 20px; margin: 14px 0; }
+  .qa .q { font-weight: 700; color: #dc2626; font-size: 12pt; margin-bottom: 8px; }
+  .qa .q::before { content: "Q: "; }
+  .qa .a { color: #1e293b; }
+  .qa .a::before { content: "A: "; font-weight: 700; color: #16a34a; }
+  
+  /* Tamil explanation */
+  .tamil { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 10px 16px; margin: 8px 0; border-radius: 4px; font-style: italic; color: #92400e; }
+  .tamil::before { content: "🗣️ Simple-ah sollunga: "; font-weight: 700; font-style: normal; }
+
+  /* Code blocks */
+  .code-box { background: #1e293b; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Cascadia Code', Consolas, monospace; font-size: 10.5pt; overflow-x: auto; margin: 10px 0; line-height: 1.6; white-space: pre; }
+  .code-box .comment { color: #64748b; }
+  .code-box .keyword { color: #c084fc; }
+  .code-box .string { color: #86efac; }
+  .code-box .function { color: #60a5fa; }
+  
+  /* Highlight boxes */
+  .tip { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+  .tip::before { content: "💡 TIP: "; font-weight: 700; color: #16a34a; }
+  .warn { background: #fef2f2; border-left: 4px solid #ef4444; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+  .warn::before { content: "⚠️ IMPORTANT: "; font-weight: 700; color: #dc2626; }
+  .note { background: #eef2ff; border-left: 4px solid #4f46e5; padding: 12px 16px; margin: 12px 0; border-radius: 4px; }
+  .note::before { content: "📝 NOTE: "; font-weight: 700; color: #4f46e5; }
+  
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 11pt; }
+  th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+  th { background: #f1f5f9; font-weight: 600; }
+  
+  /* Section numbering */
+  .section-nav { background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+  .section-nav a { text-decoration: none; color: #4f46e5; display: block; padding: 4px 0; }
+  .section-nav a:hover { text-decoration: underline; }
+  
+  /* Flowchart text */
+  .flow { font-family: monospace; background: #f8fafc; padding: 16px; border-radius: 8px; margin: 10px 0; white-space: pre; line-height: 1.4; font-size: 11pt; }
+
+  @media print { body { max-width: 100%; } .qa { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<h1>🎓 ATS Resume Builder — Complete Study Guide</h1>
+<p class="subtitle">Everything you need to explain your project confidently in viva / presentation</p>
+
+<div class="section-nav">
+  <strong>📖 Contents (Click to jump):</strong><br>
+  <a href="#part1">Part 1: Project Overview (What is this project?)</a>
+  <a href="#part2">Part 2: How Each Part Works (Simple Explanation)</a>
+  <a href="#part3">Part 3: Code Walkthrough (Line by Line)</a>
+  <a href="#part4">Part 4: 50+ Viva Questions & Answers</a>
+  <a href="#part5">Part 5: How to Demo the Project Live</a>
+  <a href="#part6">Part 6: If Maam Asks "Change This Code"</a>
+  <a href="#part7">Part 7: Key Terms Dictionary</a>
+  <a href="#part8">Part 8: 1-Month Study Plan</a>
+</div>
+
+<!-- ═══════════════════════ PART 1 ═══════════════════════ -->
+<h2 id="part1">Part 1: Project Overview — "What is Your Project?"</h2>
+
+<h3>🎯 One-Line Answer</h3>
+<p><strong>"My project is an AI-powered web application that helps job seekers build, optimize, and analyze resumes for ATS (Applicant Tracking System) compatibility."</strong></p>
+
+<h3>📝 Detailed Answer (30 seconds)</h3>
+<div class="qa">
+  <div class="q">Tell me about your project</div>
+  <div class="a">My project is called <strong>ATS Resume Builder</strong>. It's a full-stack web application where users can build their resume step-by-step, and then our AI — powered by the Llama 3.3 70B model through Groq API — optimizes it for ATS compatibility. ATS means Applicant Tracking System — the software that companies use to filter resumes before a human sees them. Our app scores resumes out of 100, gives actionable suggestions, generates cover letters, and even prepares interview questions. The frontend is built with <strong>React 18</strong> and <strong>Tailwind CSS</strong>, the backend uses <strong>FastAPI (Python)</strong>, and data is stored in <strong>MongoDB Atlas</strong>. It's deployed live — frontend on Vercel, backend on Render.</div>
+</div>
+
+<div class="tamil">
+"Ennoda project oru AI-powered website. Inga users resume build pannalam, optimize pannalam. AI use panni resume-a improve panrom, ATS score kudukrom — 100-la evalavu nu. React frontend, Python FastAPI backend, MongoDB database. Live-la deploy pannitom — Vercel la frontend, Render la backend."
+</div>
+
+<h3>🔑 Key Numbers to Remember</h3>
+<table>
+  <tr><th>What</th><th>Number</th></tr>
+  <tr><td>Total Lines of Code</td><td>8,227+</td></tr>
+  <tr><td>Backend Python Files</td><td>33 files (2,636 lines)</td></tr>
+  <tr><td>Frontend JS/JSX Files</td><td>39 files (5,591 lines)</td></tr>
+  <tr><td>React Pages</td><td>11 pages</td></tr>
+  <tr><td>React Components</td><td>21 reusable components</td></tr>
+  <tr><td>API Endpoints</td><td>25+ REST endpoints</td></tr>
+  <tr><td>Backend Services</td><td>10 service modules</td></tr>
+  <tr><td>Backend Routers</td><td>8 route modules</td></tr>
+  <tr><td>AI Model</td><td>Llama 3.3 70B (via Groq)</td></tr>
+  <tr><td>Database Collections</td><td>3 (users, saved_resumes, resume_uploads)</td></tr>
+</table>
+
+<h3>🏗️ Architecture — How to Explain</h3>
+<div class="flow">
+User's Browser (React)
+    ↓ HTTPS request
+FastAPI Backend (Python)
+    ↓ sends resume data
+Groq AI API (Llama 3.3 70B)
+    ↓ returns optimized resume
+FastAPI processes & scores
+    ↓ JSON response
+React displays results
+    ↓ user clicks "Download"
+PDF/DOCX generated & downloaded
+</div>
+
+<div class="qa">
+  <div class="q">Why did you choose this architecture?</div>
+  <div class="a">I chose <strong>React</strong> for the frontend because it's component-based — each form step, each card, each button is a reusable component, which makes the code organized and maintainable. I chose <strong>FastAPI</strong> for the backend because it's the fastest Python web framework, has built-in data validation with Pydantic, and supports async — which is important because AI API calls take 5-10 seconds and we don't want to block other users. <strong>MongoDB</strong> was chosen because resumes have nested data (experience has multiple bullets, projects have multiple technologies) — this fits perfectly with MongoDB's document structure. A SQL database would need 8-10 tables with complex joins, but MongoDB stores it naturally as nested JSON.</div>
+</div>
+
+<!-- ═══════════════════════ PART 2 ═══════════════════════ -->
+<h2 id="part2">Part 2: How Each Part Works (Simple Explanation)</h2>
+
+<h3>2.1 Frontend (React) — What the user sees</h3>
+<h4>What is React?</h4>
+<p>React is a JavaScript library for building user interfaces. Instead of writing one giant HTML file, we build small <strong>components</strong> (like LEGO blocks) and combine them.</p>
+
+<div class="qa">
+  <div class="q">What React features did you use?</div>
+  <div class="a">
+    <strong>1. useState</strong> — stores data (like form inputs) that can change<br>
+    <strong>2. useEffect</strong> — runs code when component loads (like fetching profile on login)<br>
+    <strong>3. useContext</strong> — shares login state across all pages without passing props<br>
+    <strong>4. React Router</strong> — navigates between pages without reloading<br>
+    <strong>5. lazy() + Suspense</strong> — loads pages only when needed (code splitting)<br>
+    <strong>6. Framer Motion</strong> — smooth animations when pages/elements appear
+  </div>
+</div>
+
+<h4>How the Resume Builder Form Works (Step by Step)</h4>
+<div class="flow">
+Step 0: Personal Info  →  useState saves name, email, phone
+Step 1: Skills         →  useState saves array of skills
+Step 2: Experience     →  useState saves array of {role, company, bullets}
+Step 3: Projects       →  useState saves array of {title, tech}
+Step 4: Education      →  useState saves array of {degree, institution}
+Step 5: Certifications →  useState saves array of {title, issuer}
+Step 6: Target Role    →  useState saves target_role, job_description
+
+User clicks "Optimize with AI"
+  → all data sent to backend via POST /api/resume/optimize
+  → AI returns optimized version
+  → navigate to /results page
+</div>
+
+<h4>How Auth Context Works</h4>
+<div class="qa">
+  <div class="q">How does login work in your frontend?</div>
+  <div class="a">When user logs in, the backend returns a <strong>JWT token</strong>. We store this token in <strong>localStorage</strong>. Then our <strong>AuthContext</strong> — which wraps the entire app — makes the user object available everywhere using React's Context API. Every API call automatically attaches this token in the <code>Authorization: Bearer &lt;token&gt;</code> header using an Axios interceptor. When the token expires (after 24 hours), the interceptor catches the 401 error, clears localStorage, and shows "Session expired".</div>
+</div>
+
+<div class="tamil">"Login panna backend JWT token kudukkum. Antha token-a localStorage-la store panrom. AuthContext use panni ella pages-layum user info access panrom. Eppo API call panalum, Axios automatically antha token header-la add pannum."</div>
+
+<h3>2.2 Backend (FastAPI + Python) — The brain</h3>
+
+<h4>What is FastAPI?</h4>
+<p>FastAPI is a modern Python web framework for building APIs. It's very fast, has <strong>automatic data validation</strong> (using Pydantic), and generates API documentation automatically.</p>
+
+<div class="qa">
+  <div class="q">Explain the backend structure</div>
+  <div class="a">The backend follows a <strong>layered architecture</strong>:
+    <br><strong>Layer 1: Routers</strong> (8 files) — handle HTTP requests, validate input, return responses. Like a receptionist.
+    <br><strong>Layer 2: Services</strong> (10 files) — contain business logic. Like the actual workers.
+    <br><strong>Layer 3: Database</strong> (1 file) — connects to MongoDB. Like the storage room.
+    <br><strong>Layer 4: Models</strong> (2 files) — define data shapes. Like the forms/templates.
+    <br><br>For example: when user clicks "Optimize" → <code>resume_router.py</code> receives the request → calls <code>openai_service.py</code> (which calls Groq AI) → calls <code>scoring_service.py</code> (which calculates score) → returns everything to the user.
+  </div>
+</div>
+
+<h4>How main.py Works</h4>
+<div class="qa">
+  <div class="q">Explain your main.py file</div>
+  <div class="a"><code>main.py</code> is the entry point of the backend. Here's what happens when the server starts:
+    <br><strong>1.</strong> <code>load_dotenv()</code> — loads environment variables from .env file (API keys, database URL)
+    <br><strong>2.</strong> <code>lifespan()</code> — startup function that connects to MongoDB and creates the default admin account
+    <br><strong>3.</strong> <code>FastAPI()</code> — creates the app instance
+    <br><strong>4.</strong> <code>CORSMiddleware</code> — allows the frontend (on different domain) to talk to the backend
+    <br><strong>5.</strong> <code>security_headers</code> middleware — adds security headers to every response
+    <br><strong>6.</strong> <code>include_router()</code> — registers all 8 route modules with their URL prefixes
+    <br><strong>7.</strong> Rate limiter — prevents abuse (e.g., max 5 login attempts per minute)
+  </div>
+</div>
+
+<h4>How AI Integration Works</h4>
+<div class="qa">
+  <div class="q">How does AI optimization work?</div>
+  <div class="a">We use the <strong>Groq API</strong> with the <strong>Llama 3.3 70B</strong> model. Here's the flow:
+    <br><strong>1.</strong> User's resume data (JSON) is sent to our backend
+    <br><strong>2.</strong> <code>openai_service.py</code> builds a prompt: "Here's a resume and a job description. Optimize the resume, keep it truthful, improve bullets with metrics."
+    <br><strong>3.</strong> We send this prompt to Groq API using <code>groq_client.py</code>
+    <br><strong>4.</strong> Groq runs Llama 3.3 70B and returns optimized JSON
+    <br><strong>5.</strong> We parse the JSON, validate it with Pydantic, calculate ATS score
+    <br><strong>6.</strong> Return everything to the frontend
+    <br><br>The key technique is <strong>asyncio.to_thread()</strong> — since Groq SDK is synchronous, we run it in a separate thread so the FastAPI server isn't blocked.
+  </div>
+</div>
+
+<div class="tamil">"Groq API use panrom, athula Llama 3.3 70B model irukkum. Resume data-vum job description-um AI-ku anupprom. AI optimize panni thirumbi JSON-la kudukkum. Appo naam scoring panrom — keywords match aaguthaa, skills irukkaa, experience relevant-aa, formatting correct-aa nu check panrom."</div>
+
+<h4>How ATS Scoring Works</h4>
+<div class="qa">
+  <div class="q">How do you calculate ATS score?</div>
+  <div class="a">The ATS score is calculated in <code>scoring_service.py</code> using 4 criteria:
+    <br><strong>1. Keyword Match (30%)</strong> — How many words from the job description appear in the resume? We tokenize both texts and calculate intersection.
+    <br><strong>2. Skills Alignment (25%)</strong> — How many of the user's listed skills match the job description keywords?
+    <br><strong>3. Experience Relevance (25%)</strong> — Do the work experience bullet points contain relevant keywords?
+    <br><strong>4. Formatting Compliance (20%)</strong> — Does the resume have contact info? 3+ skills? Work experience? Action verbs like "developed", "implemented"? 100+ words?
+    <br><br>Formula: <code>overall = keyword*0.30 + skills*0.25 + experience*0.25 + formatting*0.20</code>
+  </div>
+</div>
+
+<h3>2.3 Database (MongoDB) — Where data lives</h3>
+
+<div class="qa">
+  <div class="q">Explain your database design</div>
+  <div class="a">I use <strong>MongoDB Atlas</strong> (cloud NoSQL database) with 3 collections:
+    <br><br><strong>1. users</strong> — stores username, email, hashed_password (bcrypt), is_admin, security_question, security_answer. Has unique indexes on email and username.
+    <br><br><strong>2. saved_resumes</strong> — stores user_id, title, resume_data (the full resume JSON), optimized_data, ats_score, template choice, share_token (for public sharing). Indexed by user_id.
+    <br><br><strong>3. resume_uploads</strong> — stores uploaded file analysis: user_id, filename, resume_text (extracted), ats_score, analysis results, predicted_jobs. Indexed by user_id.
+    <br><br>I chose MongoDB over SQL because resume data is <strong>deeply nested</strong> — a resume has an array of experiences, each with an array of bullets. In SQL this would need 8+ tables with JOINs. In MongoDB, it's stored naturally as a single document.
+  </div>
+</div>
+
+<h3>2.4 Authentication — How login/security works</h3>
+
+<div class="qa">
+  <div class="q">Explain your authentication system</div>
+  <div class="a">I implemented <strong>JWT (JSON Web Token) authentication</strong>:
+    <br><strong>1. Registration:</strong> User sends username, email, password → password is hashed with <strong>bcrypt</strong> (one-way hash with salt) → stored in MongoDB → JWT token returned
+    <br><strong>2. Login:</strong> User sends email + password → we find user by email → <code>bcrypt.checkpw()</code> verifies password → generate JWT token (valid 24 hours)
+    <br><strong>3. Protected Routes:</strong> Token is sent in <code>Authorization: Bearer &lt;token&gt;</code> header → backend decodes it using <code>jwt.decode()</code> → extracts user_id → fetches user from DB
+    <br><strong>4. Password Recovery:</strong> Uses security question + answer (answer is also bcrypt-hashed)
+    <br><strong>5. Admin:</strong> Users with <code>is_admin=True</code> can access admin endpoints. Default admin created on startup.
+  </div>
+</div>
+
+<div class="tamil">"Password bcrypt use panni hash panrom — ipo original password evanum paakka mudiyaadhu. Login panna password correct-aa nu bcrypt check pannum. Correct-na JWT token generate panrom — ithu user-oda ID-yum username-um encrypt pannu oru string. 24 hours valid. Eppo API call panalum, ithu header-la send aagum."</div>
+
+<!-- ═══════════════════════ PART 3 ═══════════════════════ -->
+<h2 id="part3">Part 3: Code Walkthrough — Line by Line</h2>
+
+<h3>3.1 main.py — Server Entry Point</h3>
+<div class="code-box"><span class="comment"># Step 1: Load environment variables (.env file has API keys, DB URL)</span>
+<span class="keyword">from</span> dotenv <span class="keyword">import</span> load_dotenv
+load_dotenv()
+
+<span class="comment"># Step 2: Create FastAPI app with title and description</span>
+app = FastAPI(
+    title=<span class="string">"ATS Resume Builder API"</span>,
+    version=<span class="string">"1.0.0"</span>,
+    lifespan=lifespan,  <span class="comment"># startup/shutdown handler</span>
+)
+
+<span class="comment"># Step 3: CORS - Allow frontend (different domain) to call our API</span>
+app.add_middleware(CORSMiddleware,
+    allow_origins=origins,         <span class="comment"># e.g., ["https://ats-resume-builder-mu.vercel.app"]</span>
+    allow_credentials=<span class="keyword">True</span>,
+    allow_methods=[<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"PUT"</span>, <span class="string">"DELETE"</span>],
+)
+
+<span class="comment"># Step 4: Security headers middleware - runs on EVERY response</span>
+@app.middleware(<span class="string">"http"</span>)
+<span class="keyword">async def</span> <span class="function">security_headers</span>(request, call_next):
+    response = <span class="keyword">await</span> call_next(request)
+    response.headers[<span class="string">"X-Frame-Options"</span>] = <span class="string">"DENY"</span>  <span class="comment"># prevent clickjacking</span>
+    <span class="keyword">return</span> response
+
+<span class="comment"># Step 5: Register all routers (groups of API endpoints)</span>
+app.include_router(resume_router, prefix=<span class="string">"/api/resume"</span>)
+app.include_router(auth_router,   prefix=<span class="string">"/api/auth"</span>)
+<span class="comment"># ... 6 more routers</span></div>
+
+<h3>3.2 auth_service.py — How Passwords & Tokens Work</h3>
+<div class="code-box"><span class="comment"># HASH PASSWORD — converts "MyPassword123" → "$2b$12$LJ3..." (can't reverse!)</span>
+<span class="keyword">def</span> <span class="function">hash_password</span>(password: str) -> str:
+    <span class="keyword">return</span> bcrypt.hashpw(
+        password.encode(<span class="string">"utf-8"</span>),   <span class="comment"># convert string to bytes</span>
+        bcrypt.gensalt()             <span class="comment"># generate random salt</span>
+    ).decode(<span class="string">"utf-8"</span>)               <span class="comment"># convert back to string for storage</span>
+
+<span class="comment"># VERIFY PASSWORD — checks if entered password matches stored hash</span>
+<span class="keyword">def</span> <span class="function">verify_password</span>(plain: str, hashed: str) -> bool:
+    <span class="keyword">return</span> bcrypt.checkpw(
+        plain.encode(<span class="string">"utf-8"</span>),       <span class="comment"># user's entered password</span>
+        hashed.encode(<span class="string">"utf-8"</span>)      <span class="comment"># stored hash from database</span>
+    )
+
+<span class="comment"># CREATE JWT TOKEN — encodes user_id + username + expiry into a string</span>
+<span class="keyword">def</span> <span class="function">create_access_token</span>(user_id: str, username: str) -> str:
+    payload = {
+        <span class="string">"sub"</span>: user_id,              <span class="comment"># who this token belongs to</span>
+        <span class="string">"username"</span>: username,
+        <span class="string">"exp"</span>: datetime.now() + timedelta(hours=24),  <span class="comment"># expires in 24h</span>
+    }
+    <span class="keyword">return</span> jwt.encode(payload, SECRET_KEY, algorithm=<span class="string">"HS256"</span>)
+
+<span class="comment"># GET CURRENT USER — extracts user from the JWT token in request header</span>
+<span class="keyword">def</span> <span class="function">get_current_user</span>(credentials):
+    payload = jwt.decode(token, SECRET_KEY)  <span class="comment"># decode token → get user_id</span>
+    user = db.users.find_one({<span class="string">"_id"</span>: ObjectId(user_id)})  <span class="comment"># fetch from DB</span>
+    <span class="keyword">return</span> user</div>
+
+<h3>3.3 scoring_service.py — How ATS Score is Calculated</h3>
+<div class="code-box"><span class="comment"># TOKENIZE — breaks text into individual words</span>
+<span class="comment"># "Software Engineer at Google" → {"software", "engineer", "google"}</span>
+<span class="keyword">def</span> <span class="function">_tokenize</span>(text):
+    <span class="keyword">return</span> set(re.findall(r<span class="string">"[a-z]{2,}"</span>, text.lower()))
+
+<span class="comment"># KEYWORD MATCH — what % of job description words appear in resume?</span>
+<span class="keyword">def</span> <span class="function">_keyword_match_score</span>(resume_tokens, jd_tokens):
+    <span class="keyword">if not</span> jd_tokens:              <span class="comment"># no JD → score by token richness</span>
+        <span class="keyword">return</span> 40 <span class="keyword">if</span> len(resume_tokens) >= 80 <span class="keyword">else</span> 25 <span class="keyword">if</span> len(resume_tokens) >= 40 <span class="keyword">else</span> 10
+    matched = resume_tokens & jd_tokens  <span class="comment"># set intersection (common words)</span>
+    <span class="keyword">return</span> int(len(matched) / len(jd_tokens) * 100)
+    <span class="comment"># Example: resume has 40 of 50 JD words → 80%</span>
+
+<span class="comment"># EXPERIENCE CHECK — 0% if no experience entered!</span>
+<span class="keyword">def</span> <span class="function">_experience_relevance_score</span>(resume, jd_tokens):
+    <span class="keyword">if not</span> resume.work_experience:  <span class="comment"># ← KEY FIX: no experience = 0%</span>
+        <span class="keyword">return</span> 0
+
+<span class="comment"># FORMATTING CHECK — does resume follow best practices?</span>
+<span class="keyword">def</span> <span class="function">_formatting_compliance_score</span>(resume):
+    score = 0
+    <span class="keyword">if</span> has_email_and_phone: score += 20     <span class="comment"># contact info present</span>
+    <span class="keyword">if</span> skills >= 3:         score += 20     <span class="comment"># enough skills listed</span>
+    <span class="keyword">if</span> has_experience:      score += 20     <span class="comment"># work experience present</span>
+    <span class="keyword">if</span> uses_action_verbs:   score += 20     <span class="comment"># "developed", "implemented", etc.</span>
+    <span class="keyword">if</span> word_count > 100:    score += 20     <span class="comment"># enough content</span>
+    <span class="keyword">return</span> score
+
+<span class="comment"># FINAL SCORE — weighted average of all 4 criteria</span>
+overall = keyword*0.30 + skills*0.25 + experience*0.25 + formatting*0.20</div>
+
+<h3>3.4 groq_client.py — How AI is Called</h3>
+<div class="code-box"><span class="comment"># Lazy client — only created when first needed</span>
+_client = <span class="keyword">None</span>
+
+<span class="keyword">def</span> <span class="function">get_client</span>():
+    <span class="keyword">global</span> _client
+    <span class="keyword">if</span> _client <span class="keyword">is None</span>:
+        api_key = os.getenv(<span class="string">"GROQ_API_KEY"</span>)  <span class="comment"># get API key from environment</span>
+        _client = Groq(api_key=api_key)      <span class="comment"># create client once</span>
+    <span class="keyword">return</span> _client
+
+MODEL = <span class="string">"llama-3.3-70b-versatile"</span>       <span class="comment"># AI model name</span>
+
+<span class="comment"># ASYNC WRAPPER — runs AI call in separate thread (non-blocking)</span>
+<span class="keyword">async def</span> <span class="function">async_chat_completion</span>(**kwargs):
+    client = get_client()
+    <span class="keyword">def</span> _call():
+        resp = client.chat.completions.create(**kwargs)
+        <span class="keyword">return</span> resp.choices[0].message.content
+    <span class="keyword">return await</span> asyncio.to_thread(_call)  <span class="comment"># ← key: runs in thread pool!</span>
+
+<span class="comment"># JSON EXTRACTION — AI sometimes wraps response in \`\`\`json ... \`\`\`</span>
+<span class="keyword">def</span> <span class="function">extract_json</span>(text):
+    cleaned = re.sub(r<span class="string">"^```json?"</span>, <span class="string">""</span>, text)  <span class="comment"># strip markdown fences</span>
+    <span class="keyword">return</span> json.loads(cleaned)</div>
+
+<h3>3.5 AuthContext.jsx — How Login State is Shared</h3>
+<div class="code-box"><span class="comment">// Create a "box" that holds user data, accessible from any page</span>
+<span class="keyword">const</span> AuthContext = createContext(<span class="keyword">null</span>)
+
+<span class="keyword">function</span> <span class="function">AuthProvider</span>({ children }) {
+  <span class="keyword">const</span> [user, setUser] = useState(<span class="keyword">null</span>)  <span class="comment">// null = not logged in</span>
+
+  <span class="comment">// On app load: check if token exists in localStorage</span>
+  useEffect(() => {
+    <span class="keyword">const</span> token = localStorage.getItem(<span class="string">'ats_token'</span>)
+    <span class="keyword">if</span> (token) {
+      getProfile().then(profile => setUser(profile))  <span class="comment">// fetch user data</span>
+    }
+  }, [])
+
+  <span class="keyword">const</span> <span class="function">login</span> = (token, userData) => {
+    localStorage.setItem(<span class="string">'ats_token'</span>, token)   <span class="comment">// save token</span>
+    setUser(userData)                            <span class="comment">// update state → all pages re-render</span>
+  }
+
+  <span class="keyword">const</span> <span class="function">logout</span> = () => {
+    localStorage.removeItem(<span class="string">'ats_token'</span>)       <span class="comment">// clear token</span>
+    setUser(<span class="keyword">null</span>)                              <span class="comment">// update state → redirected to login</span>
+  }
+
+  <span class="comment">// Wrap entire app so every page can access user, login, logout</span>
+  <span class="keyword">return</span> &lt;AuthContext.Provider value={{ user, login, logout }}>
+    {children}
+  &lt;/AuthContext.Provider>
+}
+
+<span class="comment">// Any page can use: const { user, login, logout } = useAuth()</span></div>
+
+<h3>3.6 api.js — How Frontend Talks to Backend</h3>
+<div class="code-box"><span class="comment">// Create Axios instance with base URL and timeout</span>
+<span class="keyword">const</span> api = axios.create({
+  baseURL: <span class="string">'https://your-backend.onrender.com/api'</span>,
+  timeout: 15000,  <span class="comment">// 15 seconds default timeout</span>
+})
+
+<span class="comment">// INTERCEPTOR 1: Automatically add JWT token to every request</span>
+api.interceptors.request.use((config) => {
+  <span class="keyword">const</span> token = localStorage.getItem(<span class="string">'ats_token'</span>)
+  <span class="keyword">if</span> (token) config.headers.Authorization = <span class="string">`Bearer ${token}`</span>
+  <span class="keyword">return</span> config
+})
+
+<span class="comment">// INTERCEPTOR 2: Handle errors globally</span>
+api.interceptors.response.use(
+  response => response,  <span class="comment">// success: pass through</span>
+  error => {
+    <span class="keyword">if</span> (error.response?.status === 401) {
+      <span class="comment">// Token expired → clear storage, show message</span>
+      localStorage.removeItem(<span class="string">'ats_token'</span>)
+      toast.error(<span class="string">'Session expired. Please sign in again.'</span>)
+    }
+    <span class="keyword">if</span> (error.response?.status === 429) {
+      toast.error(<span class="string">'Too many requests — please slow down.'</span>)
+    }
+  }
+)
+
+<span class="comment">// Example API call (60s timeout because AI takes time)</span>
+<span class="keyword">export async function</span> <span class="function">optimizeResume</span>(resumeData) {
+  <span class="keyword">const</span> { data } = <span class="keyword">await</span> api.post(<span class="string">'/resume/optimize'</span>, resumeData, { timeout: 60000 })
+  <span class="keyword">return</span> data
+}</div>
+
+<!-- ═══════════════════════ PART 4 ═══════════════════════ -->
+<h2 id="part4">Part 4: 50+ Viva Questions & Answers</h2>
+
+<h3>🔴 Category 1: General / Overview</h3>
+
+<div class="qa">
+  <div class="q">What is ATS?</div>
+  <div class="a">ATS stands for <strong>Applicant Tracking System</strong>. It's software used by companies to automatically screen resumes. Over 98% of Fortune 500 companies use ATS. It scans for keywords, skills, and formatting. Resumes that don't match the criteria are rejected before a human even sees them. My project helps users optimize their resumes specifically for these systems.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What problem does your project solve?</div>
+  <div class="a">75% of qualified candidates are rejected by ATS due to poor keyword usage, weak formatting, or missing skills. My project solves this by using AI to: (1) analyze what's missing, (2) rewrite bullet points with strong action verbs, (3) add missing keywords from the job description, and (4) score the resume 0-100 on ATS compatibility.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What are the main features?</div>
+  <div class="a">7 main features: (1) Multi-step resume builder, (2) AI resume optimization, (3) ATS score with breakdown, (4) Upload & analyze existing resumes, (5) Cover letter generator, (6) Interview question generator, (7) Admin dashboard. Plus: PDF/DOCX export, save & share resumes, dark mode, PWA support.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is your tech stack?</div>
+  <div class="a"><strong>Frontend:</strong> React 18, Vite (build tool), Tailwind CSS, Framer Motion<br><strong>Backend:</strong> FastAPI (Python), Pydantic (validation)<br><strong>Database:</strong> MongoDB Atlas<br><strong>AI:</strong> Groq API with Llama 3.3 70B model<br><strong>Auth:</strong> JWT + bcrypt<br><strong>Deployment:</strong> Vercel (frontend), Render (backend)</div>
+</div>
+
+<div class="qa">
+  <div class="q">Why FastAPI instead of Flask or Django?</div>
+  <div class="a">Three reasons: (1) <strong>Speed</strong> — FastAPI is the fastest Python web framework, (2) <strong>Async support</strong> — our AI calls take 5-10 seconds; async allows serving other users during that wait, (3) <strong>Automatic validation</strong> — Pydantic models validate data types, lengths, and formats automatically — no manual checking needed.</div>
+</div>
+
+<div class="qa">
+  <div class="q">Why MongoDB instead of MySQL?</div>
+  <div class="a">Resume data is <strong>deeply nested</strong>. A resume has: personal info, array of skills, array of experiences (each with array of bullets), array of projects (each with array of technologies), etc. In MySQL, this would need 8-10 tables with complex JOIN queries. In MongoDB, the entire resume is stored as <strong>one JSON document</strong> — faster to read, write, and simpler to code.</div>
+</div>
+
+<div class="qa">
+  <div class="q">Why React instead of Angular or plain HTML?</div>
+  <div class="a"><strong>Component reusability</strong> — I have 21 reusable components (buttons, form steps, modals). <strong>Virtual DOM</strong> — only re-renders what changes, making the 7-step form very smooth. <strong>Large ecosystem</strong> — libraries like Framer Motion (animations), React Router (navigation), React Hot Toast (notifications) save development time.</div>
+</div>
+
+<h3>🟡 Category 2: Technical Deep Dive</h3>
+
+<div class="qa">
+  <div class="q">What is JWT? How does it work?</div>
+  <div class="a">JWT (JSON Web Token) is a compact, URL-safe token for authentication. It has 3 parts separated by dots: <strong>Header</strong> (algorithm), <strong>Payload</strong> (user_id, username, expiry), <strong>Signature</strong> (hash of header+payload using our secret key). The server signs the token on login. On each request, we decode it to verify identity. We use HS256 algorithm and 24-hour expiry.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is bcrypt? Why not store passwords directly?</div>
+  <div class="a">Storing plain passwords is extremely dangerous — if the database is hacked, all passwords are exposed. <strong>bcrypt</strong> is a one-way hashing algorithm that converts "MyPassword123" to "$2b$12$LJ3m..." — you CANNOT reverse it. Each hash has a random <strong>salt</strong>, so even two users with the same password get different hashes. To verify login, bcrypt compares the hash of the entered password with the stored hash.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is CORS? Why do you need it?</div>
+  <div class="a">CORS (Cross-Origin Resource Sharing) is a security feature in browsers. By default, a website on domain A cannot make API calls to domain B. Our frontend is on <code>vercel.app</code> and backend is on <code>render.com</code> — different domains. CORS middleware tells the browser: "Yes, requests from this specific frontend URL are allowed." Without it, all API calls would be blocked.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is a REST API?</div>
+  <div class="a">REST (Representational State Transfer) is an architecture for web APIs. It uses HTTP methods: <strong>GET</strong> (read data), <strong>POST</strong> (create/submit), <strong>PUT</strong> (update), <strong>DELETE</strong> (remove). Each URL represents a resource. For example: <code>POST /api/auth/login</code> = login, <code>GET /api/saved/list</code> = get my resumes, <code>DELETE /api/saved/123</code> = delete resume with id 123.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is async/await? Why do you use it?</div>
+  <div class="a"><strong>async/await</strong> lets Python do other work while waiting for slow operations. Example: When User A calls the AI (takes 8 seconds), instead of blocking the entire server, async allows User B's request to be handled during that wait. Without async, 100 concurrent users would have to wait in line. With async, the server handles them all simultaneously.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is asyncio.to_thread()? Why do you use it?</div>
+  <div class="a">The Groq SDK is <strong>synchronous</strong> — it blocks until the AI responds. But FastAPI's event loop is single-threaded. If we call Groq directly, the entire server freezes for 5-10 seconds. <code>asyncio.to_thread()</code> solves this by running the Groq call in a <strong>separate thread</strong>, so the main event loop stays free to handle other requests.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is Pydantic?</div>
+  <div class="a">Pydantic is a Python library for <strong>data validation</strong>. We define a model like <code>class RegisterRequest(BaseModel): email: EmailStr; password: str = Field(min_length=6)</code>. When a user sends a request, Pydantic automatically checks: Is email valid? Is password at least 6 characters? If not, it returns a clear error — no manual if/else needed.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is rate limiting?</div>
+  <div class="a">Rate limiting restricts how many requests a user can make in a time window. We use <strong>SlowAPI</strong> library. Examples: login is limited to <strong>10 requests/minute</strong>, register to <strong>5/minute</strong>, AI optimization to <strong>10/minute</strong>. This prevents brute-force attacks (trying thousands of passwords) and protects against abuse of our AI API quota.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What are environment variables? Why use them?</div>
+  <div class="a">Environment variables store <strong>secret configuration</strong> like API keys, database passwords, and JWT secrets. They're set on the server (not in code). Reason: if code is on GitHub (public), anyone could see the secrets. By using <code>.env</code> file locally and Render/Vercel environment settings in production, secrets are never in the codebase.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is middleware?</div>
+  <div class="a">Middleware is code that runs <strong>before or after every request</strong>. Like a security checkpoint at a building entrance. In our app: (1) <strong>CORS middleware</strong> — checks if the frontend's domain is allowed, (2) <strong>Security headers middleware</strong> — adds X-Frame-Options, X-Content-Type-Options to prevent attacks, (3) <strong>Rate limiter</strong> — counts requests per IP and blocks if exceeded.</div>
+</div>
+
+<div class="qa">
+  <div class="q">Explain the Axios interceptor pattern</div>
+  <div class="a">Interceptors are functions that run on <strong>every</strong> HTTP request/response. <strong>Request interceptor:</strong> Before every API call, we automatically add the JWT token to the Authorization header — so we don't repeat this code in every function. <strong>Response interceptor:</strong> If any call returns 401 (unauthorized), we auto-logout the user and show "Session expired". If 429 (rate limited), we show "Too many requests".</div>
+</div>
+
+<h3>🟢 Category 3: React / Frontend Specific</h3>
+
+<div class="qa">
+  <div class="q">What is useState?</div>
+  <div class="a"><code>useState</code> is a React Hook that lets a component "remember" data. Example: <code>const [step, setStep] = useState(0)</code> — <code>step</code> holds the current value (starts at 0), <code>setStep</code> is the function to change it. When <code>setStep(1)</code> is called, React re-renders the component with the new value. We use it for form inputs, loading states, dark mode toggle, etc.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is useEffect?</div>
+  <div class="a"><code>useEffect</code> runs side effects — code that happens outside of rendering. It runs after the component renders. Example: <code>useEffect(() => { getProfile() }, [])</code> — the empty <code>[]</code> means "run once on mount". We use it for: fetching user profile on login, saving dark mode preference to localStorage, attaching event listeners.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is useContext?</div>
+  <div class="a"><code>useContext</code> accesses shared data without passing it through every component. Instead of passing <code>user</code> from App → Navbar → Button (prop drilling), we create a <strong>Context</strong> that wraps the app, and any component can directly access <code>user</code> via <code>useAuth()</code>. We use it for: auth state (user, login, logout functions).</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is React Router?</div>
+  <div class="a">React Router handles <strong>client-side navigation</strong>. When user clicks "Builder", the URL changes to <code>/builder</code> and the BuilderPage component loads — <strong>without</strong> a full page reload. This makes the app feel instant. We define routes like: <code>&lt;Route path="/builder" element={&lt;BuilderPage /&gt;} /&gt;</code>.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is code splitting / lazy loading?</div>
+  <div class="a">Instead of loading all 11 pages when the app starts, we use <code>lazy()</code> to load each page <strong>only when the user visits it</strong>. Example: <code>const AdminPage = lazy(() => import('./pages/AdminPage'))</code>. This makes the initial load much faster — the user only downloads what they need. <code>Suspense</code> shows a loading spinner while the page downloads.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is a Protected Route?</div>
+  <div class="a">A wrapper component that checks if the user is logged in before showing a page. If not logged in, it redirects to the landing page. For admin pages, it also checks <code>user.is_admin</code>. Example: <code>&lt;ProtectedRoute adminOnly&gt;&lt;AdminPage /&gt;&lt;/ProtectedRoute&gt;</code> — only admin users can access this route.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is Tailwind CSS?</div>
+  <div class="a">Tailwind is a <strong>utility-first CSS framework</strong>. Instead of writing CSS classes like <code>.btn-primary { background: blue; padding: 10px; }</code>, you write utility classes directly: <code>className="bg-blue-500 p-4 rounded-lg"</code>. Benefits: no context-switching between HTML and CSS files, consistent design system, responsive design with <code>md:</code> and <code>lg:</code> prefixes, dark mode with <code>dark:</code> prefix.</div>
+</div>
+
+<h3>🔵 Category 4: Advanced / If Maam Digs Deep</h3>
+
+<div class="qa">
+  <div class="q">What is the difference between sync and async database?</div>
+  <div class="a">We use <strong>two database connections</strong>: <code>pymongo</code> (synchronous) for simple operations like user login (which is fast), and <code>motor</code> (asynchronous) for database initialization and index creation. The sync connection is used inside <code>asyncio.to_thread()</code> when needed. This dual approach gives us simplicity for most operations and non-blocking behavior for heavy ones.</div>
+</div>
+
+<div class="qa">
+  <div class="q">How do you prevent SQL injection? (Or: How do you prevent NoSQL injection?)</div>
+  <div class="a">Since we use MongoDB (not SQL), SQL injection doesn't apply. But NoSQL injection is possible. We prevent it by: (1) <strong>Pydantic validation</strong> — only allows expected data types and formats. (2) <strong>Parameterized queries</strong> — PyMongo uses BSON, not string concatenation. (3) <strong>Input sanitization</strong> — email is validated with EmailStr, filenames are stripped of special characters.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What security measures did you implement?</div>
+  <div class="a">10 measures: (1) bcrypt password hashing, (2) JWT authentication, (3) Rate limiting on all sensitive endpoints, (4) CORS origin restriction, (5) Security headers (X-Frame-Options, HSTS), (6) Email enumeration prevention, (7) Filename sanitization in PDF downloads, (8) Admin password must be set via environment in production, (9) Hashed security question answers, (10) Input validation with Pydantic.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is a Progressive Web App (PWA)?</div>
+  <div class="a">A PWA is a website that can be <strong>installed on your phone/desktop</strong> like a native app. Our app has: (1) <code>manifest.json</code> — defines app name, icon, theme color, (2) <code>service-worker.js</code> — caches static assets for offline use, (3) Cache versioning — when we deploy updates, the old cache is automatically cleared.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is the difference between Llama model and GPT?</div>
+  <div class="a">Both are <strong>Large Language Models (LLMs)</strong>. GPT is made by OpenAI (closed source, expensive). Llama is made by Meta (open source). We use <strong>Llama 3.3 70B</strong> — "70B" means 70 billion parameters (weights the model learned during training). We access it via <strong>Groq API</strong> — Groq has custom hardware that runs inference very fast (faster than OpenAI for Llama models).</div>
+</div>
+
+<div class="qa">
+  <div class="q">What if Groq API is down? How do you handle errors?</div>
+  <div class="a">We have error handling at multiple levels: (1) <strong>try/except in router</strong> — catches AI errors and returns HTTP 502 with message, (2) <strong>60-second timeout</strong> in frontend — if AI takes too long, shows error, (3) <strong>toast.error()</strong> shows user-friendly message, (4) The <strong>heuristic scoring</strong> (no AI) always works as fallback — users can use quick-score without AI. (5) <strong>ErrorBoundary</strong> component catches any React crash and shows recovery UI.</div>
+</div>
+
+<div class="qa">
+  <div class="q">How does the resume PDF generation work?</div>
+  <div class="a">We use <strong>xhtml2pdf</strong> library. The flow: (1) Resume data → Jinja2 HTML template → HTML string, (2) xhtml2pdf converts HTML to PDF bytes, (3) FastAPI returns PDF as binary with <code>Content-Type: application/pdf</code> and <code>Content-Disposition: attachment</code> header. For DOCX, we use <strong>python-docx</strong> library to build the document programmatically (paragraph by paragraph).</div>
+</div>
+
+<div class="qa">
+  <div class="q">What is the lifespan function in FastAPI?</div>
+  <div class="a"><code>lifespan</code> is FastAPI's way to run code on <strong>startup and shutdown</strong>. On startup: we connect to MongoDB, create database indexes, and seed the default admin account. On shutdown: we close all database connections cleanly. It uses Python's <code>asynccontextmanager</code> — code before <code>yield</code> runs on startup, code after runs on shutdown.</div>
+</div>
+
+<div class="qa">
+  <div class="q">What are database indexes? Why did you create them?</div>
+  <div class="a">Indexes make queries fast — like a book's index. Without indexes, MongoDB scans every document to find a match (slow with 10,000+ users). We create: (1) <strong>Unique index on email</strong> — prevents duplicate registrations and makes login lookup instant, (2) <strong>Unique index on username</strong>, (3) <strong>Index on user_id</strong> in saved_resumes — fast lookup of a user's resumes, (4) <strong>Sparse index on share_token</strong> — fast public resume lookup.</div>
+</div>
+
+<!-- ═══════════════════════ PART 5 ═══════════════════════ -->
+<h2 id="part5">Part 5: How to Demo the Project Live</h2>
+
+<h3>Step-by-Step Demo Script (5 minutes)</h3>
+<ol>
+  <li><strong>Open the website</strong>: <code>https://ats-resume-builder-mu.vercel.app</code></li>
+  <li><strong>Show Landing Page</strong>: "This is our homepage. It shows all the features with animations. Built with React and Framer Motion."</li>
+  <li><strong>Click "Start Building"</strong>: Show the 7-step form. Fill in sample data or click "Load Sample".</li>
+  <li><strong>Click "Optimize with AI"</strong>: Wait 5-8 seconds. "The AI is now analyzing the resume against the job description."</li>
+  <li><strong>Show Results Page</strong>: "Here's the ATS score — 82 out of 100. This section shows keyword match, skills, experience, and formatting scores. Below are AI suggestions."</li>
+  <li><strong>Click "Download PDF"</strong>: "Users can download the optimized resume as PDF or DOCX."</li>
+  <li><strong>Go to Analyzer</strong>: Upload a sample PDF. "This uses pdfplumber to extract text, then AI analyzes it."</li>
+  <li><strong>Show Cover Letter page</strong>: "AI generates a cover letter based on the user's resume and target role."</li>
+  <li><strong>Toggle Dark Mode</strong>: "The entire app supports dark mode using Tailwind's dark: prefix."</li>
+  <li><strong>Show Admin Panel</strong>: Login as admin. "Admins can see platform stats, manage users, and monitor uploads."</li>
+</ol>
+
+<div class="tip">Practice this demo 3-4 times before your presentation. Make sure the website loads (Render backend sleeps after 15 min — first load may take 30 seconds).</div>
+
+<div class="warn">If the AI doesn't respond (Groq API issue), don't panic. Show the builder form, explain the flow, and say "The API is temporarily slow, but here's how it works...". The heuristic score (/quick-score) works without AI.</div>
+
+<!-- ═══════════════════════ PART 6 ═══════════════════════ -->
+<h2 id="part6">Part 6: If Maam Says "Change This Code"</h2>
+
+<p>Professors often ask you to make a small change to prove you understand the code. Here are the most common requests and exactly what to do:</p>
+
+<h3>6.1 "Change the ATS score weights"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Make keywords more important than formatting"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/services/scoring_service.py</code><br>
+    <strong>Find line:</strong> <code>overall = int(kw * 0.30 + sa * 0.25 + er * 0.25 + fc * 0.20)</code><br>
+    <strong>Change to:</strong> <code>overall = int(kw * 0.40 + sa * 0.25 + er * 0.25 + fc * 0.10)</code><br>
+    <strong>Explain:</strong> "I increased keyword_match weight from 30% to 40% and reduced formatting from 20% to 10%. Total still adds up to 100%."
+  </div>
+</div>
+
+<h3>6.2 "Change the token expiry time"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Make the login session last longer/shorter"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/services/auth_service.py</code><br>
+    <strong>Find:</strong> <code>ACCESS_TOKEN_EXPIRE_HOURS = 24</code><br>
+    <strong>Change to:</strong> <code>ACCESS_TOKEN_EXPIRE_HOURS = 48</code> (2 days) or <code>= 1</code> (1 hour)<br>
+    <strong>Explain:</strong> "This variable controls how long a JWT token is valid. After this time, the user must login again."
+  </div>
+</div>
+
+<h3>6.3 "Change the rate limit"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Allow more login attempts"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/routers/auth_router.py</code><br>
+    <strong>Find:</strong> <code>@limiter.limit("10/minute")</code> (above login function)<br>
+    <strong>Change to:</strong> <code>@limiter.limit("20/minute")</code><br>
+    <strong>Explain:</strong> "This decorator limits login to 10 attempts per minute per IP. I changed it to 20. This is to prevent brute force attacks."
+  </div>
+</div>
+
+<h3>6.4 "Add a new field to the resume"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Add a 'Languages' field to the resume"</div>
+  <div class="a">
+    <strong>Step 1:</strong> <code>backend/models.py</code> — Add to ResumeInput:<br>
+    <code>languages: List[str] = Field(default_factory=list)</code><br>
+    <strong>Step 2:</strong> <code>backend/services/scoring_service.py</code> — Add to _extract_resume_text:<br>
+    <code>parts.extend(resume.languages)</code><br>
+    <strong>Step 3:</strong> Frontend — Create LanguagesStep component similar to SkillsStep<br>
+    <strong>Explain:</strong> "I added languages to the Pydantic model, included it in scoring, and created a frontend component for input."
+  </div>
+</div>
+
+<h3>6.5 "Change the AI model"</h3>
+<div class="qa">
+  <div class="q">Maam says: "What if you want to use a different AI model?"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/services/groq_client.py</code><br>
+    <strong>Find:</strong> <code>MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")</code><br>
+    <strong>Change to:</strong> <code>MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")</code><br>
+    <strong>Or:</strong> Just change the <code>GROQ_MODEL</code> environment variable — no code change needed!<br>
+    <strong>Explain:</strong> "The model name is configurable via environment variable. I can switch to a smaller Llama model (8B parameters, faster but less accurate) or a bigger one without changing any code."
+  </div>
+</div>
+
+<h3>6.6 "Change the color scheme"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Change the primary color from purple to blue"</div>
+  <div class="a">
+    <strong>File:</strong> <code>frontend/tailwind.config.js</code><br>
+    <strong>Find:</strong> The <code>primary</code> color definition<br>
+    <strong>Change:</strong> The color hex values from purple (#4f46e5) shades to blue (#2563eb) shades<br>
+    <strong>Explain:</strong> "Tailwind uses a centralized color system. I change it in one place (config file), and every button, heading, and link across the entire app updates automatically."
+  </div>
+</div>
+
+<h3>6.7 "Change the minimum password length"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Make password require at least 8 characters"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/routers/auth_router.py</code><br>
+    <strong>Find:</strong> <code>password: str = Field(..., min_length=6, max_length=100)</code><br>
+    <strong>Change to:</strong> <code>password: str = Field(..., min_length=8, max_length=100)</code><br>
+    <strong>Explain:</strong> "Pydantic's Field() validates this automatically. If someone sends a password with 7 characters, FastAPI returns a 422 error with a clear message. I changed it from 6 to 8."
+  </div>
+</div>
+
+<h3>6.8 "Add a new API endpoint"</h3>
+<div class="qa">
+  <div class="q">Maam says: "Create an endpoint that returns the resume word count"</div>
+  <div class="a">
+    <strong>File:</strong> <code>backend/routers/resume_router.py</code><br>
+    <strong>Add:</strong><br>
+<div class="code-box">@router.post(<span class="string">"/word-count"</span>)
+<span class="keyword">async def</span> <span class="function">word_count</span>(payload: ResumeInput):
+    text = <span class="string">" "</span>.join([
+        payload.personal_info.name,
+        *payload.skills,
+        *[b <span class="keyword">for</span> e <span class="keyword">in</span> payload.work_experience <span class="keyword">for</span> b <span class="keyword">in</span> e.bullets],
+    ])
+    <span class="keyword">return</span> {<span class="string">"word_count"</span>: len(text.split())}</div>
+    <strong>Explain:</strong> "I created a new POST endpoint at /api/resume/word-count. It receives resume data, extracts all text, splits by spaces, and returns the count."
+  </div>
+</div>
+
+<!-- ═══════════════════════ PART 7 ═══════════════════════ -->
+<h2 id="part7">Part 7: Key Terms Dictionary</h2>
+
+<table>
+  <tr><th>Term</th><th>Simple Explanation</th></tr>
+  <tr><td><strong>API</strong></td><td>A way for two programs to talk to each other. Our frontend sends data to backend via API.</td></tr>
+  <tr><td><strong>REST</strong></td><td>A style of API using HTTP methods (GET, POST, PUT, DELETE) to manage resources.</td></tr>
+  <tr><td><strong>JWT</strong></td><td>A signed token sent with every request to prove "I am this user". Like a digital ID card.</td></tr>
+  <tr><td><strong>bcrypt</strong></td><td>One-way password hashing. Converts password to irreversible hash for safe storage.</td></tr>
+  <tr><td><strong>CORS</strong></td><td>Browser security that blocks cross-domain API calls unless the server explicitly allows it.</td></tr>
+  <tr><td><strong>Middleware</strong></td><td>Code that runs before/after every request — like a security guard at every door.</td></tr>
+  <tr><td><strong>Hook (React)</strong></td><td>Functions like useState, useEffect that add capabilities to React components.</td></tr>
+  <tr><td><strong>Component</strong></td><td>A reusable piece of UI (button, form, card). React app = tree of components.</td></tr>
+  <tr><td><strong>Props</strong></td><td>Data passed from parent component to child component. Like function parameters.</td></tr>
+  <tr><td><strong>State</strong></td><td>Data that can change and triggers re-render. Managed with useState.</td></tr>
+  <tr><td><strong>Context</strong></td><td>Shared data accessible by any component without prop drilling through every level.</td></tr>
+  <tr><td><strong>Pydantic</strong></td><td>Python library for automatic data validation using type hints.</td></tr>
+  <tr><td><strong>MongoDB</strong></td><td>NoSQL database that stores data as JSON-like documents (not tables with rows).</td></tr>
+  <tr><td><strong>Collection</strong></td><td>MongoDB's equivalent of a SQL table. We have: users, saved_resumes, resume_uploads.</td></tr>
+  <tr><td><strong>Index</strong></td><td>Database structure that speeds up queries. Like a book's index for fast lookup.</td></tr>
+  <tr><td><strong>async/await</strong></td><td>Non-blocking code execution. Server handles other requests while waiting for slow operations.</td></tr>
+  <tr><td><strong>Virtual DOM</strong></td><td>React's optimization — compares old and new UI, updates only what changed.</td></tr>
+  <tr><td><strong>Lazy Loading</strong></td><td>Loading code only when needed. Pages load on navigation, not all at once.</td></tr>
+  <tr><td><strong>Rate Limiting</strong></td><td>Limiting requests per time window (e.g., 10/minute) to prevent abuse.</td></tr>
+  <tr><td><strong>Environment Variable</strong></td><td>Server-side config (API keys, secrets) stored outside code for security.</td></tr>
+  <tr><td><strong>LLM</strong></td><td>Large Language Model — AI trained on massive text data. Llama 3.3 is one.</td></tr>
+  <tr><td><strong>Prompt Engineering</strong></td><td>Crafting the right instructions for AI to get desired output format and quality.</td></tr>
+  <tr><td><strong>Tokenization</strong></td><td>Breaking text into individual words/pieces for comparison and analysis.</td></tr>
+  <tr><td><strong>PWA</strong></td><td>Progressive Web App — website installable like a phone app, with offline support.</td></tr>
+  <tr><td><strong>Service Worker</strong></td><td>Script running in background that caches files for offline use and push notifications.</td></tr>
+  <tr><td><strong>Vite</strong></td><td>Fast build tool for React (replaces older tools like Webpack). Instant hot reload.</td></tr>
+  <tr><td><strong>Tailwind CSS</strong></td><td>CSS framework using utility classes (bg-blue-500, p-4) instead of writing custom CSS.</td></tr>
+  <tr><td><strong>Framer Motion</strong></td><td>React animation library for smooth page transitions and element animations.</td></tr>
+  <tr><td><strong>Axios</strong></td><td>HTTP client library. Better than fetch() — has interceptors, automatic JSON, timeouts.</td></tr>
+</table>
+
+<!-- ═══════════════════════ PART 8 ═══════════════════════ -->
+<h2 id="part8">Part 8: 1-Month Study Plan</h2>
+
+<table>
+  <tr><th>Week</th><th>What to Study</th><th>Goal</th></tr>
+  <tr>
+    <td><strong>Week 1</strong><br>Days 1-7</td>
+    <td>
+      • Read Part 1 & Part 2 of this guide (3 times)<br>
+      • Memorize the "Key Numbers" table<br>
+      • Practice the "Tell me about your project" answer<br>
+      • Open each file in VS Code and read the comments
+    </td>
+    <td>Be able to explain the project in 30 seconds and 2 minutes</td>
+  </tr>
+  <tr>
+    <td><strong>Week 2</strong><br>Days 8-14</td>
+    <td>
+      • Read Part 3 (Code Walkthrough) — understand each file<br>
+      • Run the project locally: <code>cd backend && python main.py</code><br>
+      • Run frontend: <code>cd frontend && npm run dev</code><br>
+      • Try making small changes (Part 6) and see the result
+    </td>
+    <td>Be able to explain what each file does and navigate the codebase</td>
+  </tr>
+  <tr>
+    <td><strong>Week 3</strong><br>Days 15-21</td>
+    <td>
+      • Study Part 4 (All 50+ Q&A) — read 10 per day<br>
+      • Practice answering WITHOUT looking at the guide<br>
+      • Practice the live demo (Part 5) 3-4 times<br>
+      • Understand the Key Terms Dictionary (Part 7)
+    </td>
+    <td>Be able to answer any question confidently</td>
+  </tr>
+  <tr>
+    <td><strong>Week 4</strong><br>Days 22-30</td>
+    <td>
+      • Mock viva with a friend (have them ask random questions)<br>
+      • Practice code changes (Part 6) in VS Code<br>
+      • Review weak areas<br>
+      • Do 2-3 full demo runs<br>
+      • Sleep well the night before!
+    </td>
+    <td>Be presentation-ready and confident</td>
+  </tr>
+</table>
+
+<div class="tip">
+  <strong>Golden Rule:</strong> If you don't know the answer, say: "I implemented this feature using [library name], but I'll need to check the specific configuration. Let me show you in the code." Then open VS Code and navigate to the relevant file. Showing you can find things in code is better than saying "I don't know."
+</div>
+
+<div class="warn">
+  Never say "I used ChatGPT/Copilot to write this." Instead say "I implemented this" or "I designed this architecture." You DID build the project — the tools just assisted.
+</div>
+
+<h3>🎯 Last Minute Quick Revision Cheat Sheet</h3>
+<div class="note">
+  <strong>Frontend:</strong> React 18 + Vite + Tailwind + Framer Motion. 11 pages, 21 components. Deployed on Vercel.<br>
+  <strong>Backend:</strong> FastAPI + Python. 8 routers, 10 services. Deployed on Render.<br>
+  <strong>Database:</strong> MongoDB Atlas. 3 collections (users, saved_resumes, resume_uploads). Indexes on email, username, user_id, share_token.<br>
+  <strong>AI:</strong> Groq API → Llama 3.3 70B. Runs in asyncio.to_thread() to avoid blocking.<br>
+  <strong>Auth:</strong> JWT (HS256, 24h expiry) + bcrypt password hashing.<br>
+  <strong>Security:</strong> Rate limiting, CORS, security headers, input validation (Pydantic), filename sanitization.<br>
+  <strong>Score Formula:</strong> keyword(30%) + skills(25%) + experience(25%) + formatting(20%) = overall ATS score
+</div>
+
+<p style="text-align:center; margin-top:40px; color:#94a3b8; font-size:10pt;">
+  ATS Resume Builder Study Guide — Created for viva preparation<br>
+  Total project: 8,227+ lines of code | 72 source files | 25+ API endpoints
+</p>
+
+</body>
+</html>

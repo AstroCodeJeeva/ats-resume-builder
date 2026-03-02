@@ -36,34 +36,56 @@ def _extract_resume_text(resume: ResumeInput) -> str:
 def _keyword_match_score(resume_tokens: Set[str], jd_tokens: Set[str]) -> int:
     """Percentage of job-description keywords found in the resume."""
     if not jd_tokens:
-        return 50  # No JD provided → neutral baseline
+        # No JD provided → base score on resume token richness
+        if len(resume_tokens) >= 80:
+            return 40
+        elif len(resume_tokens) >= 40:
+            return 25
+        return 10  # Very sparse resume
     matched = resume_tokens & jd_tokens
     return min(100, int((len(matched) / len(jd_tokens)) * 100))
 
 
 def _skills_alignment_score(skills: List[str], jd_tokens: Set[str]) -> int:
     """How many listed skills appear in the JD tokens."""
-    if not jd_tokens:
-        return 50
     skill_tokens = set()
     for s in skills:
         skill_tokens.update(_tokenize(s))
     if not skill_tokens:
-        return 30
+        return 0  # No skills entered → 0%
+    if not jd_tokens:
+        # No JD provided → base score on number of skills listed
+        count = len(skills)
+        if count >= 8:
+            return 40
+        elif count >= 5:
+            return 30
+        elif count >= 3:
+            return 20
+        return 10
     matched = skill_tokens & jd_tokens
     return min(100, int((len(matched) / len(skill_tokens)) * 100))
 
 
 def _experience_relevance_score(resume: ResumeInput, jd_tokens: Set[str]) -> int:
     """Rough relevance of work bullets to the JD."""
-    if not jd_tokens:
-        return 50
+    # No work experience at all → score is 0
+    if not resume.work_experience:
+        return 0
     bullet_text = " ".join(
         b for exp in resume.work_experience for b in exp.bullets
     )
     bullet_tokens = _tokenize(bullet_text)
     if not bullet_tokens:
-        return 30
+        # Has experience entries but no bullet points → very low
+        return 5
+    if not jd_tokens:
+        # No JD provided → base score on bullet richness
+        if len(bullet_tokens) >= 60:
+            return 40
+        elif len(bullet_tokens) >= 30:
+            return 25
+        return 15
     matched = bullet_tokens & jd_tokens
     return min(100, int((len(matched) / max(len(jd_tokens), 1)) * 120))
 
