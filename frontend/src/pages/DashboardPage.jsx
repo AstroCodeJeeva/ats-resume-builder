@@ -96,8 +96,8 @@ function StatsRow({ resumes, uploads }) {
     { label: 'Resumes', value: resumes.length, color: 'from-blue-500 to-cyan-500', bg: 'bg-blue-50 dark:bg-blue-950/30' },
     { label: 'Optimized', value: optimized, color: 'from-emerald-500 to-teal-500', bg: 'bg-emerald-50 dark:bg-emerald-950/30' },
     { label: 'Uploads', value: uploads.length, color: 'from-violet-500 to-purple-500', bg: 'bg-violet-50 dark:bg-violet-950/30' },
-    { label: 'Avg Score', value: avgScore ? `${avgScore}%` : '-', color: 'from-amber-500 to-orange-500', bg: 'bg-amber-50 dark:bg-amber-950/30' },
-    { label: 'Best Score', value: bestScore ? `${bestScore}%` : '-', color: 'from-pink-500 to-rose-500', bg: 'bg-pink-50 dark:bg-pink-950/30' },
+    { label: 'Avg Score', value: scored.length > 0 ? `${avgScore}%` : '-', color: 'from-amber-500 to-orange-500', bg: 'bg-amber-50 dark:bg-amber-950/30' },
+    { label: 'Best Score', value: scored.length > 0 ? `${bestScore}%` : '-', color: 'from-pink-500 to-rose-500', bg: 'bg-pink-50 dark:bg-pink-950/30' },
   ]
 
   return (
@@ -279,8 +279,8 @@ export default function DashboardPage() {
     else if (scoreFilter === '<60') list = list.filter((r) => (r.ats_score || 0) < 60)
 
     // Sort
-    if (sortBy === 'newest') list.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-    else if (sortBy === 'oldest') list.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at))
+    if (sortBy === 'newest') list.sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0))
+    else if (sortBy === 'oldest') list.sort((a, b) => new Date(a.updated_at || 0) - new Date(b.updated_at || 0))
     else if (sortBy === 'score-high') list.sort((a, b) => (b.ats_score || 0) - (a.ats_score || 0))
     else if (sortBy === 'score-low') list.sort((a, b) => (a.ats_score || 0) - (b.ats_score || 0))
 

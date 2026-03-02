@@ -94,25 +94,37 @@ Return ONLY the JSON object."""
             "education": 0.10,
             "formatting": 0.10,
         }
-        # Any section score the AI provided but is missing from our weight
-        # map gets a small default weight; unrecognised keys are kept.
-        used_weight = 0.0
+        total_expected_weight = sum(weights.values())  # 0.90
         weighted_sum = 0.0
-        for key, score in section.items():
-            w = weights.get(key, 0.05)
-            # Clamp individual scores to 0-100
-            score = max(0, min(100, int(score) if isinstance(score, (int, float)) else 0))
-            section[key] = score
+        used_weight = 0.0
+        for key, w in weights.items():
+            score = section.get(key)
+            if score is not None:
+                # Normalise: accept int, float, or numeric string
+                try:
+                    score = max(0, min(100, int(float(score))))
+                except (ValueError, TypeError):
+                    score = 0
+                section[key] = score
+            else:
+                # Section missing from AI output → counts as 0
+                score = 0
+                section[key] = 0
             weighted_sum += score * w
             used_weight += w
+        # Include any AI-provided extra keys not in our weight map
+        for key, score in section.items():
+            if key not in weights:
+                try:
+                    score = max(0, min(100, int(float(score))))
+                except (ValueError, TypeError):
+                    score = 0
+                section[key] = score
+                extra_w = 0.05
+                weighted_sum += score * extra_w
+                used_weight += extra_w
         if used_weight > 0:
-            data["ats_score"] = max(0, min(100, int(weighted_sum / used_weight * 1.0)))
-        # Ensure remaining weight from missing sections counts as 0
-        # (e.g., if AI omits a section entirely, it hurts the score)
-        total_expected_weight = sum(weights.values())  # 0.90
-        if used_weight < total_expected_weight:
-            penalty = (total_expected_weight - used_weight) / total_expected_weight
-            data["ats_score"] = max(0, int(data["ats_score"] * (1 - penalty)))
+            data["ats_score"] = max(0, min(100, int(weighted_sum / used_weight)))
 
     return data
 

@@ -31,6 +31,20 @@ export default function BuilderPage() {
   const isDirty = useRef(false)
   const markDirty = useCallback(() => { isDirty.current = true }, [])
 
+  // Load saved draft from sessionStorage (set by DashboardPage when opening a non-optimized resume)
+  useEffect(() => {
+    try {
+      const draft = sessionStorage.getItem('ats_draft')
+      if (draft) {
+        const parsed = JSON.parse(draft)
+        if (parsed && typeof parsed === 'object') {
+          setResume(parsed)
+          sessionStorage.removeItem('ats_draft') // consume it
+        }
+      }
+    } catch { /* ignore bad JSON */ }
+  }, [])
+
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       if (isDirty.current) {
@@ -101,8 +115,8 @@ export default function BuilderPage() {
           <TargetRoleStep
             targetRole={resume.target_role}
             jobDescription={resume.job_description}
-            onChangeRole={(v) => setResume((r) => ({ ...r, target_role: v }))}
-            onChangeJD={(v) => setResume((r) => ({ ...r, job_description: v }))}
+            onChangeRole={(v) => { markDirty(); setResume((r) => ({ ...r, target_role: v })) }}
+            onChangeJD={(v) => { markDirty(); setResume((r) => ({ ...r, job_description: v })) }}
           />
         )
       default:

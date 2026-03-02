@@ -219,7 +219,7 @@ export default function InterviewPrepPage() {
   const collapseAll = () => setExpandedSet(new Set())
 
   /* Filtering */
-  const categories = ['all', ...new Set(questions.map((q) => q.category?.toLowerCase()))]
+  const categories = ['all', ...new Set(questions.map((q) => q.category?.toLowerCase()).filter(Boolean))]
   const filtered = filterCategory === 'all'
     ? questions
     : questions.filter((q) => q.category?.toLowerCase() === filterCategory)

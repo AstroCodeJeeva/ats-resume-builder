@@ -30,7 +30,11 @@ def hash_password(password: str) -> str:
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+    try:
+        return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+    except (ValueError, TypeError):
+        # Corrupt or non-bcrypt hash in DB
+        return False
 
 
 def create_access_token(user_id: str, username: str) -> str:
@@ -60,7 +64,11 @@ def get_current_user(
     payload = decode_token(credentials.credentials)
     user_id = payload["sub"]
     db = get_sync_db()
-    user = db.users.find_one({"_id": ObjectId(user_id)})
+    try:
+        oid = ObjectId(user_id)
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token (bad user id)")
+    user = db.users.find_one({"_id": oid})
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     return user
@@ -77,5 +85,6 @@ def get_optional_user(
         user_id = payload["sub"]
         db = get_sync_db()
         return db.users.find_one({"_id": ObjectId(user_id)})
-    except Exception:
+    except (HTTPException, jwt.ExpiredSignatureError, jwt.InvalidTokenError, Exception):
+        # Any auth failure → treat as anonymous
         return None

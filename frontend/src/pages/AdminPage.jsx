@@ -64,6 +64,11 @@ export default function AdminPage() {
   }
 
   const handleToggleAdmin = async (userId, currentStatus) => {
+    // Prevent self-demotion
+    if (currentStatus && userId === user?.id) {
+      toast.error('Cannot revoke your own admin access')
+      return
+    }
     try {
       await updateAdminUser(userId, { is_admin: !currentStatus })
       setUsers((prev) =>
@@ -124,17 +129,17 @@ export default function AdminPage() {
               {/* Stats Cards */}
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
                 {[
-                  { label: 'Total Users', value: stats.total_users, color: 'blue' },
-                  { label: 'Total Resumes', value: stats.total_resumes, color: 'green' },
-                  { label: 'Optimized', value: stats.optimized_resumes, color: 'purple' },
-                  { label: 'Uploads', value: stats.total_uploads, color: 'orange' },
-                  { label: 'Avg ATS Score', value: `${stats.avg_ats_score}%`, color: 'teal' },
-                  { label: 'New This Week', value: stats.recent_signups, color: 'pink' },
+                  { label: 'Total Users', value: stats.total_users, colorClass: 'bg-blue-500' },
+                  { label: 'Total Resumes', value: stats.total_resumes, colorClass: 'bg-green-500' },
+                  { label: 'Optimized', value: stats.optimized_resumes, colorClass: 'bg-purple-500' },
+                  { label: 'Uploads', value: stats.total_uploads, colorClass: 'bg-orange-500' },
+                  { label: 'Avg ATS Score', value: `${stats.avg_ats_score}%`, colorClass: 'bg-teal-500' },
+                  { label: 'New This Week', value: stats.recent_signups, colorClass: 'bg-pink-500' },
                 ].map((card) => (
                   <div
                     key={card.label}
                     className="card p-4 relative overflow-hidden">
-                    <div className={`absolute top-0 left-0 right-0 h-1 bg-${card.color}-500`} />
+                    <div className={`absolute top-0 left-0 right-0 h-1 ${card.colorClass}`} />
                     <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
                       {card.value}
                     </p>
@@ -185,7 +190,11 @@ export default function AdminPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                      {users.map((u) => (
+                      {users.length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="px-4 py-10 text-center text-gray-500">No users found</td>
+                        </tr>
+                      ) : users.map((u) => (
                         <tr key={u.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                           <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">
                             {u.username}

@@ -73,6 +73,12 @@ async def generate_optimized_resume(
     optimized = ResumeInput.model_validate(data.get("optimized_resume", resume.model_dump()))
     summary = data.get("professional_summary", "")
     raw_suggestions = data.get("suggestions", [])
-    suggestions = [Suggestion(**s) for s in raw_suggestions]
+    suggestions = []
+    for s in raw_suggestions:
+        try:
+            suggestions.append(Suggestion(**s))
+        except Exception:
+            # Skip malformed suggestion from AI output
+            continue
 
     return optimized, summary, suggestions

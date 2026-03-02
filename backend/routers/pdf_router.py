@@ -145,7 +145,16 @@ def _check_contact_info(html: str) -> PDFATSCheckItem:
         check="Contact Info Visible",
         passed=both,
         detail="Email and phone number detected in PDF."
-        if both else f"{'Email' if has_email else 'Phone'} {'found' if has_email or has_phone else 'missing'}. Include both for ATS.",
+        if both
+        else (
+            "Email found but phone number missing. Include both for ATS."
+            if has_email
+            else (
+                "Phone found but email missing. Include both for ATS."
+                if has_phone
+                else "Neither email nor phone detected. Include both for ATS."
+            )
+        ),
         severity="info" if both else "critical",
     )
 

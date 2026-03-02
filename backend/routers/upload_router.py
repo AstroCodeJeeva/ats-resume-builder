@@ -50,9 +50,8 @@ async def analyze_uploaded_resume(
     allowed_types = {
         "application/pdf",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/msword",
     }
-    allowed_extensions = {".pdf", ".docx", ".doc"}
+    allowed_extensions = {".pdf", ".docx"}
 
     filename = file.filename or "resume"
     ext = os.path.splitext(filename)[1].lower()
@@ -136,6 +135,12 @@ async def quick_score_resume(
     """Quick ATS score without AI — uses heuristic analysis only."""
     filename = file.filename or "resume"
     ext = os.path.splitext(filename)[1].lower()
+
+    if ext not in {".pdf", ".docx"}:
+        raise HTTPException(
+            status_code=400,
+            detail="Only PDF and DOCX files are supported.",
+        )
 
     contents = await file.read()
     try:
@@ -257,7 +262,7 @@ def _heuristic_score(text: str, job_description: str = "") -> dict:
     action_verbs = {"developed", "managed", "led", "built", "designed", "implemented",
                     "created", "improved", "increased", "reduced", "launched", "achieved",
                     "delivered", "engineered", "optimized", "automated", "streamlined"}
-    verb_count = sum(1 for w in words if w.rstrip("ed,s.") in action_verbs)
+    verb_count = sum(1 for w in words if w in action_verbs)
     # Only count action verbs if experience section exists
     if has_experience_section:
         exp_score += min(10, verb_count * 2)

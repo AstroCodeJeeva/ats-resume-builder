@@ -152,6 +152,10 @@ def update_user(user_id: str, body: UpdateUserRequest, admin: dict = Depends(req
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
+    # Prevent admin from demoting themselves
+    if body.is_admin is False and str(admin["_id"]) == user_id:
+        raise HTTPException(status_code=400, detail="Cannot revoke your own admin access")
+
     updates = {}
     if body.username is not None:
         updates["username"] = body.username
@@ -204,7 +208,15 @@ def list_all_resumes(admin: dict = Depends(require_admin)):
     docs = list(db.saved_resumes.find().sort("updated_at", -1).limit(100))
 
     # Batch fetch all referenced users in one query
-    user_ids = list({ObjectId(d["user_id"]) for d in docs if d.get("user_id")})
+    user_ids = []
+    for d in docs:
+        uid = d.get("user_id")
+        if uid:
+            try:
+                user_ids.append(ObjectId(uid))
+            except Exception:
+                pass
+    user_ids = list(set(user_ids))
     users_map = {str(u["_id"]): u["username"] for u in db.users.find({"_id": {"$in": user_ids}}, {"username": 1})}
 
     result = []
@@ -229,7 +241,15 @@ def list_all_uploads(admin: dict = Depends(require_admin)):
     docs = list(db.resume_uploads.find().sort("uploaded_at", -1).limit(100))
 
     # Batch fetch all referenced users in one query
-    user_ids = list({ObjectId(d["user_id"]) for d in docs if d.get("user_id")})
+    user_ids = []
+    for d in docs:
+        uid = d.get("user_id")
+        if uid:
+            try:
+                user_ids.append(ObjectId(uid))
+            except Exception:
+                pass
+    user_ids = list(set(user_ids))
     users_map = {str(u["_id"]): u["username"] for u in db.users.find({"_id": {"$in": user_ids}}, {"username": 1})}
 
     result = []

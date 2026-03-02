@@ -42,15 +42,25 @@ def _seed_admin():
             )
         admin_password = "Admin@123"  # Dev-only fallback
 
-    if not db.users.find_one({"email": admin_email}):
-        db.users.insert_one({
-            "username": "admin",
-            "email": admin_email,
-            "hashed_password": hash_password(admin_password),
-            "is_admin": True,
-            "created_at": datetime.now(timezone.utc),
-        })
-        print(f" Default admin account created: {admin_email}")
+    from pymongo.errors import DuplicateKeyError as _DKE
+
+    existing = db.users.find_one({"email": admin_email})
+    if not existing:
+        try:
+            db.users.insert_one({
+                "username": "admin",
+                "email": admin_email,
+                "hashed_password": hash_password(admin_password),
+                "is_admin": True,
+                "created_at": datetime.now(timezone.utc),
+            })
+            print(f" Default admin account created: {admin_email}")
+        except _DKE:
+            # Another worker already created the admin — harmless race
+            db.users.update_one(
+                {"email": admin_email},
+                {"$set": {"is_admin": True}},
+            )
     else:
         # Ensure existing admin has is_admin flag
         db.users.update_one(

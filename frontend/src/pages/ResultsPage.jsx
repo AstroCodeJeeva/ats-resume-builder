@@ -76,7 +76,7 @@ export default function ResultsPage() {
       const url = URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }))
       const a = document.createElement('a')
       a.href = url
-      a.download = `${result.optimized_resume.personal_info.name.replace(/\s/g, '_')}_Resume.pdf`
+      a.download = `${(result.optimized_resume.personal_info?.name || 'Resume').replace(/\s/g, '_')}_Resume.pdf`
       a.click()
       URL.revokeObjectURL(url)
       toast.success('PDF downloaded!')
@@ -99,7 +99,7 @@ export default function ResultsPage() {
       const url = URL.createObjectURL(new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }))
       const a = document.createElement('a')
       a.href = url
-      a.download = `${result.optimized_resume.personal_info.name.replace(/\s/g, '_')}_Resume.docx`
+      a.download = `${(result.optimized_resume.personal_info?.name || 'Resume').replace(/\s/g, '_')}_Resume.docx`
       a.click()
       URL.revokeObjectURL(url)
       toast.success('DOCX downloaded!')

@@ -122,9 +122,13 @@ def _formatting_compliance_score(resume: ResumeInput) -> int:
     action_bullets = 0
     for exp in resume.work_experience:
         for b in exp.bullets:
+            if not b or not b.strip():
+                continue
             total_bullets += 1
-            first_word = b.strip().split()[0].lower().rstrip("ed").rstrip("s") if b.strip() else ""
-            if first_word in action_verbs or b.strip().split()[0].lower() in action_verbs:
+            words = b.strip().split()
+            first_lower = words[0].lower()
+            first_stem = first_lower.rstrip("ed").rstrip("s")
+            if first_stem in action_verbs or first_lower in action_verbs:
                 action_bullets += 1
     if total_bullets > 0 and (action_bullets / total_bullets) > 0.5:
         score += 20
