@@ -225,32 +225,50 @@ def _heuristic_score(text: str, job_description: str = "") -> dict:
     words = text_lower.split()
     word_count = len(words)
 
-    # Contact info check (20 pts)
+    # Contact info check (15 pts)
     contact_score = 0
     if re.search(r'[\w.+-]+@[\w-]+\.[\w.-]+', text):
-        contact_score += 7
+        contact_score += 5
     if re.search(r'[\+]?[\d\s\-\(\)]{7,}', text):
-        contact_score += 7
+        contact_score += 5
     if 'linkedin' in text_lower:
-        contact_score += 6
-    scores["contact_info"] = min(20, contact_score)
+        contact_score += 5
+    scores["contact_info"] = min(15, contact_score)
 
-    # Experience section (25 pts)
+    # Professional Summary (10 pts)
+    summary_score = 0
+    summary_keywords = ["summary", "objective", "profile", "about me", "professional summary"]
+    if any(kw in text_lower for kw in summary_keywords):
+        summary_score += 5
+    # Check for a substantial paragraph near the top (first 500 chars)
+    first_section = text_lower[:500]
+    if len(first_section.split()) > 20:
+        summary_score += 5
+    scores["professional_summary"] = min(10, summary_score)
+
+    # Work Experience section (30 pts) — most important for ATS
     exp_score = 0
+    has_experience_section = any(kw in text_lower for kw in [
+        "experience", "work history", "employment", "professional experience",
+        "work experience"
+    ])
+    if has_experience_section:
+        exp_score += 10
     action_verbs = {"developed", "managed", "led", "built", "designed", "implemented",
                     "created", "improved", "increased", "reduced", "launched", "achieved",
                     "delivered", "engineered", "optimized", "automated", "streamlined"}
     verb_count = sum(1 for w in words if w.rstrip("ed,s.") in action_verbs)
-    exp_score += min(10, verb_count * 2)
-    if re.search(r'\d+%|\d+\+|increased|decreased|reduced|improved', text_lower):
-        exp_score += 8
-    if any(kw in text_lower for kw in ["experience", "work history", "employment"]):
-        exp_score += 7
-    scores["experience"] = min(25, exp_score)
+    # Only count action verbs if experience section exists
+    if has_experience_section:
+        exp_score += min(10, verb_count * 2)
+        if re.search(r'\d+%|\d+\+|increased|decreased|reduced|improved', text_lower):
+            exp_score += 10
+    scores["work_experience"] = min(30, exp_score)
 
     # Skills section (20 pts)
     skill_score = 0
-    if any(kw in text_lower for kw in ["skills", "technologies", "tools", "proficiencies"]):
+    if any(kw in text_lower for kw in ["skills", "technologies", "tools", "proficiencies",
+                                        "technical skills", "core competencies"]):
         skill_score += 10
     tech_keywords = {"python", "javascript", "react", "node", "sql", "aws", "docker",
                      "kubernetes", "java", "typescript", "html", "css", "git", "api",
@@ -259,28 +277,44 @@ def _heuristic_score(text: str, job_description: str = "") -> dict:
     skill_score += min(10, found_skills * 2)
     scores["skills"] = min(20, skill_score)
 
-    # Education section (15 pts)
+    # Education section (10 pts)
     edu_score = 0
-    if any(kw in text_lower for kw in ["education", "degree", "university", "college", "bachelor", "master"]):
-        edu_score += 10
+    if any(kw in text_lower for kw in ["education", "degree", "university", "college",
+                                        "bachelor", "master", "b.tech", "m.tech", "bba",
+                                        "mba", "b.e", "b.sc", "m.sc"]):
+        edu_score += 5
     if re.search(r'20\d\d|19\d\d', text):
         edu_score += 5
-    scores["education"] = min(15, edu_score)
+    scores["education"] = min(10, edu_score)
 
-    # Formatting (20 pts)
+    # Formatting (15 pts)
     fmt_score = 0
     if 100 < word_count < 1500:
-        fmt_score += 8
+        fmt_score += 5
     elif word_count >= 50:
-        fmt_score += 4
+        fmt_score += 3
     sentences = text.split('.')
     if len(sentences) > 5:
-        fmt_score += 6
+        fmt_score += 5
     if not re.search(r'[|]{2,}|[=]{5,}|[*]{5,}', text):
-        fmt_score += 6
-    scores["formatting"] = min(20, fmt_score)
+        fmt_score += 5
+    scores["formatting"] = min(15, fmt_score)
 
     overall = sum(scores.values())
+
+    # Normalize section scores to 0-100 scale for consistent display
+    max_per_section = {
+        "contact_info": 15,
+        "professional_summary": 10,
+        "work_experience": 30,
+        "skills": 20,
+        "education": 10,
+        "formatting": 15,
+    }
+    display_scores = {}
+    for key, raw_score in scores.items():
+        mx = max_per_section.get(key, 20)
+        display_scores[key] = min(100, int(raw_score / mx * 100))
 
     # Job description keyword match (bonus info)
     jd_match = {}
@@ -297,7 +331,7 @@ def _heuristic_score(text: str, job_description: str = "") -> dict:
 
     return {
         "ats_score": min(100, overall),
-        "section_scores": scores,
+        "section_scores": display_scores,
         "word_count": word_count,
         "jd_match": jd_match,
     }

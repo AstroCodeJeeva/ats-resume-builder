@@ -26,11 +26,11 @@ Return a JSON object with EXACTLY these keys:
 {{
   "ats_score": <integer 0-100, overall ATS compatibility score>,
   "section_scores": {{
-    "contact_info": <0-100>,
-    "professional_summary": <0-100>,
-    "work_experience": <0-100>,
-    "skills": <0-100>,
-    "education": <0-100>,
+    "contact_info": <0-100, score 0 if no email/phone found>,
+    "professional_summary": <0-100, score 0 if no summary/objective section>,
+    "work_experience": <0-100, MUST be 0 if there is NO work experience section at all>,
+    "skills": <0-100, score 0 if no skills listed>,
+    "education": <0-100, score 0 if no education section>,
     "formatting": <0-100>
   }},
   "strengths": [
@@ -59,6 +59,11 @@ Return a JSON object with EXACTLY these keys:
 }}
 
 Be thorough but fair. Provide at least 3 strengths, 3 weaknesses, and 5 suggestions.
+CRITICAL SCORING RULES:
+- If a section is completely MISSING from the resume, its score MUST be 0.
+- If there is NO work experience section, work_experience MUST be 0.
+- The overall ats_score MUST reflect missing sections — a resume without work experience should NOT score above 60.
+- A resume missing 2+ major sections (experience, skills, education) should NOT score above 40.
 Return ONLY the JSON object."""
 
     raw = await async_chat_completion(
@@ -72,7 +77,44 @@ Return ONLY the JSON object."""
         response_format={"type": "json_object"},
     )
 
-    return extract_json(raw)
+    data = extract_json(raw)
+
+    # ── Recalculate overall ATS score from section_scores ──
+    # AI often inflates the overall score even when critical sections are
+    # missing (e.g., work_experience = 0 but overall = 85).  We recompute
+    # from the individual section scores with proper weighting so the
+    # overall accurately reflects missing/weak sections.
+    section = data.get("section_scores", {})
+    if section:
+        weights = {
+            "contact_info": 0.10,
+            "professional_summary": 0.10,
+            "work_experience": 0.30,   # most important for ATS
+            "skills": 0.20,
+            "education": 0.10,
+            "formatting": 0.10,
+        }
+        # Any section score the AI provided but is missing from our weight
+        # map gets a small default weight; unrecognised keys are kept.
+        used_weight = 0.0
+        weighted_sum = 0.0
+        for key, score in section.items():
+            w = weights.get(key, 0.05)
+            # Clamp individual scores to 0-100
+            score = max(0, min(100, int(score) if isinstance(score, (int, float)) else 0))
+            section[key] = score
+            weighted_sum += score * w
+            used_weight += w
+        if used_weight > 0:
+            data["ats_score"] = max(0, min(100, int(weighted_sum / used_weight * 1.0)))
+        # Ensure remaining weight from missing sections counts as 0
+        # (e.g., if AI omits a section entirely, it hurts the score)
+        total_expected_weight = sum(weights.values())  # 0.90
+        if used_weight < total_expected_weight:
+            penalty = (total_expected_weight - used_weight) / total_expected_weight
+            data["ats_score"] = max(0, int(data["ats_score"] * (1 - penalty)))
+
+    return data
 
 
 _PREDICT_SYSTEM = """You are an expert career advisor and job market analyst.
