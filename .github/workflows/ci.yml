@@ -41,6 +41,12 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
 
+      # ✅ FIX: install system libraries required for pycairo
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev pkg-config python3-dev
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
