@@ -18,7 +18,6 @@ const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'))
 const AdminPage = lazy(() => import('./pages/AdminPage'))
 const ProfilePage = lazy(() => import('./pages/ProfilePage'))
 const CoverLetterPage = lazy(() => import('./pages/CoverLetterPage'))
-const InterviewPrepPage = lazy(() => import('./pages/InterviewPrepPage'))
 const SharedResumePage = lazy(() => import('./pages/SharedResumePage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
@@ -64,7 +63,6 @@ export default function App() {
                   <Route path="/admin" element={<ProtectedRoute adminOnly><AdminPage /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                   <Route path="/cover-letter" element={<CoverLetterPage />} />
-                  <Route path="/interview-prep" element={<InterviewPrepPage />} />
                   <Route path="/shared/:token" element={<SharedResumePage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
