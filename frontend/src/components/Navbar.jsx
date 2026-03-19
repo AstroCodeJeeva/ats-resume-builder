@@ -18,6 +18,7 @@ export default function Navbar({ dark, setDark }) {
     { path: '/builder', label: 'Builder' },
     { path: '/analyzer', label: 'Analyzer' },
     { path: '/cover-letter', label: 'Cover Letter' },
+    { path: '/interview-prep', label: 'Interview Prep' },
     ...(user ? [{ path: '/dashboard', label: 'My Resumes' }] : []),
     ...(user?.is_admin ? [{ path: '/admin', label: 'Admin' }] : []),
   ]

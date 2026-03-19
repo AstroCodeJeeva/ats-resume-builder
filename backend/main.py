@@ -20,6 +20,7 @@ from routers import resume_router, pdf_router  # noqa: E402
 from routers import auth_router, saved_router  # noqa: E402
 from routers import admin_router, upload_router  # noqa: E402
 from routers import cover_letter_router  # noqa: E402
+from routers import interview_router  # noqa: E402
 from database import init_db, close_db  # noqa: E402
 from rate_limiter import limiter  # noqa: E402
 
@@ -120,6 +121,7 @@ app.include_router(saved_router.router, prefix="/api/saved", tags=["Saved Resume
 app.include_router(admin_router.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(upload_router.router, prefix="/api/upload", tags=["Upload & Analyze"])
 app.include_router(cover_letter_router.router, prefix="/api/cover-letter", tags=["Cover Letter"])
+app.include_router(interview_router.router, prefix="/api/interview", tags=["Interview Prep"])
 
 
 @app.get("/")

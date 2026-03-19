@@ -217,6 +217,12 @@ export async function generateCoverLetter(payload) {
 }
 
 
+export async function generateInterviewQuestions(payload) {
+  const { data } = await api.post('/interview/generate', payload, { timeout: 60000 })
+  return data
+}
+
+
 export async function getAdminStats() {
   const { data } = await api.get('/admin/stats')
   return data
