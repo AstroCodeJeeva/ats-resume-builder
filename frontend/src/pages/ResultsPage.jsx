@@ -12,6 +12,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import { generatePDF, generateDOCX, previewHTML, checkPDFATS, saveResume } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 /**
  * Results page — ATS score, suggestions, before/after, preview, PDF download.
@@ -148,7 +149,7 @@ export default function ResultsPage() {
       })
       toast.success('Resume saved to your account!')
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Save failed. Are you logged in?'
+      const msg = getApiErrorMessage(err, 'Save failed. Are you logged in?')
       toast.error(msg)
     } finally {
       setSaving(false)

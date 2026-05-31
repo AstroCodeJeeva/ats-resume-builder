@@ -6,6 +6,7 @@ import toast from 'react-hot-toast'
 import { useAuth } from '../contexts/AuthContext'
 import { getProfile, updateProfile, changePassword, setSecurityQuestion } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 export default function ProfilePage() {
   usePageTitle('Profile')
@@ -62,7 +63,7 @@ export default function ProfilePage() {
         setProfile((p) => ({ ...p, ...res.user }))
       }
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Update failed')
+      toast.error(getApiErrorMessage(err, 'Update failed'))
     } finally {
       setSaving(false)
     }
@@ -86,7 +87,7 @@ export default function ProfilePage() {
       setNewPw('')
       setConfirmPw('')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Password change failed')
+      toast.error(getApiErrorMessage(err, 'Password change failed'))
     } finally {
       setChangingPw(false)
     }
@@ -100,7 +101,7 @@ export default function ProfilePage() {
       toast.success(res.message || 'Security question saved!')
       setSecAnswer('')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Failed to save security question')
+      toast.error(getApiErrorMessage(err, 'Failed to save security question'))
     } finally {
       setSavingSec(false)
     }

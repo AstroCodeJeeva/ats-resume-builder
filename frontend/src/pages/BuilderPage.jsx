@@ -15,6 +15,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 
 import { optimizeResume } from '../services/api'
 import { SAMPLE_RESUME, EMPTY_RESUME } from '../utils/sampleData'
+import { getApiErrorMessage } from '../utils/apiError'
 import usePageTitle from '../hooks/usePageTitle'
 
 /**
@@ -84,7 +85,7 @@ export default function BuilderPage() {
       navigate('/results')
     } catch (err) {
       console.error(err)
-      toast.error(err?.response?.data?.detail || 'Something went wrong. Check your API key.')
+      toast.error(getApiErrorMessage(err, 'Something went wrong. Check your API key.'))
     } finally {
       setLoading(false)
     }

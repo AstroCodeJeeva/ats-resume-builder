@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { getSecurityQuestion, resetPasswordWithAnswer } from '../services/api'
+import { getApiErrorMessage } from '../utils/apiError'
 
 export default function ForgotPasswordModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1) // 1=email, 2=answer, 3=new password
@@ -64,7 +65,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
       setQuestion(res.question)
       setStep(2)
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Email not found or no security question set.')
+      toast.error(getApiErrorMessage(err, 'Email not found or no security question set.'))
     } finally {
       setLoading(false)
     }
@@ -87,7 +88,7 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
       toast.success('Password reset successfully! You can now sign in.')
       onClose()
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Password reset failed.'
+      const msg = getApiErrorMessage(err, 'Password reset failed.')
       toast.error(msg)
       if (msg.includes('Incorrect answer')) {
         setStep(2)

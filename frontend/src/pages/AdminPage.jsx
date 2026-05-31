@@ -6,6 +6,7 @@ import toast from 'react-hot-toast'
 import { useAuth } from '../contexts/AuthContext'
 import usePageTitle from '../hooks/usePageTitle'
 import ConfirmModal from '../components/ConfirmModal'
+import { getApiErrorMessage } from '../utils/apiError'
 import {
   getAdminStats,
   getAdminUsers,
@@ -46,7 +47,7 @@ export default function AdminPage() {
       setResumes(resumesData)
       setUploads(uploadsData)
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Failed to load admin data')
+      toast.error(getApiErrorMessage(err, 'Failed to load admin data'))
     } finally {
       setLoading(false)
     }
@@ -59,7 +60,7 @@ export default function AdminPage() {
       setUsers((prev) => prev.filter((u) => u.id !== userId))
       toast.success('User deleted')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Delete failed')
+      toast.error(getApiErrorMessage(err, 'Delete failed'))
     }
   }
 
@@ -76,7 +77,7 @@ export default function AdminPage() {
       )
       toast.success(`Admin status ${!currentStatus ? 'granted' : 'revoked'}`)
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Update failed')
+      toast.error(getApiErrorMessage(err, 'Update failed'))
     }
   }
 

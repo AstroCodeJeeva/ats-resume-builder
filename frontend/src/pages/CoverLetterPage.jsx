@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { generateCoverLetter } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 const TONES = [
   { value: 'professional', label: 'Professional', desc: 'Formal & polished' },
@@ -62,7 +63,7 @@ export default function CoverLetterPage() {
       setWordCount(result.word_count)
       toast.success('Cover letter generated!')
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Failed to generate cover letter.'
+      const msg = getApiErrorMessage(err, 'Failed to generate cover letter.')
       toast.error(msg)
     } finally {
       setLoading(false)

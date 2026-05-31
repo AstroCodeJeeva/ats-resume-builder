@@ -35,7 +35,11 @@ def extract_json(text: str) -> dict:
         pass
     cleaned = re.sub(r"^```(?:json)?\s*", "", text.strip())
     cleaned = re.sub(r"\s*```$", "", cleaned)
-    return json.loads(cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError as e:
+        # If all parsing fails, log and return empty dict
+        raise ValueError(f"Could not parse JSON from response: {e}") from e
 
 
 async def async_chat_completion(**kwargs) -> str:

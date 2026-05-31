@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { generateInterviewQuestions } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 /* Focus options */
 const FOCUSES = [
@@ -199,7 +200,7 @@ export default function InterviewPrepPage() {
       setQuestions(result.questions)
       toast.success(`${result.total} interview questions generated!`)
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Failed to generate questions.'
+      const msg = getApiErrorMessage(err, 'Failed to generate questions.')
       toast.error(msg)
     } finally {
       setLoading(false)

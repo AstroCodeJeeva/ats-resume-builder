@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getSharedResume, previewHTML } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 /**
  * Public page for viewing a shared resume via token.
@@ -30,7 +31,7 @@ export default function SharedResumePage() {
         })
         setPreviewSrc(html)
       } catch (err) {
-        setError(err.response?.data?.detail || 'Resume not found or link has expired.')
+        setError(getApiErrorMessage(err, 'Resume not found or link has expired.'))
       } finally {
         setLoading(false)
       }

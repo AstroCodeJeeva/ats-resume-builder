@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { registerUser, loginUser } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 import ForgotPasswordModal from './ForgotPasswordModal'
+import { getApiErrorMessage } from '../utils/apiError'
 
 export default function AuthModal({ isOpen, onClose }) {
   const { login } = useAuth()
@@ -56,7 +57,7 @@ export default function AuthModal({ isOpen, onClose }) {
       onClose()
       setForm({ username: '', email: '', password: '' })
     } catch (err) {
-      const msg = err.response?.data?.detail || 'Something went wrong'
+      const msg = getApiErrorMessage(err, 'Something went wrong')
       toast.error(msg)
     } finally {
       setLoading(false)

@@ -195,13 +195,19 @@ def forgot_password(body: ForgotPasswordRequest, request: Request):
     if not stored_answer:
         raise HTTPException(status_code=400, detail="No security question set for this account")
 
-    # Compare hashed answer (supports both legacy plaintext and bcrypt hashed)
+    # Compare hashed answer using bcrypt (supports both legacy plaintext and bcrypt hashed)
     candidate = body.answer.strip().lower().encode("utf-8")
+    answer_matches = False
+    
     try:
+        # Try bcrypt comparison (stored hash)
         answer_matches = bcrypt.checkpw(candidate, stored_answer.encode("utf-8"))
     except (ValueError, TypeError):
-        # Legacy plaintext fallback
-        answer_matches = body.answer.strip().lower() == stored_answer
+        # Legacy plaintext fallback (for old accounts with plaintext stored answers)
+        try:
+            answer_matches = body.answer.strip().lower() == stored_answer
+        except Exception:
+            answer_matches = False
 
     if not answer_matches:
         raise HTTPException(status_code=400, detail="Incorrect answer to security question")

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { uploadAndAnalyze, quickScoreResume } from '../services/api'
 import usePageTitle from '../hooks/usePageTitle'
+import { getApiErrorMessage } from '../utils/apiError'
 
 export default function AnalyzerPage() {
   usePageTitle('Resume Analyzer')
@@ -61,7 +62,7 @@ export default function AnalyzerPage() {
       setActiveTab('score')
       toast.success('Analysis complete!')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Analysis failed. Please try again.')
+      toast.error(getApiErrorMessage(err, 'Analysis failed. Please try again.'))
     } finally {
       setLoading(false)
     }
@@ -76,7 +77,7 @@ export default function AnalyzerPage() {
       setActiveTab('score')
       toast.success('Quick score ready!')
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Scoring failed.')
+      toast.error(getApiErrorMessage(err, 'Scoring failed.'))
     } finally {
       setQuickLoading(false)
     }
