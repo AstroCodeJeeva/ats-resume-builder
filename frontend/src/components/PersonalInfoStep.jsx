@@ -9,6 +9,7 @@ export default function PersonalInfoStep({ data, onChange }) {
     { key: 'location', label: 'Location', placeholder: 'San Francisco, CA' },
     { key: 'linkedin', label: 'LinkedIn URL', placeholder: 'https://linkedin.com/in/janedoe' },
     { key: 'github', label: 'GitHub URL', placeholder: 'https://github.com/janedoe' },
+    { key: 'aadhar_number', label: 'Aadhar Number', placeholder: '1234-5678-9012' },
   ]
 
   const handleChange = (key, value) => {

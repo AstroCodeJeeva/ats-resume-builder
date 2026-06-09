@@ -11,6 +11,7 @@ class PersonalInfo(BaseModel):
     location: str = Field("", example="San Francisco, CA")
     linkedin: str = Field("", example="https://linkedin.com/in/janedoe")
     github: str = Field("", example="https://github.com/janedoe")
+    aadhar_number: str = Field("", example="1234-5678-9012")
 
 
 class WorkExperience(BaseModel):

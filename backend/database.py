@@ -5,7 +5,12 @@ import functools
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import MongoClient
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    raise RuntimeError(
+        "MONGO_URI environment variable is required. "
+        "Set it in your Render dashboard environment variables."
+    )
 MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "ats_resume_builder")
 
 
